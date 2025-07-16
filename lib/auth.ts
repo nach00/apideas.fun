@@ -44,6 +44,7 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
+        console.log('Credentials authorize success:', { userId: user.id, email: user.email })
         return {
           id: user.id,
           email: user.email,
@@ -77,6 +78,7 @@ export const authOptions: NextAuthOptions = {
         token.role = user.role
         token.coinBalance = user.coinBalance
         token.username = user.username
+        console.log('JWT callback - user login:', { userId: user.id, email: user.email })
       }
 
       // Handle OAuth users
@@ -141,6 +143,7 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as string
         session.user.coinBalance = token.coinBalance as number
         session.user.username = token.username as string
+        console.log('Session callback:', { sessionUserId: session.user.id, tokenSub: token.sub })
       }
       return session
     }

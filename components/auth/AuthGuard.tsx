@@ -32,7 +32,7 @@ export default function AuthGuard({
 
     if (requireAuth && !session) {
       logAuth("Redirecting unauthenticated user", { from: router.asPath });
-      router.push('/');
+      router.push('/login');
       return;
     }
 
