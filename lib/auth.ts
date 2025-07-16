@@ -41,6 +41,14 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
+        // Force logging to stderr to ensure it appears in Heroku logs
+        process.stderr.write('=== CREDENTIALS PROVIDER AUTHORIZE ===\n')
+        process.stderr.write(`📥 Authorize called with: ${JSON.stringify({
+          email: credentials?.email, 
+          hasPassword: !!credentials?.password,
+          timestamp: new Date().toISOString()
+        })}\n`)
+        
         console.log('=== CREDENTIALS PROVIDER AUTHORIZE ===')
         console.log('📥 Authorize called with:', { 
           email: credentials?.email, 
@@ -128,6 +136,18 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
+      // Force logging to stderr to ensure it appears in Heroku logs
+      process.stderr.write('=== JWT CALLBACK CALLED ===\n')
+      process.stderr.write('🚨 JWT CALLBACK WAS TRIGGERED!\n')
+      process.stderr.write(`📋 JWT callback inputs: ${JSON.stringify({
+        hasUser: !!user, 
+        hasToken: !!token, 
+        hasAccount: !!account,
+        userKeys: user ? Object.keys(user) : [],
+        tokenKeys: token ? Object.keys(token) : [],
+        timestamp: new Date().toISOString()
+      })}\n`)
+      
       console.log('=== JWT CALLBACK CALLED ===')
       console.log('🚨 JWT CALLBACK WAS TRIGGERED!')
       console.log('📋 JWT callback inputs:', { 
@@ -243,6 +263,10 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     async session({ session, token }) {
+      // Force logging to stderr to ensure it appears in Heroku logs
+      process.stderr.write('=== SESSION CALLBACK CALLED ===\n')
+      process.stderr.write('🚨 SESSION CALLBACK WAS TRIGGERED!\n')
+      
       console.log('=== SESSION CALLBACK CALLED ===')
       console.log('🚨 SESSION CALLBACK WAS TRIGGERED!')
       console.log('📋 Session callback inputs:', {
