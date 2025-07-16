@@ -35,6 +35,38 @@ process.stderr.write('=== CREATING AUTH OPTIONS ===\n')
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
+      }
+    },
+    callbackUrl: {
+      name: `next-auth.callback-url`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
+      }
+    },
+    csrfToken: {
+      name: `next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
+      }
+    }
+  },
   providers: [
     CredentialsProvider({
       name: 'credentials',
