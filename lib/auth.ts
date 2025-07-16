@@ -128,6 +128,8 @@ export const authOptions: NextAuthOptions = {
         hasUser: !!user, 
         hasToken: !!token, 
         hasAccount: !!account,
+        userKeys: user ? Object.keys(user) : [],
+        tokenKeys: token ? Object.keys(token) : [],
         timestamp: new Date().toISOString()
       })
       
@@ -135,16 +137,23 @@ export const authOptions: NextAuthOptions = {
         console.log('👤 JWT callback - User object received:', user)
         console.log('🎯 JWT callback - Setting user in token...')
         
-        token.sub = user.id  // Set the user ID as the subject
+        // Ensure the user ID is properly set as the subject
+        if (user.id) {
+          token.sub = user.id
+        }
+        
+        // Set additional user properties
         token.role = user.role
         token.coinBalance = user.coinBalance
         token.username = user.username
+        token.email = user.email
         
         console.log('✅ JWT callback - Token after setting user data:', { 
           tokenSub: token.sub, 
           role: token.role,
           coinBalance: token.coinBalance,
-          username: token.username
+          username: token.username,
+          email: token.email
         })
       } else {
         console.log('⚠️ JWT callback - No user object, checking existing token...')
@@ -152,7 +161,8 @@ export const authOptions: NextAuthOptions = {
           sub: token.sub,
           role: token.role,
           coinBalance: token.coinBalance,
-          username: token.username
+          username: token.username,
+          email: token.email
         })
       }
 
@@ -232,22 +242,34 @@ export const authOptions: NextAuthOptions = {
         hasSession: !!session,
         hasToken: !!token,
         tokenSub: token?.sub,
+        sessionUserExists: !!session?.user,
+        sessionUserId: session?.user?.id,
+        tokenKeys: token ? Object.keys(token) : [],
         timestamp: new Date().toISOString()
       })
       
       if (token && token.sub) {
         console.log('✅ Session callback - Token has sub, setting session user...')
+        
+        // Ensure session.user exists
+        if (!session.user) {
+          console.log('⚠️ Session callback - No session.user, creating...')
+          session.user = {} as any
+        }
+        
         session.user.id = token.sub as string
-        session.user.role = token.role as string
-        session.user.coinBalance = token.coinBalance as number
-        session.user.username = token.username as string
+        session.user.role = token.role as string || 'user'
+        session.user.coinBalance = token.coinBalance as number || 0
+        session.user.username = token.username as string || 'Unknown'
+        session.user.email = token.email as string || session.user.email
         
         console.log('✅ Session callback - Session user set:', { 
           sessionUserId: session.user.id, 
           tokenSub: token.sub, 
           role: session.user.role,
           coinBalance: session.user.coinBalance,
-          username: session.user.username
+          username: session.user.username,
+          email: session.user.email
         })
       } else {
         console.log('❌ Session callback - No token or sub:', { 
@@ -258,8 +280,10 @@ export const authOptions: NextAuthOptions = {
       }
       
       console.log('🚀 Session callback returning session:', {
+        hasUser: !!session.user,
         userId: session.user?.id,
         userRole: session.user?.role,
+        userEmail: session.user?.email,
         timestamp: new Date().toISOString()
       })
       return session
