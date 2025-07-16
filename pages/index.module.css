@@ -58,10 +58,10 @@
 	position: relative;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 80px;
+	gap: 60px;
 	align-items: center;
 	min-height: calc(100vh - 80px);
-	padding: 80px 0;
+	padding: 40px 0;
 	overflow: hidden;
 }
 
@@ -154,7 +154,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 24px;
+	gap: 16px;
 	max-width: 400px;
 }
 
@@ -206,21 +206,22 @@
 }
 
 .title {
-	font-size: clamp(2.5rem, 5vw, 4rem);
+	font-size: clamp(2rem, 4vw, 4rem);
 	font-weight: 700;
-	line-height: 1.2;
-	margin: 0 0 24px 0;
+	line-height: 1.1;
+	margin: 0 0 16px 0;
 	color: #1a1a1a;
 	letter-spacing: -0.02em;
 }
 
 .subtitle {
-	font-size: clamp(1.125rem, 2vw, 1.25rem);
+	font-size: clamp(1rem, 1.8vw, 1.25rem);
 	color: #6b7280;
-	margin: 0 0 48px 0;
+	margin: 0 0 32px 0;
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
+	line-height: 1.4;
 }
 
 /* === CALL TO ACTION === */
@@ -320,9 +321,9 @@
 
 	.hero {
 		grid-template-columns: 1fr;
-		gap: 60px;
+		gap: 32px;
 		min-height: calc(100vh - 60px);
-		padding: 60px 0;
+		padding: 20px 0;
 	}
 
 	.heroContent {
@@ -341,29 +342,39 @@
 	}
 
 	.cardContainer {
-		transform: scale(0.8);
+		transform: scale(0.7);
 	}
 
 	.cardContainer:hover {
-		transform: scale(0.85);
+		transform: scale(0.75);
+	}
+
+	.title {
+		margin: 0 0 12px 0;
+	}
+
+	.subtitle {
+		margin: 0 0 24px 0;
 	}
 
 	.cta {
 		flex-direction: column;
 		align-items: center;
+		gap: 12px;
 	}
 
 	.primaryButton,
 	.secondaryButton {
 		width: 100%;
 		max-width: 280px;
+		padding: 12px 24px;
 	}
 
 	.features {
 		grid-template-columns: 1fr;
 		gap: 32px;
-		padding: 60px 0;
-		margin-top: 60px;
+		padding: 40px 0;
+		margin-top: 40px;
 	}
 
 	.feature {
@@ -378,29 +389,52 @@
 	}
 
 	.hero {
-		padding: 0;
-		gap: 40px;
+		padding: 10px 0;
+		gap: 24px;
+		min-height: calc(100vh - 60px);
 	}
 
 	.cardContainer {
-		transform: scale(0.75);
+		transform: scale(0.6);
 	}
 
 	.cardContainer:hover {
-		transform: scale(0.8);
+		transform: scale(0.65);
 	}
 
 	.title {
-		margin-bottom: 20px;
+		margin-bottom: 8px;
+		font-size: clamp(1.75rem, 6vw, 2.5rem);
 	}
 
 	.subtitle {
-		margin-bottom: 40px;
+		margin-bottom: 20px;
+		font-size: clamp(0.9rem, 4vw, 1.1rem);
+	}
+
+	.cta {
+		gap: 8px;
+	}
+
+	.primaryButton,
+	.secondaryButton {
+		padding: 10px 20px;
+		font-size: 14px;
+		max-width: 240px;
+	}
+
+	.cardCarousel {
+		gap: 12px;
+	}
+
+	.indicator {
+		width: 8px;
+		height: 8px;
 	}
 
 	.features {
-		padding: 40px 0;
-		margin-top: 40px;
+		padding: 30px 0;
+		margin-top: 30px;
 	}
 
 	.feature {
@@ -408,17 +442,17 @@
 	}
 
 	.featureIcon {
-		font-size: 40px;
-		margin-bottom: 20px;
+		font-size: 36px;
+		margin-bottom: 16px;
 	}
 
 	.featureTitle {
-		font-size: 20px;
-		margin-bottom: 12px;
+		font-size: 18px;
+		margin-bottom: 8px;
 	}
 
 	.featureDescription {
-		font-size: 14px;
+		font-size: 13px;
 	}
 }
 
