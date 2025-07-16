@@ -31,6 +31,8 @@ const oauthEnvVars = {
 }
 
 console.log('=== CREATING AUTH OPTIONS ===')
+process.stderr.write('=== CREATING AUTH OPTIONS ===\n')
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -323,7 +325,9 @@ export const authOptions: NextAuthOptions = {
 }
 
 console.log('=== AUTH OPTIONS CREATED ===')
-console.log('✅ AuthOptions configuration complete:', {
+process.stderr.write('=== AUTH OPTIONS CREATED ===\n')
+
+const configCheck = {
   hasSecret: !!authOptions.secret,
   providersCount: authOptions.providers?.length || 0,
   hasJWTCallback: !!authOptions.callbacks?.jwt,
@@ -331,7 +335,23 @@ console.log('✅ AuthOptions configuration complete:', {
   sessionStrategy: authOptions.session?.strategy,
   jwtMaxAge: authOptions.jwt?.maxAge,
   sessionMaxAge: authOptions.session?.maxAge
-})
+}
+
+console.log('✅ AuthOptions configuration complete:', configCheck)
+process.stderr.write(`✅ AuthOptions configuration complete: ${JSON.stringify(configCheck)}\n`)
+
+// Test if the callbacks are actually attached
+if (authOptions.callbacks?.jwt) {
+  process.stderr.write('✅ JWT callback is attached to authOptions\n')
+} else {
+  process.stderr.write('❌ JWT callback is NOT attached to authOptions\n')
+}
+
+if (authOptions.callbacks?.session) {
+  process.stderr.write('✅ Session callback is attached to authOptions\n')
+} else {
+  process.stderr.write('❌ Session callback is NOT attached to authOptions\n')
+}
 
 // AuthService singleton pattern
 type AuthState = 'UNKNOWN' | 'CHECKING' | 'AUTHENTICATED' | 'UNAUTHENTICATED' | 'ERROR'
