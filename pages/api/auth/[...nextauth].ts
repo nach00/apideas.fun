@@ -31,8 +31,22 @@ const wrappedHandler = async (req: any, res: any) => {
   try {
     return await handler(req, res)
   } catch (error) {
-    process.stderr.write(`❌ NextAuth handler error: ${error}\n`)
+    process.stderr.write(`❌ NextAuth handler error: ${JSON.stringify({
+      name: error.name,
+      message: error.message,
+      stack: error.stack?.split('\n').slice(0, 5).join('\n'),
+      timestamp: new Date().toISOString()
+    })}\n`)
     console.error('❌ NextAuth handler error:', error)
+    
+    // If it's a JWE error, continue without throwing to avoid breaking the flow
+    if (error.name === 'JWEDecryptionFailed') {
+      process.stderr.write('⚠️ JWE Decryption failed, continuing...\n')
+      console.warn('⚠️ JWE Decryption failed, continuing...')
+      // Return a basic response instead of throwing
+      return res.status(200).json({ error: 'Session expired' })
+    }
+    
     throw error
   }
 }

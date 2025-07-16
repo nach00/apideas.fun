@@ -55,8 +55,8 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.NEXTAUTH_URL?.startsWith('https://') || false,
-        domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
+        secure: false, // Force false for now to fix cookie rejection
+        domain: undefined // Remove domain for now
       }
     },
     callbackUrl: {
@@ -65,8 +65,8 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.NEXTAUTH_URL?.startsWith('https://') || false,
-        domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
+        secure: false, // Force false for now to fix cookie rejection
+        domain: undefined // Remove domain for now
       }
     },
     csrfToken: {
@@ -75,8 +75,8 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.NEXTAUTH_URL?.startsWith('https://') || false,
-        domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
+        secure: false, // Force false for now to fix cookie rejection
+        domain: undefined // Remove domain for now
       }
     }
   },
