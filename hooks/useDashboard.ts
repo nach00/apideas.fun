@@ -141,8 +141,11 @@ export function useDashboard() {
           error: "",
         }));
         
-        console.log('🔄 [useDashboard] Fetching updated user stats');
+        console.log('🔄 [useDashboard] Fetching updated user stats and refreshing session');
         await fetchUserStats();
+        
+        // Refresh the session to update coin balance in Navbar
+        await update();
         console.log('✅ [useDashboard] All post-generation updates complete');
       } else {
         // Handle error response from API

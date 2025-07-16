@@ -277,28 +277,28 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      // Temporarily disable database refresh to test basic auth
-      // if (token.sub && !user) {
-      //   console.log('JWT callback - refreshing user data for:', token.sub)
-      //   const userId = token.sub as string
-      //   try {
-      //     const currentUser = await prisma.user.findUnique({
-      //       where: { id: userId },
-      //       select: { coinBalance: true, role: true, username: true }
-      //     })
+      // Refresh user data from database on token refresh (but not on initial login)
+      if (token.sub && !user) {
+        console.log('JWT callback - refreshing user data for:', token.sub)
+        const userId = token.sub as string
+        try {
+          const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { coinBalance: true, role: true, username: true }
+          })
           
-      //     if (currentUser) {
-      //       token.coinBalance = currentUser.coinBalance
-      //       token.role = currentUser.role
-      //       token.username = currentUser.username
-      //       console.log('JWT callback - refreshed user data:', { coinBalance: token.coinBalance, role: token.role })
-      //     } else {
-      //       console.log('JWT callback - user not found in database:', userId)
-      //     }
-      //   } catch (error) {
-      //     console.error('Error refreshing user data:', error)
-      //   }
-      // }
+          if (currentUser) {
+            token.coinBalance = currentUser.coinBalance
+            token.role = currentUser.role
+            token.username = currentUser.username
+            console.log('JWT callback - refreshed user data:', { coinBalance: token.coinBalance, role: token.role })
+          } else {
+            console.log('JWT callback - user not found in database:', userId)
+          }
+        } catch (error) {
+          console.error('Error refreshing user data:', error)
+        }
+      }
 
       console.log('🚀 JWT callback returning token:', { 
         sub: token.sub, 
