@@ -8,6 +8,10 @@ import { validateEnvVar } from './validation'
 
 // Validate required environment variables on import
 validateEnvVar('NEXTAUTH_SECRET', process.env.NEXTAUTH_SECRET)
+console.log('NextAuth config loaded:', {
+  secret: process.env.NEXTAUTH_SECRET ? 'SET' : 'NOT SET',
+  url: process.env.NEXTAUTH_URL
+})
 
 // Optional OAuth environment variables
 const oauthEnvVars = {
@@ -18,6 +22,7 @@ const oauthEnvVars = {
 }
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -26,7 +31,10 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
+        console.log('Authorize called with:', { email: credentials?.email, hasPassword: !!credentials?.password })
+        
         if (!credentials?.email || !credentials?.password) {
+          console.log('Missing credentials')
           return null
         }
 
@@ -34,13 +42,19 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email }
         })
 
+        console.log('User found:', { found: !!user, hasPassword: !!user?.hashedPassword })
+
         if (!user || !user.hashedPassword) {
+          console.log('User not found or no password')
           return null
         }
 
         const isValid = await bcrypt.compare(credentials.password, user.hashedPassword)
         
+        console.log('Password check:', { isValid })
+        
         if (!isValid) {
+          console.log('Invalid password')
           return null
         }
 
