@@ -82,17 +82,24 @@ export const authOptions: NextAuthOptions = {
       })
     ] : [])
   ],
-  session: { strategy: 'jwt' },
+  session: { 
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   pages: {
     signIn: '/login',
   },
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {
+        token.sub = user.id  // Set the user ID as the subject
         token.role = user.role
         token.coinBalance = user.coinBalance
         token.username = user.username
-        console.log('JWT callback - user login:', { userId: user.id, email: user.email })
+        console.log('JWT callback - user login:', { userId: user.id, email: user.email, tokenSub: token.sub })
       }
 
       // Handle OAuth users
@@ -135,29 +142,35 @@ export const authOptions: NextAuthOptions = {
 
       // Refresh coin balance from database on every request
       // This ensures the JWT token always has the latest coin balance
-      if (token.sub || token.id) {
-        const userId = token.sub || token.id as string
-        const currentUser = await prisma.user.findUnique({
-          where: { id: userId },
-          select: { coinBalance: true, role: true, username: true }
-        })
-        
-        if (currentUser) {
-          token.coinBalance = currentUser.coinBalance
-          token.role = currentUser.role
-          token.username = currentUser.username
+      if (token.sub) {
+        const userId = token.sub as string
+        try {
+          const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { coinBalance: true, role: true, username: true }
+          })
+          
+          if (currentUser) {
+            token.coinBalance = currentUser.coinBalance
+            token.role = currentUser.role
+            token.username = currentUser.username
+          }
+        } catch (error) {
+          console.error('Error refreshing user data:', error)
         }
       }
 
       return token
     },
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.sub || token.id as string
+      if (token && token.sub) {
+        session.user.id = token.sub as string
         session.user.role = token.role as string
         session.user.coinBalance = token.coinBalance as number
         session.user.username = token.username as string
-        console.log('Session callback:', { sessionUserId: session.user.id, tokenSub: token.sub })
+        console.log('Session callback:', { sessionUserId: session.user.id, tokenSub: token.sub, hasRole: !!token.role })
+      } else {
+        console.log('Session callback - no token or sub:', { hasToken: !!token, sub: token?.sub })
       }
       return session
     }
