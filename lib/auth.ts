@@ -90,6 +90,11 @@ export const authOptions: NextAuthOptions = {
           }
 
           console.log('✅ Credentials authorize success, returning user:', userResult)
+          console.log('🔍 About to return user object to NextAuth...')
+          
+          // Add a small delay to ensure the log is captured
+          await new Promise(resolve => setTimeout(resolve, 10))
+          
           return userResult
         } catch (error) {
           console.error('❌ Error in authorize function:', error)
@@ -124,6 +129,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, account }) {
       console.log('=== JWT CALLBACK CALLED ===')
+      console.log('🚨 JWT CALLBACK WAS TRIGGERED!')
       console.log('📋 JWT callback inputs:', { 
         hasUser: !!user, 
         hasToken: !!token, 
@@ -238,6 +244,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       console.log('=== SESSION CALLBACK CALLED ===')
+      console.log('🚨 SESSION CALLBACK WAS TRIGGERED!')
       console.log('📋 Session callback inputs:', {
         hasSession: !!session,
         hasToken: !!token,
