@@ -1,0 +1,11 @@
+# Card Animation Assets
+
+This directory contains placeholder images for card animations.
+For production, replace these with actual holographic texture images:
+
+- grain.webp: Fine grain texture for card base
+- glitter.png: Glitter/sparkle texture
+- illusion.png: Holographic illusion pattern
+- illusion-mask.png: Mask for illusion effects
+
+The CSS animations reference these files but will work without them (showing solid colors instead).

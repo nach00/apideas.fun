@@ -1,0 +1,238 @@
+/* =================================================================
+ * My Collection Component - CSS Module
+ * User's card collection with filtering and sorting
+ * ================================================================= */
+
+/* === BASE CONTAINER === */
+.myCollection {
+	padding: 32px 0;
+}
+
+.collectionContainer {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+.collectionSection {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+/* === HEADER === */
+.collectionHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.collectionTitle {
+	font-size: 24px;
+	font-weight: 600;
+	color: #111;
+	margin: 0;
+}
+
+.collectionStats {
+	font-size: 14px;
+	color: #666;
+	font-weight: 500;
+}
+
+/* === CONTROLS === */
+.controls {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.searchContainer {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.searchInput {
+	flex: 1;
+	padding: 12px 16px;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	font-size: 14px;
+	background: white;
+	transition: all 0.2s ease;
+}
+
+.searchInput:focus {
+	outline: none;
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.searchInput::placeholder {
+	color: #9ca3af;
+}
+
+.filtersContainer {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.filterSelect,
+.sortSelect {
+	padding: 8px 12px;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	font-size: 14px;
+	background: white;
+	color: #374151;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	min-height: 36px;
+}
+
+.filterSelect:focus,
+.sortSelect:focus {
+	outline: none;
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filterSelect:hover,
+.sortSelect:hover {
+	border-color: #d1d5db;
+}
+
+.sortOrderButton {
+	padding: 4px 10px;
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	border-radius: 6px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #374151;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	/* min-width: 40px; */
+	min-height: 36px;
+}
+
+.sortOrderButton:hover {
+	background: #f3f4f6;
+	border-color: #d1d5db;
+}
+
+.sortOrderButton:focus {
+	outline: none;
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* === CARDS GRID === */
+.collectionGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 24px;
+	padding: 8px 0;
+}
+
+.cardContainer {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.cardWithActions {
+	/* Add a class for cards with actions if needed */
+}
+
+/* === EMPTY STATE === */
+.emptyState {
+	text-align: center;
+	padding: 48px 24px;
+	color: #6b7280;
+}
+
+.emptyState p {
+	font-size: 16px;
+	margin: 0;
+	line-height: 1.5;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+	.myCollection {
+		padding: 24px 0;
+	}
+
+	.collectionContainer {
+		padding: 0 16px;
+	}
+
+	/* .collectionHeader { */
+	/* flex-direction: column; */
+	/* align-items: flex-start; */
+	/* gap: 8px; */
+	/* } */
+
+	.collectionTitle {
+		font-size: 20px;
+	}
+
+	.controls {
+		gap: 12px;
+	}
+
+	.filtersContainer {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 8px;
+	}
+
+	.filterSelect,
+	.sortSelect,
+	.sortOrderButton {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.collectionGrid {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+
+	/* Button styles are now handled by Card component */
+
+	.emptyState {
+		padding: 32px 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.searchInput {
+		padding: 10px 12px;
+		font-size: 13px;
+	}
+
+	.filterSelect,
+	.sortSelect,
+	.sortOrderButton {
+		padding: 10px 12px;
+		font-size: 13px;
+	}
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+	.searchInput,
+	.filterSelect,
+	.sortSelect,
+	.sortOrderButton {
+		transition: none;
+	}
+}

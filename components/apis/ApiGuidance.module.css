@@ -1,0 +1,121 @@
+/* =================================================================
+ * ApiGuidance Component - CSS Module
+ * Preference guide section for API management
+ * ================================================================= */
+
+/* === Main Container === */
+.apisGuidance {
+  background: var(--color-surface);
+  border-radius: var(--radius-3xl);
+  border: 1px solid var(--color-border);
+  padding: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .apisGuidance {
+    padding: var(--space-12);
+  }
+}
+
+/* === Content Layout === */
+.guidanceContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.guidanceTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+}
+
+/* === Grid Layout === */
+.guidanceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-6);
+}
+
+/* === Guidance Items === */
+.guidanceItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  text-align: left;
+  transition: all var(--transition-base);
+}
+
+.guidanceItem:hover {
+  background: var(--color-surface);
+  border-color: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* === Icons === */
+.guidanceIcon {
+  width: 48px;
+  height: 48px;
+  padding: var(--space-3);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.guidanceIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.guidanceIconLock {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.guidanceIconIgnore {
+  background: var(--color-error-subtle);
+  color: var(--color-error);
+}
+
+.guidanceIconDefault {
+  background: var(--color-info-subtle);
+  color: var(--color-info);
+}
+
+/* === Text Content === */
+.guidanceInfo {
+  flex: 1;
+}
+
+.guidanceName {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.guidanceDesc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+  .guidanceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .guidanceItem {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,95 @@
+/* ApiStatsOverview Component - CSS Module */
+
+/* Stats Overview Container */
+.statsOverview {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Stat Card */
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  transition: all var(--transition-fast);
+  cursor: default;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-light);
+}
+
+/* Stat Icon */
+.statIcon {
+  width: 48px;
+  height: 48px;
+  padding: var(--space-3);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Icon Variants */
+.statIconTotal {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.statIconLocked {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.statIconAvailable {
+  background: var(--color-info-subtle);
+  color: var(--color-info);
+}
+
+.statIconIgnored {
+  background: var(--color-error-subtle);
+  color: var(--color-error);
+}
+
+/* Stat Info */
+.statInfo {
+  flex: 1;
+}
+
+.statValue {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.statLabel {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  font-weight: var(--weight-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .statsOverview {
+    grid-template-columns: 1fr;
+  }
+}

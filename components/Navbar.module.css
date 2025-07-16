@@ -1,0 +1,654 @@
+/* =================================================================
+ * Navbar Component - CSS Module - Minimalistic Modern Design
+ * Matches clean aesthetic of dashboard and other components
+ * ================================================================= */
+
+/* === BASE NAVBAR === */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1000;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Scrolled state */
+.navbarScrolled {
+  background: white;
+  border-bottom-color: #d1d5db;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* === CONTAINER === */
+.navbarContainer {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .navbarContainer {
+    padding: 0 24px;
+    gap: 32px;
+  }
+}
+
+/* === LOGO === */
+.navbarLogo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #111;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.navbarLogo:hover {
+  color: #3b82f6;
+}
+
+.navbarLogo:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.navbarLogoIcon {
+  width: 28px;
+  height: 28px;
+  color: #3b82f6;
+  transition: all 0.2s ease;
+}
+
+.navbarLogo:hover .navbarLogoIcon {
+  transform: scale(1.05);
+}
+
+.navbarLogoText {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .navbarLogoText {
+    display: block;
+  }
+}
+
+/* === NAVIGATION LINKS === */
+.navbarLinks {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  padding: 0 16px;
+}
+
+@media (min-width: 1024px) {
+  .navbarLinks {
+    display: flex;
+    padding: 0 32px;
+  }
+}
+
+.navbarLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  color: #666;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navbarLink:hover {
+  color: #111;
+  background: #f5f5f5;
+}
+
+.navbarLinkActive {
+  color: #3b82f6;
+  background: #dbeafe;
+  font-weight: 600;
+}
+
+.navbarLink:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.navIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.navbarLink:hover .navIcon {
+  transform: scale(1.05);
+}
+
+/* === ACTIONS === */
+.navbarActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+/* Coin Balance */
+.navbarCoins {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .navbarCoins {
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 24px;
+    font-size: 13px;
+  }
+}
+
+.navbarCoins:hover {
+  background: #f59e0b;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  border-color: transparent;
+}
+
+.navbarCoins:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+.coinIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.coinBalance {
+  font-variant-numeric: tabular-nums;
+}
+
+/* === USER MENU === */
+.navbarUser {
+  position: relative;
+  display: block;
+}
+
+.navbarUserButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: #111;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.navbarUserButton:hover {
+  background: #f5f5f5;
+  border-color: #e5e7eb;
+}
+
+.navbarUserButton:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.navbarUserButton:hover .userAvatar {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.userName {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .userName {
+    display: block;
+  }
+}
+
+.dropdownIcon {
+  width: 16px;
+  height: 16px;
+  color: #666;
+  transition: transform 0.2s ease;
+}
+
+.dropdownIconOpen {
+  transform: rotate(180deg);
+}
+
+/* === DROPDOWN MENU === */
+.navbarDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  animation: dropdownSlide 200ms ease;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownHeader {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.dropdownEmail {
+  font-size: 12px;
+  color: #666;
+  word-break: break-all;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background: #f5f5f5;
+}
+
+.dropdownItem:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+.dropdownItem svg {
+  width: 16px;
+  height: 16px;
+  color: #666;
+}
+
+.dropdownItemAdmin {
+  color: #3b82f6;
+}
+
+.dropdownItemDanger {
+  color: #ef4444;
+}
+
+.dropdownItemDanger:hover {
+  background: #fef2f2;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 8px 0;
+}
+
+/* === AUTH LINKS === */
+.navbarAuth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+@media (min-width: 768px) {
+  .navbarAuth {
+    gap: 12px;
+  }
+}
+
+.navbarSignin {
+  padding: 8px 16px;
+  color: #666;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.navbarSignin:hover {
+  background: #f5f5f5;
+  border-color: #e5e7eb;
+}
+
+.navbarSignin:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.navbarSignup {
+  padding: 8px 20px;
+  background: #3b82f6;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+}
+
+.navbarSignup:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.navbarSignup:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* === MOBILE TOGGLE === */
+.navbarMobileToggle {
+  display: none;
+}
+
+.navbarMobileToggle:hover {
+  background: #f5f5f5;
+}
+
+.navbarMobileToggle:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.toggleLine {
+  width: 18px;
+  height: 2px;
+  background: #111;
+  border-radius: 1px;
+  transition: all 0.2s ease;
+  margin: 0 auto;
+}
+
+.navbarMobileToggleActive .toggleLine:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbarMobileToggleActive .toggleLine:nth-child(2) {
+  opacity: 0;
+}
+
+.navbarMobileToggleActive .toggleLine:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* === MOBILE MENU === */
+.navbarMobile {
+  display: none;
+}
+
+.navbarMobileOpen {
+  display: none;
+}
+
+.navbarMobileContent {
+  padding: 16px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile User Info */
+.mobileUserInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.mobileAvatar {
+  width: 48px;
+  height: 48px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.mobileUserDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileUsername {
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+.mobileEmail {
+  font-size: 14px;
+  color: #666;
+  word-break: break-all;
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mobileNavLink:hover {
+  background: #f5f5f5;
+}
+
+.mobileNavLinkActive {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.mobileNavLinkAdmin {
+  color: #3b82f6;
+}
+
+.mobileNavLink:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+/* Mobile Actions */
+.mobileActions {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.mobileSignout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  background: #fef2f2;
+  color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobileSignout:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.mobileSignout:focus-visible {
+  outline: 2px solid #ef4444;
+  outline-offset: -2px;
+}
+
+.mobileSignout svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Auth */
+.mobileAuth {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+}
+
+.mobileSignin {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mobileSignin:hover {
+  background: #f5f5f5;
+  border-color: #3b82f6;
+}
+
+.mobileSignin:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.mobileSignup {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  background: #3b82f6;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mobileSignup:hover {
+  background: #2563eb;
+}
+
+.mobileSignup:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* === CONSISTENT LAYOUT === */
+/* All devices use the same layout and spacing */
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .navbarDropdown,
+  .navbarMobile,
+  .dropdownIcon,
+  .toggleLine {
+    transition: none;
+    animation: none;
+  }
+}

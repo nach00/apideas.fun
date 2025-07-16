@@ -1,0 +1,920 @@
+/* =================================================================
+ * Shop Page - CSS Module
+ * Coin shop with packages, daily rewards, and transaction history
+ * ================================================================= */
+
+/* === BASE CONTAINER === */
+.shopPage {
+  min-height: 100vh;
+  background: #f9fafb;
+  padding-top: 80px;
+}
+
+.shopContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* === HERO SECTION === */
+.shopHero {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.shopHeroContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.shopTitle {
+  font-size: 48px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.shopTitleIcon {
+  font-size: 56px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.shopSubtitle {
+  font-size: 20px;
+  color: #6b7280;
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+}
+
+/* === BALANCE CARD === */
+.shopBalanceCard {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.balanceGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.balanceContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.balanceLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balanceValue {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.balanceIcon {
+  font-size: 32px;
+}
+
+.balanceAmount {
+  font-size: 48px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+.balanceSuffix {
+  font-size: 18px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.balanceHint {
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* === ALERT MESSAGES === */
+.shopAlert {
+  background: white;
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin-bottom: 32px;
+  border: 1px solid #e5e7eb;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shopAlert--success {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.shopAlert--error {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.shopAlertContent {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* === TAB NAVIGATION === */
+.shopTabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.shopTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shopTab:hover {
+  background: #f9fafb;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+.shopTab--active {
+  background: #111827;
+  color: white;
+  border-color: #111827;
+}
+
+.shopTab--active:hover {
+  background: #1f2937;
+  color: white;
+  border-color: #1f2937;
+}
+
+.shopTabIcon {
+  font-size: 20px;
+}
+
+/* === DAILY REWARD SECTION === */
+.dailyRewardSection {
+  margin-bottom: 64px;
+}
+
+.dailyRewardCard {
+  position: relative;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 16px;
+  padding: 32px;
+  overflow: hidden;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.2);
+}
+
+.dailyRewardGlow {
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.dailyRewardHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.dailyRewardIconWrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dailyRewardIcon {
+  font-size: 64px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.dailyRewardSparkle {
+  position: absolute;
+  font-size: 20px;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.dailyRewardSparkle--1 {
+  top: 0;
+  right: 0;
+  animation-delay: 0s;
+}
+
+.dailyRewardSparkle--2 {
+  bottom: 0;
+  left: 0;
+  animation-delay: 1s;
+}
+
+.dailyRewardSparkle--3 {
+  top: 50%;
+  left: -10px;
+  animation-delay: 2s;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dailyRewardInfo {
+  flex: 1;
+}
+
+.dailyRewardTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #92400e;
+  margin: 0 0 4px 0;
+}
+
+.dailyRewardDescription {
+  font-size: 16px;
+  color: #b45309;
+  margin: 0;
+}
+
+.dailyRewardBtn {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.dailyRewardBtn--available {
+  background: white;
+  color: #92400e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dailyRewardBtn--available:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.dailyRewardBtn--claimed {
+  background: rgba(255, 255, 255, 0.6);
+  color: #b45309;
+  cursor: not-allowed;
+}
+
+.dailyRewardBtnIcon {
+  font-size: 24px;
+}
+
+.dailyRewardLoading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* === PACKAGES SECTION === */
+.packagesSection {
+  margin-bottom: 64px;
+}
+
+.packagesHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.packagesTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.packagesSubtitle {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.packagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.packageCard {
+  position: relative;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.packageCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.packageCard--popular {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+}
+
+.packageCard--popular:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(59, 130, 246, 0.2);
+}
+
+.packageRibbon {
+  position: absolute;
+  top: -1px;
+  right: 24px;
+  background: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.packageRibbonText {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.packageHeader {
+  margin-bottom: 24px;
+}
+
+.packageName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.packageDescription {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.packageCoins {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.packageCoinsAmount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.packageCoinsIcon {
+  font-size: 32px;
+}
+
+.packageCoinsValue {
+  font-size: 40px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+.packageCoinsLabel {
+  font-size: 14px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.packagePrice {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 24px;
+}
+
+.packagePriceCurrency {
+  font-size: 24px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.packagePriceValue {
+  font-size: 48px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+.packageFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.packageFeature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.packageFeatureIcon {
+  color: #10b981;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.packageFeatureText {
+  font-size: 15px;
+  color: #4b5563;
+  line-height: 1.4;
+}
+
+.packageBtn {
+  width: 100%;
+  padding: 16px 32px;
+  background: #111827;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.packageBtn:hover {
+  background: #1f2937;
+  transform: translateY(-1px);
+}
+
+.packageBtn--popular {
+  background: #3b82f6;
+}
+
+.packageBtn--popular:hover {
+  background: #2563eb;
+}
+
+.packageBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.packageBtnIcon {
+  font-size: 20px;
+}
+
+.packageBtnLoading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.packageValue {
+  font-size: 13px;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* === SHOP INFO SECTION === */
+.shopInfo {
+  margin-bottom: 64px;
+}
+
+.shopInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.shopInfoCard {
+  text-align: center;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.shopInfoCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.shopInfoIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.shopInfoTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.shopInfoText {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* === TRANSACTIONS SECTION === */
+.transactionsSection {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.transactionsHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.transactionsTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.transactionsSubtitle {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.transactionsList {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.transactionItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.2s ease;
+}
+
+.transactionItem:last-child {
+  border-bottom: none;
+}
+
+.transactionItem:hover {
+  background: #f9fafb;
+}
+
+.transactionIcon {
+  font-size: 32px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 50%;
+}
+
+.transactionDetails {
+  flex: 1;
+}
+
+.transactionDescription {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.transactionDate {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.transactionAmount {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.transactionAmount--positive {
+  color: #059669;
+}
+
+.transactionAmount--negative {
+  color: #dc2626;
+}
+
+.transactionsEmpty {
+  text-align: center;
+  padding: 64px 32px;
+}
+
+.transactionsEmptyIcon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.transactionsEmptyText {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* === SHOP FOOTER === */
+.shopFooter {
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.shopSecurity {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.shopSecurityBadges {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.securityBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.securityBadgeIcon {
+  width: 20px;
+  height: 20px;
+  color: #10b981;
+}
+
+.shopSecurityText {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* === LOADING SPINNER === */
+.loadingSpinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f4f6;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .shopContainer {
+    padding: 24px 16px;
+  }
+
+  .shopTitle {
+    font-size: 36px;
+  }
+
+  .shopTitleIcon {
+    font-size: 44px;
+  }
+
+  .shopSubtitle {
+    font-size: 18px;
+  }
+
+  .balanceAmount {
+    font-size: 36px;
+  }
+
+  .dailyRewardHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .packagesGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .packagePriceValue {
+    font-size: 36px;
+  }
+
+  .shopInfoGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .shopTabs {
+    width: 100%;
+  }
+
+  .shopTab {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .transactionItem {
+    padding: 16px;
+  }
+
+  .transactionIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .shopSecurityBadges {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shopTitle {
+    font-size: 28px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .shopTitleIcon {
+    font-size: 36px;
+  }
+
+  .shopSubtitle {
+    font-size: 16px;
+  }
+
+  .balanceAmount {
+    font-size: 28px;
+  }
+
+  .shopTabIcon {
+    display: none;
+  }
+
+  .packageCoinsValue {
+    font-size: 32px;
+  }
+
+  .packagePriceValue {
+    font-size: 28px;
+  }
+
+  .transactionDetails {
+    flex: 1;
+  }
+
+  .transactionAmount {
+    font-size: 16px;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .shopTitleIcon,
+  .balanceGlow,
+  .dailyRewardGlow,
+  .dailyRewardSparkle,
+  .loadingSpinner {
+    animation: none;
+  }
+
+  .shopAlert,
+  .shopTab,
+  .packageCard,
+  .shopInfoCard,
+  .transactionItem,
+  .dailyRewardBtn,
+  .packageBtn {
+    transition: none;
+  }
+}

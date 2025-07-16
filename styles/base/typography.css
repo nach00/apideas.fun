@@ -1,0 +1,419 @@
+/* === REFINED TYPOGRAPHY SYSTEM - DESIGN.MD PRINCIPLES ===
+ * Modern Simplicity: Clean, readable typefaces with purposeful hierarchy
+ * Classy & Refined: Sophisticated font choices that convey professionalism
+ * Timeless Appeal: Typography that ages gracefully
+ * Clarity First: Optimal readability across all contexts
+ */
+
+:root {
+  /* === SOPHISTICATED FONT STACK === */
+  /* Intentional Craft: Carefully selected typefaces for each context */
+  --font-display: 'Inter Display', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-text: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  --font-card: 'Manrope', 'Inter Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* === REFINED WEIGHT SYSTEM === */
+  /* Balanced Aesthetics: Weights that create clear hierarchy */
+  --weight-thin: 100;
+  --weight-extralight: 200;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+  
+  /* === HARMONIOUS TYPE SCALE === */
+  /* System-Oriented: Based on perfect fourth ratio (1.333) */
+  --text-2xs: 0.625rem;    /* 10px - Micro text */
+  --text-xs: 0.75rem;      /* 12px - Captions */
+  --text-sm: 0.875rem;     /* 14px - Secondary text */
+  --text-base: 1rem;       /* 16px - Body text */
+  --text-lg: 1.125rem;     /* 18px - Emphasized body */
+  --text-xl: 1.25rem;      /* 20px - Small headings */
+  --text-2xl: 1.5rem;      /* 24px - Section headings */
+  --text-3xl: 2rem;        /* 32px - Page headings */
+  --text-4xl: 2.5rem;      /* 40px - Large headings */
+  --text-5xl: 3rem;        /* 48px - Hero headings */
+  --text-6xl: 3.75rem;     /* 60px - Display headings */
+  --text-7xl: 4.5rem;      /* 72px - Brand statements */
+  
+  /* === REFINED LINE HEIGHT SYSTEM === */
+  /* Human-Centered: Line heights that optimize readability */
+  --line-height-none: 1;
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 1.75;
+  --line-height-double: 2;
+  
+  /* === OPTICAL LETTER SPACING === */
+  /* Intentional Detail: Precise tracking for optimal legibility */
+  --letter-spacing-tightest: -0.075em;
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+  --letter-spacing-ultra: 0.15em;
+  
+  /* === PARAGRAPH SPACING === */
+  /* Progressive Disclosure: Spacing that guides reading flow */
+  --paragraph-spacing-tight: 1rem;
+  --paragraph-spacing-normal: 1.5rem;
+  --paragraph-spacing-relaxed: 2rem;
+  --paragraph-spacing-loose: 2.5rem;
+}
+
+/* === BASE TYPOGRAPHY === */
+/* Clarity First: Foundation for all text elements */
+body {
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+  font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* === SOPHISTICATED HEADING HIERARCHY === */
+/* Emotional Connection: Headlines that command attention gracefully */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+  color: var(--color-text-primary);
+  margin-bottom: var(--paragraph-spacing-normal);
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--paragraph-spacing-normal);
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--paragraph-spacing-tight);
+}
+
+h4, .h4 {
+  font-family: var(--font-text);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+  margin-bottom: var(--paragraph-spacing-tight);
+}
+
+h5, .h5 {
+  font-family: var(--font-text);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  margin-bottom: var(--paragraph-spacing-tight);
+}
+
+h6, .h6 {
+  font-family: var(--font-text);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  margin-bottom: var(--paragraph-spacing-tight);
+}
+
+/* === REFINED TEXT VARIANTS === */
+/* System-Oriented: Consistent text styles for different contexts */
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--text-6xl);
+  line-height: var(--line-height-none);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.text-hero {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  line-height: var(--line-height-tight);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.text-lead {
+  font-size: var(--text-xl);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-regular);
+}
+
+.text-body {
+  font-size: var(--text-base);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--weight-regular);
+}
+
+.text-body-large {
+  font-size: var(--text-lg);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--weight-regular);
+}
+
+.text-small {
+  font-size: var(--text-sm);
+  line-height: var(--line-height-normal);
+  font-weight: var(--weight-regular);
+}
+
+.text-caption {
+  font-size: var(--text-xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+  letter-spacing: var(--letter-spacing-wide);
+  font-weight: var(--weight-medium);
+}
+
+.text-micro {
+  font-size: var(--text-2xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-quaternary);
+  letter-spacing: var(--letter-spacing-wider);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+}
+
+/* Text Utilities */
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+/* Font Weight Utilities */
+.font-light { font-weight: var(--weight-light); }
+.font-regular { font-weight: var(--weight-regular); }
+.font-medium { font-weight: var(--weight-medium); }
+.font-semibold { font-weight: var(--weight-semibold); }
+.font-bold { font-weight: var(--weight-bold); }
+.font-heavy { font-weight: var(--weight-heavy); }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* Text Transform */
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+.normal-case { text-transform: none; }
+
+/* === REFINED LINK STYLES === */
+/* Human-Centered: Links that feel natural and responsive */
+a {
+  color: var(--color-text-link);
+  text-decoration: none;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  font-weight: var(--weight-medium);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+a:active {
+  color: var(--color-primary-active);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Sophisticated underline animation */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* === REFINED CODE TYPOGRAPHY === */
+/* Clarity Over Cleverness: Code that's easy to read and understand */
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+}
+
+code {
+  background-color: var(--color-surface-subtle);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  color: var(--color-text-accent);
+  border: 1px solid var(--color-border-subtle);
+  font-weight: var(--weight-medium);
+}
+
+kbd {
+  background-color: var(--color-surface);
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 0 1px var(--color-border-subtle);
+  font-size: 0.85em;
+  font-weight: var(--weight-medium);
+}
+
+pre {
+  background-color: var(--color-surface-subtle);
+  padding: 1.5rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  border: 1px solid var(--color-border-subtle);
+  line-height: var(--line-height-relaxed);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+  font-weight: var(--weight-regular);
+}
+
+/* === REFINED QUOTATIONS === */
+/* Emotional Resonance: Quotes that inspire and inform */
+blockquote {
+  position: relative;
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-size: var(--text-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+}
+
+blockquote::before {
+  content: '"';
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  font-size: 3rem;
+  color: var(--color-primary-subtle);
+  font-family: Georgia, serif;
+  font-weight: var(--weight-bold);
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 1rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  font-style: normal;
+  font-weight: var(--weight-medium);
+}
+
+blockquote cite::before {
+  content: '— ';
+}
+
+/* === REFINED LISTS === */
+/* Intentional Craft: Lists that guide the eye */
+ul, ol {
+  margin: var(--paragraph-spacing-normal) 0;
+  padding-left: 1.5rem;
+  line-height: var(--line-height-relaxed);
+}
+
+ul li, ol li {
+  margin-bottom: 0.5rem;
+}
+
+ul li:last-child, ol li:last-child {
+  margin-bottom: 0;
+}
+
+/* Custom list markers */
+ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+ul li {
+  position: relative;
+}
+
+ul li::before {
+  content: '•';
+  position: absolute;
+  left: -1.5rem;
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* === SELECTION STYLES === */
+/* Emotional Connection: Selected text that feels intentional */
+::selection {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-text-primary);
+}
+
+::-moz-selection {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-text-primary);
+}

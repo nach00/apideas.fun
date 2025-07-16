@@ -1,0 +1,149 @@
+/* BulkActionsBar Component - CSS Module */
+
+/* Main Container */
+.bulkActionsBar {
+  background: var(--color-primary-subtle);
+  border: 1px solid var(--color-primary-light);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-4) var(--space-6);
+  animation: slideIn 0.3s ease-out;
+  margin-bottom: var(--space-6);
+  position: sticky;
+  top: var(--space-4);
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Content Layout */
+.bulkActionsContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Info Section */
+.bulkActionsInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bulkIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary);
+}
+
+.bulkCount {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-dark);
+}
+
+/* Actions Buttons */
+.bulkActionsButtons {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.bulkActionBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  background: var(--color-background);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.bulkActionBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.bulkActionBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Button Variants */
+.bulkActionBtnLock {
+  border-color: var(--color-success);
+  color: var(--color-success-dark);
+}
+
+.bulkActionBtnLock:hover:not(:disabled) {
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+}
+
+.bulkActionBtnIgnore {
+  border-color: var(--color-error);
+  color: var(--color-error-dark);
+}
+
+.bulkActionBtnIgnore:hover:not(:disabled) {
+  background: var(--color-error);
+  color: var(--color-text-inverse);
+}
+
+.bulkActionBtnReset {
+  border-color: var(--color-info);
+  color: var(--color-info-dark);
+}
+
+.bulkActionBtnReset:hover:not(:disabled) {
+  background: var(--color-info);
+  color: var(--color-text-inverse);
+}
+
+.bulkActionBtnCancel {
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.bulkActionBtnCancel:hover {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-primary);
+}
+
+.bulkActionIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bulkActionsContent {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bulkActionsButtons {
+    justify-content: stretch;
+  }
+
+  .bulkActionBtn {
+    flex: 1;
+    justify-content: center;
+  }
+}

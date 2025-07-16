@@ -1,0 +1,60 @@
+{
+  "name": "APIdeas v4",
+  "description": "API combination card game - unified Next.js application",
+  "repository": "https://github.com/your-username/apideas-v4",
+  "keywords": ["nextjs", "typescript", "api", "cards", "game"],
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    }
+  ],
+  "env": {
+    "NODE_ENV": {
+      "value": "production"
+    },
+    "NEXTAUTH_URL": {
+      "description": "Canonical URL of your site (e.g. https://your-app.herokuapp.com)"
+    },
+    "NEXTAUTH_SECRET": {
+      "description": "Random string used to hash tokens, sign cookies and generate cryptographic keys",
+      "generator": "secret"
+    },
+    "GITHUB_ID": {
+      "description": "GitHub OAuth App Client ID (optional)",
+      "required": false
+    },
+    "GITHUB_SECRET": {
+      "description": "GitHub OAuth App Client Secret (optional)",
+      "required": false
+    },
+    "GOOGLE_ID": {
+      "description": "Google OAuth Client ID (optional)",
+      "required": false
+    },
+    "GOOGLE_SECRET": {
+      "description": "Google OAuth Client Secret (optional)",
+      "required": false
+    },
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": {
+      "description": "Stripe publishable key for payments",
+      "value": "pk_test_51RZQ54P3qZlNzvVSVQfyhLihsvi2jarIH3xnaFB2bNjXvexUhs0Ji6Kvw08UADwlazoRaBDPZJNSMW2wFSnf43F200YJ6wHsmO"
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key for payments",
+      "required": false
+    },
+    "STRIPE_WEBHOOK_SECRET": {
+      "description": "Stripe webhook secret for payment processing",
+      "value": "whsec_ccounoYUtm4fBor6ImHR14ObbcF53LoK"
+    }
+  },
+  "scripts": {
+    "postdeploy": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed"
+  }
+}

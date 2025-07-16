@@ -1,0 +1,837 @@
+/* =================================================================
+ * Card Generator Component
+ * Two Column Layout: Left (Generation) | Right (API Selection)
+ * ================================================================= */
+
+/* =================================================================
+ * BASE LAYOUT
+ * ================================================================= */
+
+/* Base Container */
+.cardGenerator {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Page Header - Minimal Design */
+.generatorHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.generatorTitle {
+  font-size: 48px;
+  font-weight: 300;
+  color: #111;
+  margin: 0 0 8px 0;
+  letter-spacing: -1px;
+}
+
+.generatorSubtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Two Column Grid Layout */
+.generatorContent {
+  display: grid;
+  grid-template-columns: 432px 1fr;
+  gap: 32px;
+  align-items: start;
+  height: 100vh;
+  max-height: 800px;
+}
+
+/* =================================================================
+ * LEFT COLUMN - GENERATION & CARD DISPLAY
+ * ================================================================= */
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 48px;
+}
+
+/* Generation Panel */
+.generationPanel {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 408px;
+  flex-shrink: 0;
+}
+
+.panelTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 16px 0;
+}
+
+.panelSubtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Generate Button */
+.generateButton {
+  padding: 16px 32px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.generateButton:hover:not(.disabled) {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+.generateButton.disabled {
+  background: #e5e5e5;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinIcon,
+.generateIcon {
+  font-size: 16px;
+}
+
+/* Card Display Area */
+.cardDisplay {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cardDisplay :global(.card) {
+  width: 360px;
+  height: 520px;
+}
+
+/* Card Placeholder */
+.cardPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #999;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px dashed #e0e0e0;
+  width: 360px;
+  height: 520px;
+}
+
+.placeholderIcon {
+  font-size: 48px;
+  opacity: 0.5;
+}
+
+.placeholderText {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.placeholderSubtext {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Alerts */
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.alertError {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.alertText {
+  font-weight: 500;
+}
+
+.alertButton {
+  padding: 6px 12px;
+  background: #92400e;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.alertButton:hover {
+  background: #78350f;
+}
+
+/* Spin Animation Indicator - Only show on mobile/vertical layouts */
+.spinIndicator {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  display: none; /* Hidden by default on desktop */
+  justify-content: center;
+  align-items: center;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.spinIndicatorContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1e40af;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.spinIndicatorIcon {
+  font-size: 16px;
+  animation: spin 2s linear infinite;
+}
+
+.spinIndicatorText {
+  color: #1e40af;
+}
+
+.spinIndicatorArrow {
+  font-size: 18px;
+  animation: bounce 1s ease-in-out infinite;
+  color: #3b82f6;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+  50% {
+    background: #dbeafe;
+    border-color: #93c5fd;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+/* =================================================================
+ * RIGHT COLUMN - API SELECTION
+ * ================================================================= */
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+}
+
+.apiSectionTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 16px 0;
+}
+
+/* Preference Summary Bar */
+.preferenceSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.preferenceCounts {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.lockedSummary {
+  color: #3b82f6;
+}
+
+.ignoredSummary {
+  color: #ef4444;
+}
+
+.noPreferences {
+  color: #666;
+  font-style: italic;
+}
+
+.resetAllButton {
+  padding: 2px 4px;
+  background: #f5f5f5;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetAllButton:hover {
+  background: #e5e5e5;
+  color: #111;
+  border-color: #ccc;
+}
+
+/* API Grid Container */
+.apiGridContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* API Grid */
+.apiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  align-content: start;
+}
+
+/* =================================================================
+ * API TILES
+ * ================================================================= */
+
+.apiTile {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 12px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  cursor: default;
+  overflow: hidden;
+  transform: scale(1);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.apiTile:hover {
+  border-color: #ccc;
+  transform: scale(1.1);
+}
+
+.apiTileContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  width: 100%;
+}
+
+.apiTileEmoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.apiTileName {
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+  hyphens: auto;
+  overflow: hidden;
+  max-height: 2.4em;
+}
+
+/* API Tile States */
+.apiTile.highlighted {
+  border-color: #f59e0b;
+  background: #fef3c7;
+  transform: scale(1.05) !important;
+}
+
+.apiTile.selected {
+  border-color: #10b981;
+  background: #d1fae5;
+  transform: scale(1.05) !important;
+}
+
+.apiTile.dimmed {
+  opacity: 0.3;
+  transform: scale(0.95) !important;
+}
+
+.apiTile.locked {
+  border-color: #3b82f6;
+  background: #dbeafe;
+}
+
+.apiTile.ignored {
+  border-color: #e5e7eb;
+  background: #f9fafb;
+  opacity: 0.5;
+}
+
+.apiTile.ignored .apiTileEmoji,
+.apiTile.ignored .apiTileName {
+  opacity: 0.6;
+}
+
+/* Reset transform for non-animated states */
+.apiTile:not(.highlighted):not(.selected):not(.dimmed):not(:hover) {
+  transform: scale(1);
+}
+
+/* Preference Buttons */
+.preferenceButton {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.apiTile:hover .preferenceButton {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.preferenceButton:hover {
+  transform: scale(1.1);
+}
+
+.preferenceButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.ignoreButton {
+  top: 4px;
+  left: 4px;
+}
+
+.lockButton {
+  top: 4px;
+  right: 4px;
+}
+
+.preferenceButton.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.apiTile.locked .lockButton {
+  background: #3b82f6;
+  color: white;
+}
+
+.apiTile.ignored .ignoreButton {
+  background: #ef4444;
+  color: white;
+}
+
+/* Documentation Button */
+.docButton {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  height: 24px;
+  padding: 4px 8px;
+  background: rgba(248, 249, 250, 0.9);
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 500;
+  color: #495057;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.apiTile:hover .docButton {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.docButton:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+  color: #212529;
+  transform: scale(1.05);
+}
+
+.docButton:active {
+  transform: scale(0.95);
+}
+
+.docIcon {
+  font-size: 8px;
+}
+
+/* =================================================================
+ * UNUSED/LEGACY STYLES
+ * ================================================================= */
+
+/* Card Result Panel - Not used in current implementation */
+.cardResultPanel {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  min-height: 530px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardResultTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+/* Unlimited Coins Toggle - Currently disabled */
+.toggleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  user-select: none;
+}
+
+.toggleInput {
+  display: none;
+}
+
+.toggleSlider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.toggleSlider::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.toggleInput:checked + .toggleSlider {
+  background: #3b82f6;
+}
+
+.toggleInput:checked + .toggleSlider::before {
+  transform: translateX(20px);
+}
+
+.toggleText {
+  font-weight: 500;
+  color: #111;
+}
+
+/* =================================================================
+ * TABBED LAYOUT (VERTICAL ORIENTATION)
+ * ================================================================= */
+
+.tabbedContainer {
+  display: none;
+}
+
+.tabButtons {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 24px;
+  background: white;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 16px 24px;
+  background: #f8f9fa;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tabButton:hover {
+  background: #f1f3f4;
+  color: #333;
+}
+
+.tabButton.active {
+  background: white;
+  color: #111;
+  border-bottom-color: #3b82f6;
+}
+
+.tabButton.hasNotification {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.tabButton.hasNotification::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.tabContent {
+  min-height: 600px;
+}
+
+.tabPanel {
+  display: none;
+}
+
+.tabPanel.active {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =================================================================
+ * RESPONSIVE DESIGN
+ * ================================================================= */
+
+@media (max-width: 1024px) {
+  .generatorContent {
+    grid-template-columns: 408px 1fr;
+    gap: 24px;
+    height: 90vh;
+    max-height: 700px;
+  }
+
+  .leftColumn {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardGenerator {
+    padding: 32px 16px;
+  }
+
+  .generatorTitle {
+    font-size: 36px;
+  }
+
+  /* Hide default two-column layout */
+  .generatorContent {
+    display: none;
+  }
+
+  /* Show tabbed layout instead */
+  .tabbedContainer {
+    display: block;
+  }
+
+  .generateButton {
+    padding: 14px 24px;
+  }
+
+  .preferenceSummary {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .generationPanel {
+    padding: 24px;
+    width: 408px;
+    align-self: center;
+  }
+
+  .cardPlaceholder {
+    width: 360px;
+    height: 520px;
+  }
+
+  /* Hide spin indicator on mobile - tabs handle the flow */
+  .spinIndicator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .generatorTitle {
+    font-size: 28px;
+  }
+
+  .apiGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .apiTile {
+    padding: 10px;
+  }
+
+  .apiTileEmoji {
+    font-size: 20px;
+  }
+
+  .apiTileName {
+    font-size: 9px;
+  }
+
+  .generationPanel {
+    padding: 24px;
+    width: 408px;
+  }
+}

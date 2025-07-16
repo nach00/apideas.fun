@@ -1,0 +1,209 @@
+/* =================================================================
+ * CardResult Component - CSS Module
+ * Card generation result display with celebration effects
+ * ================================================================= */
+
+/* === Main Container === */
+.resultSection {
+  margin: var(--space-8) var(--space-gutter);
+  text-align: center;
+}
+
+.resultContainer {
+  max-width: var(--container-lg);
+  margin: 0 auto;
+}
+
+/* === Announcement Section === */
+.resultAnnouncement {
+  margin-bottom: var(--space-8);
+}
+
+.celebrationIcon {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-4);
+  animation: celebrate 0.6s ease-out;
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(0.5) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.resultTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.resultSubtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
+/* === Showcase Section === */
+.resultShowcase {
+  position: relative;
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resultGlow {
+  position: absolute;
+  inset: -20px;
+  border-radius: var(--radius-3xl);
+  opacity: 0.3;
+  filter: blur(20px);
+  animation: resultGlow 2s ease-in-out infinite alternate;
+}
+
+/* Rarity-specific glow effects */
+.rarityCommon {
+  background: var(--rarity-common);
+}
+
+.rarityUncommon {
+  background: var(--rarity-uncommon);
+}
+
+.rarityRare {
+  background: var(--rarity-rare);
+}
+
+.rarityEpic {
+  background: var(--rarity-epic);
+}
+
+.rarityLegendary {
+  background: var(--rarity-legendary);
+}
+
+@keyframes resultGlow {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+}
+
+.resultCard {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  animation: cardReveal 0.8s ease-out;
+}
+
+@keyframes cardReveal {
+  0% {
+    transform: scale(0.8) rotateY(-90deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* === Actions Section === */
+.resultActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.actionPrimary,
+.actionSecondary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.actionPrimary {
+  background: var(--color-primary);
+  color: white;
+  border: 1px solid var(--color-primary);
+}
+
+.actionPrimary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.actionSecondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.actionSecondary:hover {
+  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+}
+
+.actionIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .resultSection {
+    margin: var(--space-6) var(--space-4);
+  }
+
+  .resultActions {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .actionPrimary,
+  .actionSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .celebrationIcon {
+    font-size: var(--text-3xl);
+  }
+
+  .resultTitle {
+    font-size: var(--text-xl);
+  }
+
+  .resultSubtitle {
+    font-size: var(--text-base);
+  }
+}

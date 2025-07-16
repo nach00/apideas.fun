@@ -1,0 +1,805 @@
+/* =================================================================
+ * Card Detail Page - CSS Module
+ * Individual card view with tabs and detailed information
+ * ================================================================= */
+
+/* === BASE CONTAINER === */
+.detailPage {
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.detailContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* === LOADING & ERROR STATES === */
+.detailPage.loading,
+.detailPage.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px);
+}
+
+.loadingContainer,
+.errorContainer {
+  text-align: center;
+  padding: 48px;
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorIcon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.errorContainer h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.errorContainer p {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0 0 32px 0;
+}
+
+.errorActions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* === HEADER === */
+.detailHeader {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.headerNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.breadcrumb a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: #2563eb;
+}
+
+.breadcrumb span {
+  color: #9ca3af;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 32px;
+}
+
+.titleSection {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.cardSubtitle {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.industryBadge,
+.rarityBadge,
+.ratingBadge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.industryBadge {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.rarityBadge {
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.ratingBadge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* === MAIN CONTENT === */
+.detailContent {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.contentLayout {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* === CARD PREVIEW === */
+.cardPreviewSection {
+  position: sticky;
+  top: 88px;
+}
+
+.previewContainer {
+  display: flex;
+  justify-content: center;
+}
+
+/* === DETAILED INFO SECTION === */
+.detailInfoSection {
+  /* Container for tab navigation and content */
+}
+
+/* === TAB NAVIGATION === */
+.tabNavigation {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 32px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: -2px;
+}
+
+.tabButton:hover {
+  color: #374151;
+  background: #f9fafb;
+}
+
+.tabButton.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+  background: transparent;
+}
+
+.tabIcon {
+  font-size: 16px;
+}
+
+.tabLabel {
+  font-weight: 500;
+}
+
+/* === TAB CONTENT === */
+.tabContentContainer {
+  min-height: 400px;
+}
+
+.tabContent {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === OVERVIEW TAB === */
+.overviewGrid {
+  display: grid;
+  gap: 32px;
+}
+
+.overviewSection {
+  padding: 24px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+.sectionIcon {
+  font-size: 20px;
+}
+
+.sectionContent {
+  font-size: 15px;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.apiIntegration {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.apiCard {
+  padding: 16px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.apiName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.apiRole {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* === IMPLEMENTATION TAB === */
+.implementationGuide {
+  display: grid;
+  gap: 32px;
+}
+
+.guideSection {
+  padding: 24px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.stepList {
+  display: grid;
+  gap: 16px;
+}
+
+.stepItem {
+  display: flex;
+  gap: 16px;
+  align-items: start;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.stepContent h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.stepContent p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.codeBlock {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.codeBlock pre {
+  margin: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.requirementsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.requirementItem {
+  text-align: center;
+  padding: 16px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.reqLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.reqValue {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* === MARKET TAB === */
+.marketAnalysis {
+  display: grid;
+  gap: 32px;
+}
+
+.analysisSection {
+  padding: 24px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.marketStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.marketStat {
+  text-align: center;
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.industryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.industryTag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.revenueModels {
+  display: grid;
+  gap: 16px;
+}
+
+.revenueModel {
+  padding: 16px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.revenueModel h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.revenueModel p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* === TECHNICAL TAB === */
+.technicalSpecs {
+  padding: 24px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.specsGrid {
+  display: grid;
+  gap: 32px;
+}
+
+.specSection {
+  padding: 24px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.metricsList {
+  display: grid;
+  gap: 12px;
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.metricRow:last-child {
+  border-bottom: none;
+}
+
+.metricName {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.metricValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.securityList {
+  display: grid;
+  gap: 8px;
+}
+
+.securityItem {
+  font-size: 14px;
+  color: #059669;
+  padding: 4px 0;
+}
+
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techItem {
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* === FOOTER === */
+.detailFooter {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generationInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.infoLabel {
+  color: #6b7280;
+}
+
+.infoValue {
+  color: #111827;
+  font-weight: 500;
+}
+
+.footerActions {
+  display: flex;
+  gap: 16px;
+}
+
+/* === BUTTONS === */
+.btnPrimary,
+.btnSecondary,
+.btnOutline {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+}
+
+.btnPrimary {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.btnPrimary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.btnSecondary {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #e5e7eb;
+}
+
+.btnSecondary:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btnOutline {
+  background: transparent;
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.btnOutline:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1024px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .cardPreviewSection {
+    position: relative;
+    top: 0;
+  }
+
+  .previewContainer {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .detailContainer {
+    padding: 16px;
+  }
+
+  .detailHeader,
+  .detailContent {
+    padding: 24px;
+  }
+
+  .headerContent {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .cardTitle {
+    font-size: 24px;
+  }
+
+  .cardSubtitle {
+    font-size: 16px;
+  }
+
+  .tabNavigation {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tabButton {
+    white-space: nowrap;
+    padding: 10px 16px;
+  }
+
+  .marketStats,
+  .requirementsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .footerActions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailContainer {
+    padding: 12px;
+  }
+
+  .detailHeader,
+  .detailContent {
+    padding: 16px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+  }
+
+  .cardSubtitle {
+    font-size: 14px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
+  .tabIcon {
+    display: none;
+  }
+
+  .apiIntegration {
+    grid-template-columns: 1fr;
+  }
+
+  .techStack {
+    gap: 4px;
+  }
+
+  .techItem {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+  }
+
+  .tabContent {
+    animation: none;
+  }
+
+  .backButton,
+  .tabButton,
+  .btnPrimary,
+  .btnSecondary,
+  .btnOutline {
+    transition: none;
+  }
+}

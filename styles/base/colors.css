@@ -1,0 +1,336 @@
+/* === REFINED COLOR SYSTEM - DESIGN.MD PRINCIPLES ===
+ * Modern Simplicity: Purposeful color palette with clear hierarchy
+ * Classy & Refined: Sophisticated tones that convey elegance
+ * Timeless Appeal: Colors that endure beyond trends
+ * Human-Centered: Colors that feel natural and comfortable
+ */
+
+:root {
+  /* === NEUTRAL FOUNDATION === */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  
+  /* Sophisticated Neutral Scale */
+  --neutral-50: #FAFBFC;
+  --neutral-100: #F7F9FB;
+  --neutral-200: #E8ECF1;
+  --neutral-300: #D6DCE6;
+  --neutral-400: #A1ADB8;
+  --neutral-500: #8492A6;
+  --neutral-600: #5E6C84;
+  --neutral-700: #42526E;
+  --neutral-800: #253858;
+  --neutral-900: #0F1A2B;
+  
+  /* === SOPHISTICATED BRAND PALETTE === */
+  /* Intentional Craft: Each shade serves a specific purpose */
+  --blue-50: #F0F7FF;
+  --blue-100: #E6F2FF;
+  --blue-200: #B8DDFF;
+  --blue-300: #85C5FF;
+  --blue-400: #529CFF;
+  --blue-500: #2563EB;
+  --blue-600: #1D4ED8;
+  --blue-700: #1E40AF;
+  --blue-800: #1E3A8A;
+  --blue-900: #172554;
+  
+  /* Refined Success Palette */
+  --green-50: #F0FDF9;
+  --green-100: #ECFDF5;
+  --green-200: #D1FAE5;
+  --green-300: #A7F3D0;
+  --green-400: #6EE7B7;
+  --green-500: #059669;
+  --green-600: #047857;
+  --green-700: #065F46;
+  --green-800: #064E3B;
+  --green-900: #022C22;
+  
+  /* Sophisticated Warning Palette */
+  --amber-50: #FFFBEB;
+  --amber-100: #FEF3C7;
+  --amber-200: #FDE68A;
+  --amber-300: #FCD34D;
+  --amber-400: #FBBF24;
+  --amber-500: #D97706;
+  --amber-600: #B45309;
+  --amber-700: #92400E;
+  --amber-800: #78350F;
+  --amber-900: #451A03;
+  
+  /* Elegant Error Palette */
+  --red-50: #FEF3F2;
+  --red-100: #FEE2E2;
+  --red-200: #FECACA;
+  --red-300: #FCA5A5;
+  --red-400: #F87171;
+  --red-500: #DC2626;
+  --red-600: #B91C1C;
+  --red-700: #991B1B;
+  --red-800: #7F1D1D;
+  --red-900: #450A0A;
+  
+  /* Premium Accent Palette */
+  --purple-50: #FAF8FF;
+  --purple-100: #F3F0FF;
+  --purple-200: #E9D5FF;
+  --purple-300: #D8B4FE;
+  --purple-400: #C084FC;
+  --purple-500: #7C3AED;
+  --purple-600: #6B21A8;
+  --purple-700: #581C87;
+  --purple-800: #4C1D95;
+  --purple-900: #3B0764;
+  
+  /* === SURFACE HIERARCHY === */
+  /* Progressive Disclosure: Layers that create visual depth */
+  --color-background: #FDFDFE;
+  --color-surface: var(--color-white);
+  --color-surface-raised: var(--color-white);
+  --color-surface-hover: var(--neutral-50);
+  --color-surface-active: var(--neutral-100);
+  --color-surface-subtle: var(--neutral-50);
+  --color-surface-overlay: rgba(15, 26, 43, 0.8);
+  --color-surface-disabled: var(--neutral-100);
+  
+  /* === TYPOGRAPHY COLORS === */
+  /* Clarity First: Text colors that ensure readability */
+  --color-text-primary: var(--neutral-900);
+  --color-text-secondary: var(--neutral-700);
+  --color-text-tertiary: var(--neutral-500);
+  --color-text-quaternary: var(--neutral-400);
+  --color-text-inverse: var(--color-white);
+  --color-text-disabled: var(--neutral-400);
+  --color-text-accent: var(--blue-500);
+  --color-text-link: var(--blue-600);
+  
+  /* === BORDER SYSTEM === */
+  /* Balanced Aesthetics: Borders that define without overwhelming */
+  --color-border: var(--neutral-200);
+  --color-border-strong: var(--neutral-300);
+  --color-border-subtle: var(--neutral-100);
+  --color-border-hover: var(--neutral-300);
+  --color-border-focus: var(--blue-500);
+  --color-border-error: var(--red-500);
+  --color-border-success: var(--green-500);
+  
+  /* === PRIMARY BRAND COLORS === */
+  /* Intentional Detail: Brand expression through color */
+  --color-primary: var(--blue-500);
+  --color-primary-hover: var(--blue-600);
+  --color-primary-active: var(--blue-700);
+  --color-primary-light: var(--blue-100);
+  --color-primary-dark: var(--blue-800);
+  --color-primary-subtle: rgba(37, 99, 235, 0.06);
+  --color-primary-surface: rgba(37, 99, 235, 0.04);
+  --color-primary-border: rgba(37, 99, 235, 0.12);
+  
+  /* === SEMANTIC STATES === */
+  /* Clear Communication: Visual language that guides understanding */
+  --color-success: var(--green-500);
+  --color-success-hover: var(--green-600);
+  --color-success-active: var(--green-700);
+  --color-success-light: var(--green-100);
+  --color-success-dark: var(--green-800);
+  --color-success-subtle: rgba(5, 150, 105, 0.06);
+  --color-success-surface: rgba(5, 150, 105, 0.04);
+  --color-success-border: rgba(5, 150, 105, 0.12);
+  
+  --color-warning: var(--amber-500);
+  --color-warning-hover: var(--amber-600);
+  --color-warning-active: var(--amber-700);
+  --color-warning-light: var(--amber-100);
+  --color-warning-dark: var(--amber-800);
+  --color-warning-subtle: rgba(217, 119, 6, 0.06);
+  --color-warning-surface: rgba(217, 119, 6, 0.04);
+  --color-warning-border: rgba(217, 119, 6, 0.12);
+  
+  --color-error: var(--red-500);
+  --color-error-hover: var(--red-600);
+  --color-error-active: var(--red-700);
+  --color-error-light: var(--red-100);
+  --color-error-dark: var(--red-800);
+  --color-error-subtle: rgba(220, 38, 38, 0.06);
+  --color-error-surface: rgba(220, 38, 38, 0.04);
+  --color-error-border: rgba(220, 38, 38, 0.12);
+  
+  --color-info: var(--blue-600);
+  --color-info-hover: var(--blue-700);
+  --color-info-light: var(--blue-100);
+  --color-info-subtle: rgba(37, 99, 235, 0.06);
+  
+  /* === INTERACTION STATES === */
+  /* Emotional Connection: Feedback that feels responsive */
+  --color-focus: var(--blue-500);
+  --color-focus-ring: rgba(37, 99, 235, 0.15);
+  --color-hover-overlay: rgba(0, 0, 0, 0.02);
+  --color-active-overlay: rgba(0, 0, 0, 0.04);
+  --color-disabled-overlay: rgba(255, 255, 255, 0.7);
+  
+  /* === SOPHISTICATED RARITY SYSTEM === */
+  /* Intentional Detail: Each rarity tells a visual story */
+  --rarity-common: var(--neutral-500);
+  --rarity-common-light: var(--neutral-400);
+  --rarity-common-subtle: rgba(132, 146, 166, 0.08);
+  --rarity-common-glow: rgba(132, 146, 166, 0.25);
+  
+  --rarity-uncommon: var(--green-500);
+  --rarity-uncommon-light: var(--green-400);
+  --rarity-uncommon-subtle: rgba(5, 150, 105, 0.08);
+  --rarity-uncommon-glow: rgba(5, 150, 105, 0.3);
+  
+  --rarity-rare: var(--blue-500);
+  --rarity-rare-light: var(--blue-400);
+  --rarity-rare-subtle: rgba(37, 99, 235, 0.08);
+  --rarity-rare-glow: rgba(37, 99, 235, 0.35);
+  
+  --rarity-epic: var(--purple-500);
+  --rarity-epic-light: var(--purple-400);
+  --rarity-epic-subtle: rgba(124, 58, 237, 0.08);
+  --rarity-epic-glow: rgba(124, 58, 237, 0.4);
+  
+  --rarity-legendary: var(--amber-500);
+  --rarity-legendary-light: var(--amber-400);
+  --rarity-legendary-subtle: rgba(217, 119, 6, 0.08);
+  --rarity-legendary-glow: rgba(217, 119, 6, 0.45);
+  
+  /* === REFINED SHADOW SYSTEM === */
+  /* Emotional Resonance: Depth that feels natural and purposeful */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 26, 43, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 26, 43, 0.08), 0 1px 2px 0 rgba(15, 26, 43, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 26, 43, 0.08), 0 2px 4px -1px rgba(15, 26, 43, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 26, 43, 0.08), 0 4px 6px -2px rgba(15, 26, 43, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 26, 43, 0.08), 0 10px 10px -5px rgba(15, 26, 43, 0.03);
+  --shadow-2xl: 0 25px 50px -12px rgba(15, 26, 43, 0.15);
+  --shadow-inner: inset 0 2px 4px 0 rgba(15, 26, 43, 0.04);
+  --shadow-focus: 0 0 0 4px var(--color-focus-ring);
+  
+  /* === UTILITY VALUES === */
+  /* System-Oriented: Supporting values for the design system */
+  --color-accent-subtle: var(--color-primary-subtle);
+  --color-primary-rgb: 37, 99, 235;
+  --color-backdrop: rgba(15, 26, 43, 0.6);
+  --color-overlay-light: rgba(255, 255, 255, 0.95);
+  --color-overlay-dark: rgba(0, 0, 0, 0.1);
+  
+  /* === LANDING PAGE SPECIFIC VARIABLES === */
+  /* Modern minimalistic landing page design system */
+  --landing-color-primary: #000;
+  --landing-color-secondary: #666;
+  --landing-color-muted: #999;
+  --landing-color-light: #f8f9fa;
+  --landing-color-white: #fff;
+  --landing-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --landing-shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --landing-shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --landing-shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --landing-border-radius: 12px;
+  --landing-animation-fast: 0.2s ease;
+  --landing-animation-medium: 0.3s ease;
+  --landing-animation-slow: 0.6s ease;
+}
+
+  /* === ELEGANT DARK THEME === */
+  /* Timeless Appeal: Dark mode that maintains sophistication */
+  [data-theme="dark"] {
+    /* Sophisticated dark surfaces */
+    --color-background: #0A0F1C;
+    --color-surface: #111827;
+    --color-surface-raised: #1F2937;
+    --color-surface-hover: #1F2937;
+    --color-surface-active: #374151;
+    --color-surface-subtle: #0F172A;
+    
+    /* Refined dark text hierarchy */
+    --color-text-primary: #F8FAFC;
+    --color-text-secondary: #CBD5E1;
+    --color-text-tertiary: #94A3B8;
+    --color-text-quaternary: #64748B;
+    
+    /* Elegant dark borders */
+    --color-border: #374151;
+    --color-border-strong: #4B5563;
+    --color-border-subtle: #1F2937;
+    
+    /* Enhanced dark interaction states */
+    --color-hover-overlay: rgba(255, 255, 255, 0.03);
+    --color-active-overlay: rgba(255, 255, 255, 0.06);
+    --color-focus-ring: rgba(37, 99, 235, 0.25);
+    
+    /* Dark mode rarity adjustments */
+    --rarity-common-glow: rgba(132, 146, 166, 0.4);
+    --rarity-uncommon-glow: rgba(5, 150, 105, 0.45);
+    --rarity-rare-glow: rgba(37, 99, 235, 0.5);
+    --rarity-epic-glow: rgba(124, 58, 237, 0.55);
+    --rarity-legendary-glow: rgba(217, 119, 6, 0.6);
+  }
+  
+  /* === UNIVERSAL ACCESSIBILITY === */
+  /* Accessible by Default: Enhanced contrast for all users */
+  @media (prefers-contrast: high) {
+    :root {
+      --color-border: var(--neutral-400);
+      --color-border-strong: var(--neutral-600);
+      --color-text-secondary: var(--neutral-800);
+      --color-text-tertiary: var(--neutral-700);
+      
+      /* Enhanced focus indicators */
+      --color-focus-ring: rgba(37, 99, 235, 0.4);
+      --color-border-focus: var(--color-primary);
+    }
+    
+    [data-theme="dark"] {
+      --color-border: var(--neutral-500);
+      --color-border-strong: var(--neutral-400);
+      --color-text-secondary: var(--neutral-200);
+      --color-text-tertiary: var(--neutral-300);
+    }
+  }
+  
+  /* Reduce Motion: Respect user preferences */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --transition-duration: 0.01ms;
+      --animation-duration: 0.01ms;
+    }
+  }
+
+/* === REFINED COLOR UTILITIES === */
+/* Human-Centered: Utility classes for rapid development */
+.bg-primary { background-color: var(--color-primary); }
+.bg-primary-subtle { background-color: var(--color-primary-subtle); }
+.bg-success { background-color: var(--color-success); }
+.bg-success-subtle { background-color: var(--color-success-subtle); }
+.bg-warning { background-color: var(--color-warning); }
+.bg-warning-subtle { background-color: var(--color-warning-subtle); }
+.bg-error { background-color: var(--color-error); }
+.bg-error-subtle { background-color: var(--color-error-subtle); }
+.bg-surface { background-color: var(--color-surface); }
+.bg-surface-hover { background-color: var(--color-surface-hover); }
+.bg-surface-active { background-color: var(--color-surface-active); }
+
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+.text-accent { color: var(--color-text-accent); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-error { color: var(--color-error); }
+
+.border-primary { border-color: var(--color-primary); }
+.border-success { border-color: var(--color-success); }
+.border-warning { border-color: var(--color-warning); }
+.border-error { border-color: var(--color-error); }
+.border-subtle { border-color: var(--color-border-subtle); }
+.border-strong { border-color: var(--color-border-strong); }
+
+/* Focus utilities for accessibility */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.focus-ring-inset:focus-visible {
+  box-shadow: var(--shadow-focus);
+}

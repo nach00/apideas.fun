@@ -1,0 +1,3366 @@
+/* =================================================================
+ * Layout Test Page - Multiple Landing Page Variations
+ * ================================================================= */
+
+.testPage {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* === CONTROLS SECTION === */
+.controls {
+  position: sticky;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 20px;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.controlSection {
+  margin-bottom: 20px;
+}
+
+.controlSection h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.layoutButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.layoutButton {
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layoutButton:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.layoutButton.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.contentControls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.controlGroup label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.controlGroup select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+}
+
+/* === PREVIEW SECTION === */
+.preview {
+  padding: 40px 20px;
+}
+
+.previewHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.previewHeader h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.previewHeader p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.layoutContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  min-height: 600px;
+}
+
+/* === SHARED COMPONENTS === */
+.content {
+  padding: 40px;
+}
+
+.headline {
+  font-size: 48px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.subheadline {
+  font-size: 20px;
+  color: #475569;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+.cta {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+  transition: all 0.3s ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
+}
+
+.demoSection {
+  padding: 32px;
+  background: #f8fafc;
+}
+
+.demoTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.apiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.apiTile {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.apiTile:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.apiEmoji {
+  font-size: 24px;
+}
+
+.apiName {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.cardContainer :global(.card) {
+  transform: scale(0.8);
+  transform-origin: center top;
+}
+
+/* === LAYOUT 1: HORIZONTAL SPLIT === */
+.horizontalLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.leftColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rightColumn {
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+}
+
+/* === LAYOUT 2: VERTICAL STACK === */
+.verticalLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.demoGrid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  align-items: start;
+}
+
+.apiGridSection {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.cardSection {
+  display: flex;
+  justify-content: center;
+}
+
+/* === LAYOUT 3: CENTERED === */
+.centeredLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.centeredContent {
+  max-width: 800px;
+}
+
+.centeredDemo {
+  margin-top: 48px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.demoRow {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  align-items: center;
+}
+
+/* === LAYOUT 4: ASYMMETRIC === */
+.asymmetricLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  min-height: 600px;
+}
+
+.mainContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sideDemo {
+  background: #f8fafc;
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compactDemo {
+  width: 100%;
+}
+
+.compactTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.miniCard {
+  margin-top: 16px;
+}
+
+.miniCard :global(.card) {
+  transform: scale(0.6);
+  transform-origin: center top;
+}
+
+/* === LAYOUT 5: CARD FOCUS === */
+.cardFocusLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.topContent {
+  text-align: center;
+  padding: 60px 40px 40px;
+}
+
+.focusDemo {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  padding: 40px;
+  background: #f8fafc;
+  align-items: center;
+}
+
+.featuredCard {
+  display: flex;
+  justify-content: center;
+}
+
+.featuredCard :global(.card) {
+  transform: scale(1);
+}
+
+.compactGrid {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.compactGrid .apiGrid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.compactGrid .apiTile {
+  padding: 12px 8px;
+}
+
+.compactGrid .apiEmoji {
+  font-size: 20px;
+}
+
+.compactGrid .apiName {
+  font-size: 10px;
+}
+
+/* === LAYOUT 6: MINIMAL === */
+.minimalLayout {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.minimalContent {
+  max-width: 600px;
+  margin: 0 auto 80px;
+}
+
+.minimalDemo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+.subtleGrid {
+  max-width: 600px;
+}
+
+.subtleGrid .apiGrid {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.subtleGrid .apiTile {
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  padding: 20px 12px;
+}
+
+.subtleGrid .apiTile:hover {
+  background: white;
+  border-color: #e2e8f0;
+}
+
+.elegantCard {
+  display: flex;
+  justify-content: center;
+}
+
+.elegantCard :global(.card) {
+  transform: scale(0.9);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* === NEW LAYOUT 7: FLOATING CARD === */
+.floatingCardLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.floatingContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.floatingDemo {
+  position: relative;
+  padding: 40px;
+  background: #f8fafc;
+}
+
+.backgroundGrid {
+  opacity: 0.6;
+  filter: blur(0.5px);
+}
+
+.overlayCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+.overlayCard :global(.card) {
+  transform: scale(0.9);
+}
+
+/* === NEW LAYOUT 8: PERSPECTIVE OVERLAP === */
+.perspectiveLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.perspectiveContent {
+  display: flex;
+  align-items: center;
+  padding: 40px;
+}
+
+.perspectiveDemo {
+  position: relative;
+  background: #f8fafc;
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.perspectiveGrid {
+  transform: rotateY(-15deg) rotateX(5deg);
+  transform-origin: center center;
+  padding: 40px;
+  opacity: 0.8;
+}
+
+.emergingCard {
+  position: absolute;
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%) rotateY(-10deg);
+  z-index: 20;
+  animation: emerge 2s ease-out infinite alternate;
+}
+
+@keyframes emerge {
+  from { transform: translateY(-50%) rotateY(-10deg) translateZ(0px); }
+  to { transform: translateY(-50%) rotateY(-5deg) translateZ(50px); }
+}
+
+/* === NEW LAYOUT 9: CORNER OVERLAY === */
+.cornerLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  min-height: 600px;
+}
+
+.cornerContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cornerDemo {
+  position: relative;
+  background: #f8fafc;
+  padding: 40px;
+}
+
+.cornerGrid {
+  opacity: 0.7;
+}
+
+.cornerCard {
+  position: absolute;
+  top: 20px;
+  right: -150px;
+  z-index: 15;
+  transform: rotate(5deg);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.cornerCard :global(.card) {
+  transform: scale(0.8);
+}
+
+/* === NEW LAYOUT 10: CENTER BREAKTHROUGH === */
+.breakthroughLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.breakthroughContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.breakthroughDemo {
+  position: relative;
+  padding: 60px 40px;
+  background: #f8fafc;
+}
+
+.breakthroughGrid {
+  filter: blur(1px);
+  opacity: 0.5;
+}
+
+.breakthroughCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 25;
+  animation: breakthrough 3s ease-in-out infinite;
+}
+
+@keyframes breakthrough {
+  0%, 100% { transform: translate(-50%, -50%) scale(1.1) rotateZ(0deg); }
+  50% { transform: translate(-50%, -50%) scale(1.15) rotateZ(2deg); }
+}
+
+/* === NEW LAYOUT 11: DIAGONAL SPLIT === */
+.diagonalLayout {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.diagonalContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  clip-path: polygon(0 0, 70% 0, 50% 100%, 0 100%);
+  z-index: 5;
+}
+
+.diagonalDemo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  background: #f8fafc;
+  padding: 40px;
+}
+
+.diagonalGrid {
+  margin-top: 40px;
+  opacity: 0.8;
+}
+
+.diagonalCard {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  z-index: 10;
+}
+
+/* === NEW LAYOUT 12: LAYERED STACK === */
+.layeredLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.layeredContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.layeredDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.layeredGrid {
+  transform: translateY(20px);
+  opacity: 0.6;
+}
+
+.layeredCard {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  filter: drop-shadow(0 30px 30px rgba(0, 0, 0, 0.2));
+}
+
+.layeredCard::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 12px;
+  z-index: -1;
+}
+
+/* === NEW LAYOUT 13: MASONRY OVERLAP === */
+.masonryLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.masonryContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.masonryDemo {
+  position: relative;
+  background: #f8fafc;
+  padding: 40px;
+}
+
+.masonryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  opacity: 0.7;
+}
+
+.masonryTile {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.tile0 { grid-row: span 1; }
+.tile1 { grid-row: span 2; }
+.tile2 { grid-row: span 1; }
+
+.masonryCard {
+  position: absolute;
+  top: 40%;
+  right: -80px;
+  z-index: 15;
+  transform: rotate(-3deg);
+}
+
+.masonryCard :global(.card) {
+  transform: scale(0.75);
+}
+
+/* === NEW LAYOUT 14: SPIRAL EMERGENCE === */
+.spiralLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.spiralContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.spiralDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: radial-gradient(circle, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.spiralGrid {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.spiralTile {
+  position: absolute;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 60px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.spiralTile:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Spiral positioning */
+.spiral0 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg); }
+.spiral1 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(30deg) translateX(100px) rotate(-30deg); }
+.spiral2 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(60deg) translateX(140px) rotate(-60deg); }
+.spiral3 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(90deg) translateX(110px) rotate(-90deg); }
+.spiral4 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(120deg) translateX(160px) rotate(-120deg); }
+.spiral5 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(150deg) translateX(130px) rotate(-150deg); }
+.spiral6 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(180deg) translateX(170px) rotate(-180deg); }
+.spiral7 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(210deg) translateX(140px) rotate(-210deg); }
+.spiral8 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(240deg) translateX(180px) rotate(-240deg); }
+.spiral9 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(270deg) translateX(150px) rotate(-270deg); }
+.spiral10 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(300deg) translateX(190px) rotate(-300deg); }
+.spiral11 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(330deg) translateX(160px) rotate(-330deg); }
+
+.spiralCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  animation: spiralFloat 4s ease-in-out infinite;
+}
+
+@keyframes spiralFloat {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
+  50% { transform: translate(-50%, -50%) scale(0.95) rotate(2deg); }
+}
+
+/* === NEW LAYOUT 15: SIDE BREAKTHROUGH === */
+.sideBreakthroughLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.sideContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sideDemo {
+  position: relative;
+  background: #f8fafc;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.sideGrid {
+  opacity: 0.6;
+  transform: translateX(20px);
+}
+
+.sideCard {
+  position: absolute;
+  top: 50%;
+  left: -120px;
+  transform: translateY(-50%) rotate(-8deg);
+  z-index: 20;
+  animation: slideBreakthrough 3s ease-in-out infinite alternate;
+}
+
+@keyframes slideBreakthrough {
+  from { left: -120px; transform: translateY(-50%) rotate(-8deg); }
+  to { left: -80px; transform: translateY(-50%) rotate(-3deg); }
+}
+
+/* === NEW LAYOUT 16: HERO COMPOSITE === */
+.heroCompositeLayout {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.heroGrid {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  opacity: 0.3;
+  filter: blur(0.5px);
+}
+
+.heroForeground {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  padding: 60px 40px;
+  align-items: center;
+}
+
+.heroContent {
+  max-width: 600px;
+}
+
+.heroCard {
+  justify-self: center;
+  filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15));
+}
+
+/* === NEW LAYOUT 17: MAGAZINE LAYOUT === */
+.magazineLayout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 600px;
+}
+
+.magazineContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+}
+
+.magazineDemo {
+  position: relative;
+  background: #f8fafc;
+  padding: 40px;
+}
+
+.magazineGrid {
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+.magazineCard {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  z-index: 15;
+}
+
+.magazineCard :global(.card) {
+  transform: scale(0.85);
+}
+
+/* === NEW LAYOUT 18: PORTAL EFFECT === */
+.portalLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.portalContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.portalDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: radial-gradient(circle, #1e293b 0%, #334155 50%, #475569 100%);
+}
+
+.portalGrid {
+  opacity: 0.4;
+  filter: blur(1px);
+}
+
+.portalRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border: 3px solid #667eea;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: portalPulse 2s ease-in-out infinite;
+  box-shadow: 
+    0 0 20px #667eea,
+    inset 0 0 20px #667eea;
+}
+
+@keyframes portalPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
+
+.portalCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 25;
+  animation: portalEmerge 3s ease-in-out infinite;
+}
+
+@keyframes portalEmerge {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9) rotateY(0deg); }
+  50% { transform: translate(-50%, -50%) scale(1) rotateY(5deg); }
+}
+
+/* === NEW LAYOUT 19: CASCADING DEPTH === */
+.cascadingLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.cascadingContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cascadingDemo {
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 40px;
+}
+
+.cascadingGrid {
+  opacity: 0.4;
+  transform: translateY(30px);
+}
+
+.cascadingCards {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cardLayer1 {
+  position: relative;
+  z-index: 30;
+  transform: scale(0.9);
+}
+
+.cardLayer2 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 20;
+  opacity: 0.7;
+  transform: scale(0.85) rotate(3deg);
+}
+
+.cardLayer3 {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 10;
+  opacity: 0.4;
+  transform: scale(0.8) rotate(6deg);
+}
+
+/* === NEW LAYOUT 20: SPLIT SCREEN OVERLAP === */
+.splitScreenLayout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.splitLeft {
+  background: white;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.splitRight {
+  background: #f8fafc;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.bridgeCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  z-index: 40;
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+.bridgeCard :global(.card) {
+  transform: scale(0.9);
+}
+
+/* === NEW LAYOUT 21: GEOMETRIC INTERSECTION === */
+.geometricLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.geometricContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.geometricDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.geometricShapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.shape1 {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  opacity: 0.1;
+  transform: rotate(15deg);
+  border-radius: 20px;
+}
+
+.shape2 {
+  position: absolute;
+  top: 60%;
+  right: 30%;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  opacity: 0.1;
+  transform: rotate(-20deg);
+  border-radius: 50%;
+}
+
+.shape3 {
+  position: absolute;
+  bottom: 20%;
+  left: 40%;
+  width: 100px;
+  height: 300px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  opacity: 0.1;
+  transform: rotate(30deg);
+  border-radius: 10px;
+}
+
+.geometricGrid {
+  position: relative;
+  z-index: 5;
+  opacity: 0.6;
+}
+
+.geometricCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+/* === NEW LAYOUT 22: FLOATING ISLANDS === */
+.islandsLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.islandsContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.islandsDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 500px;
+}
+
+.island1 {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: float1 6s ease-in-out infinite;
+}
+
+.island2 {
+  position: absolute;
+  bottom: 20%;
+  right: 15%;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: float2 4s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+}
+
+.islandGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.islandTile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.islandCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  animation: islandFloat 5s ease-in-out infinite;
+}
+
+@keyframes islandFloat {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9) rotate(-1deg); }
+  33% { transform: translate(-50%, -50%) scale(0.95) rotate(1deg); }
+  66% { transform: translate(-50%, -50%) scale(0.92) rotate(-0.5deg); }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .horizontalLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  /* New Layouts Tablet Responsive */
+  .perspectiveLayout,
+  .cornerLayout,
+  .asymmetricLayout,
+  .masonryLayout,
+  .sideBreakthroughLayout,
+  .cascadingLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  .heroForeground {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .magazineLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  .splitScreenLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  .diagonalLayout .diagonalContent {
+    width: 100%;
+    clip-path: none;
+    position: relative;
+    height: auto;
+  }
+  
+  .diagonalDemo {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  
+  .cornerCard {
+    right: -50px;
+    transform: rotate(0deg);
+  }
+  
+  .emergingCard {
+    right: -50px;
+    transform: translateY(-50%) rotateY(0deg);
+    animation: none;
+  }
+  
+  .sideCard {
+    left: -60px;
+  }
+  
+  .masonryCard {
+    right: -40px;
+  }
+  
+  .bridgeCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+  }
+  
+  .rightColumn {
+    order: -1;
+  }
+  
+  .demoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .demoRow {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .asymmetricLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  .focusDemo {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .controls {
+    padding: 16px;
+  }
+  
+  .layoutButtons {
+    gap: 4px;
+  }
+  
+  .layoutButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .contentControls {
+    grid-template-columns: 1fr;
+  }
+  
+  .headline {
+    font-size: 36px;
+  }
+  
+  .subheadline {
+    font-size: 18px;
+  }
+  
+  .content {
+    padding: 32px 24px;
+  }
+  
+  .demoSection {
+    padding: 24px;
+  }
+  
+  .apiGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  .apiTile {
+    padding: 12px 8px;
+  }
+  
+  .apiEmoji {
+    font-size: 20px;
+  }
+  
+  .apiName {
+    font-size: 10px;
+  }
+  
+  .cardContainer :global(.card) {
+    transform: scale(0.7);
+  }
+  
+  /* === MOBILE OVERLAPPING CARD FIXES === */
+  .overlayCard :global(.card),
+  .emergingCard :global(.card),
+  .cornerCard :global(.card),
+  .breakthroughCard :global(.card),
+  .diagonalCard :global(.card),
+  .layeredCard :global(.card),
+  .masonryCard :global(.card),
+  .spiralCard :global(.card),
+  .sideCard :global(.card),
+  .heroCard :global(.card),
+  .magazineCard :global(.card),
+  .portalCard :global(.card),
+  .bridgeCard :global(.card),
+  .geometricCard :global(.card),
+  .islandCard :global(.card) {
+    transform: scale(0.6);
+  }
+  
+  /* Floating Card Mobile */
+  .floatingDemo {
+    padding: 24px 16px;
+  }
+  
+  .overlayCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    filter: none;
+  }
+  
+  /* Perspective Mobile */
+  .perspectiveDemo {
+    perspective: none;
+    overflow: visible;
+  }
+  
+  .perspectiveGrid {
+    transform: none;
+    opacity: 0.6;
+  }
+  
+  .emergingCard {
+    position: relative;
+    margin-top: 24px;
+    right: auto;
+    transform: none;
+    animation: none;
+  }
+  
+  /* Corner Overlay Mobile */
+  .cornerCard {
+    position: relative;
+    margin-top: 24px;
+    right: auto;
+    top: auto;
+    transform: none;
+  }
+  
+  /* Center Breakthrough Mobile */
+  .breakthroughCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    animation: none;
+  }
+  
+  /* Diagonal Mobile */
+  .diagonalCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+  }
+  
+  /* Layered Mobile */
+  .layeredCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    filter: none;
+  }
+  
+  .layeredCard::before {
+    display: none;
+  }
+  
+  /* Masonry Mobile */
+  .masonryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .masonryCard {
+    position: relative;
+    margin-top: 24px;
+    right: auto;
+    top: auto;
+    transform: none;
+  }
+  
+  /* Spiral Mobile */
+  .spiralGrid {
+    width: 100%;
+    height: 300px;
+  }
+  
+  .spiralTile {
+    position: relative;
+    width: auto;
+    margin-bottom: 8px;
+  }
+  
+  .spiralCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    animation: none;
+  }
+  
+  /* Side Breakthrough Mobile */
+  .sideCard {
+    position: relative;
+    margin-top: 24px;
+    left: auto;
+    transform: none;
+    animation: none;
+  }
+  
+  /* Hero Composite Mobile */
+  .heroGrid {
+    display: none;
+  }
+  
+  .heroCard {
+    margin-top: 24px;
+    filter: none;
+  }
+  
+  /* Magazine Mobile */
+  .magazineCard {
+    position: relative;
+    margin-top: 24px;
+    left: auto;
+    transform: none;
+  }
+  
+  /* Portal Mobile */
+  .portalDemo {
+    background: #f8fafc;
+    padding: 24px;
+  }
+  
+  .portalRing {
+    display: none;
+  }
+  
+  .portalCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    animation: none;
+  }
+  
+  /* Cascading Mobile */
+  .cardLayer2,
+  .cardLayer3 {
+    display: none;
+  }
+  
+  .cardLayer1 {
+    position: relative;
+    transform: none;
+  }
+  
+  /* Geometric Mobile */
+  .geometricShapes {
+    display: none;
+  }
+  
+  .geometricCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+  }
+  
+  /* Floating Islands Mobile */
+  .islandsDemo {
+    background: #f8fafc;
+    padding: 24px;
+  }
+  
+  .island1,
+  .island2 {
+    position: relative;
+    margin-bottom: 24px;
+    animation: none;
+  }
+  
+  .islandCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    animation: none;
+  }
+  
+  /* Spiral positioning reset for mobile */
+  .spiral0, .spiral1, .spiral2, .spiral3, .spiral4, .spiral5,
+  .spiral6, .spiral7, .spiral8, .spiral9, .spiral10, .spiral11 {
+    position: relative;
+    transform: none;
+    display: inline-block;
+    margin: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .preview {
+    padding: 20px 16px;
+  }
+  
+  .layoutContainer {
+    border-radius: 8px;
+  }
+  
+  .headline {
+    font-size: 28px;
+  }
+  
+  .subheadline {
+    font-size: 16px;
+  }
+  
+  .content {
+    padding: 24px 20px;
+  }
+  
+  .apiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .subtleGrid .apiGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* === ULTRA MOBILE FIXES === */
+  .overlayCard :global(.card),
+  .emergingCard :global(.card),
+  .cornerCard :global(.card),
+  .breakthroughCard :global(.card),
+  .diagonalCard :global(.card),
+  .layeredCard :global(.card),
+  .masonryCard :global(.card),
+  .spiralCard :global(.card),
+  .sideCard :global(.card),
+  .heroCard :global(.card),
+  .magazineCard :global(.card),
+  .portalCard :global(.card),
+  .bridgeCard :global(.card),
+  .geometricCard :global(.card),
+  .islandCard :global(.card) {
+    transform: scale(0.5);
+  }
+  
+  .cardContainer :global(.card) {
+    transform: scale(0.5);
+  }
+  
+  .apiTile {
+    padding: 8px 4px;
+  }
+  
+  .apiEmoji {
+    font-size: 16px;
+  }
+  
+  .apiName {
+    font-size: 9px;
+  }
+  
+  .demoSection,
+  .floatingDemo,
+  .perspectiveDemo,
+  .cornerDemo,
+  .breakthroughDemo,
+  .layeredDemo,
+  .spiralDemo,
+  .sideDemo,
+  .magazineDemo,
+  .portalDemo,
+  .cascadingDemo,
+  .geometricDemo,
+  .islandsDemo {
+    padding: 16px;
+  }
+  
+  .demoTitle,
+  .compactTitle {
+    font-size: 14px;
+  }
+  
+  .spiralGrid {
+    height: 200px;
+  }
+  
+  .spiralTile {
+    width: 50px;
+    padding: 8px 4px;
+  }
+  
+  .islandGrid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  
+  .islandTile {
+    padding: 8px 4px;
+  }
+  
+  .masonryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+@media (prefers-reduced-motion: reduce) {
+  .emerge,
+  .breakthrough,
+  .slideBreakthrough,
+  .spiralFloat,
+  .portalPulse,
+  .portalEmerge,
+  .islandFloat,
+  .float1,
+  .float2 {
+    animation: none;
+  }
+  
+  .overlayCard,
+  .emergingCard,
+  .cornerCard,
+  .breakthroughCard,
+  .diagonalCard,
+  .layeredCard,
+  .masonryCard,
+  .spiralCard,
+  .sideCard,
+  .heroCard,
+  .magazineCard,
+  .portalCard,
+  .bridgeCard,
+  .geometricCard,
+  .islandCard {
+    animation: none;
+  }
+}
+
+/* === NEW LAYOUT 23: HEXAGON GRID === */
+.hexagonLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.hexagonContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.hexagonDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: linear-gradient(60deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+}
+
+.hexagonGrid {
+  position: relative;
+  width: 500px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.hexagonTile {
+  position: absolute;
+  width: 80px;
+  height: 92px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: all 0.3s ease;
+}
+
+.hexagonInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px 5px;
+  gap: 4px;
+}
+
+.hexagonTile:hover {
+  transform: scale(1.1);
+  border-color: #3b82f6;
+  z-index: 5;
+}
+
+/* Hexagon positioning in honeycomb pattern */
+.hex0 { top: 0; left: 50%; transform: translateX(-50%); }
+.hex1 { top: 70px; left: 25%; }
+.hex2 { top: 70px; right: 25%; }
+.hex3 { top: 140px; left: 0; }
+.hex4 { top: 140px; left: 50%; transform: translateX(-50%); }
+.hex5 { top: 140px; right: 0; }
+.hex6 { top: 210px; left: 25%; }
+.hex7 { top: 210px; right: 25%; }
+.hex8 { top: 280px; left: 50%; transform: translateX(-50%); }
+.hex9 { top: 350px; left: 37.5%; }
+.hex10 { top: 350px; right: 37.5%; }
+.hex11 { top: 420px; left: 50%; transform: translateX(-50%); }
+
+.hexagonCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  animation: hexagonEmerge 3s ease-in-out infinite;
+}
+
+@keyframes hexagonEmerge {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
+  50% { transform: translate(-50%, -50%) scale(1) rotate(3deg); }
+}
+
+/* === NEW LAYOUT 24: PARALLAX DEPTH === */
+.parallaxLayout {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.parallaxContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.parallaxDemo {
+  position: relative;
+  height: 500px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  overflow: hidden;
+}
+
+.parallaxLayer1 {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  opacity: 0.3;
+  transform: translateZ(0);
+  animation: parallaxFloat1 8s ease-in-out infinite;
+}
+
+.parallaxLayer2 {
+  position: absolute;
+  top: 40%;
+  right: 10%;
+  opacity: 0.5;
+  transform: translateZ(0);
+  animation: parallaxFloat2 6s ease-in-out infinite;
+}
+
+.parallaxGrid2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.parallaxCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  animation: parallaxFloat3 4s ease-in-out infinite;
+}
+
+@keyframes parallaxFloat1 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-20px) translateX(10px); }
+}
+
+@keyframes parallaxFloat2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(15px) translateX(-15px); }
+}
+
+@keyframes parallaxFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* === NEW LAYOUT 25: CARD FLIP REVEAL === */
+.flipLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.flipContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flipDemo {
+  background: #f8fafc;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flipGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  perspective: 1000px;
+}
+
+.flipTile {
+  width: 100px;
+  height: 120px;
+  position: relative;
+  cursor: pointer;
+}
+
+.flipTileInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  animation: autoFlip 3s ease-in-out infinite;
+}
+
+.flipTile:hover .flipTileInner {
+  transform: rotateY(180deg);
+}
+
+.flipTileFront,
+.flipTileBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+}
+
+.flipTileFront {
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.flipTileBack {
+  background: #667eea;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.cardFragment {
+  transform: scale(0.3);
+  transform-origin: center;
+}
+
+.fragmentPlaceholder {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes autoFlip {
+  0%, 70% { transform: rotateY(0deg); }
+  85%, 100% { transform: rotateY(180deg); }
+}
+
+.flip4 .flipTileInner {
+  animation-delay: 0.5s;
+}
+
+/* === NEW LAYOUT 26: ORBIT SYSTEM === */
+.orbitLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.orbitContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.orbitDemo {
+  padding: 80px 40px;
+  background: radial-gradient(circle, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+
+.orbitSystem {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.centralCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+.orbitingAPI {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: white;
+  backdrop-filter: blur(10px);
+  font-size: 10px;
+}
+
+.orbit0 { animation: orbit1 10s linear infinite; }
+.orbit1 { animation: orbit1 10s linear infinite 1.25s; }
+.orbit2 { animation: orbit2 12s linear infinite; }
+.orbit3 { animation: orbit2 12s linear infinite 1.5s; }
+.orbit4 { animation: orbit3 14s linear infinite; }
+.orbit5 { animation: orbit3 14s linear infinite 1.75s; }
+.orbit6 { animation: orbit1 8s linear infinite; }
+.orbit7 { animation: orbit2 9s linear infinite; }
+
+@keyframes orbit1 {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes orbit2 {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(180px) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(180px) rotate(-360deg); }
+}
+
+@keyframes orbit3 {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(240px) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(240px) rotate(-360deg); }
+}
+
+/* === NEW LAYOUT 27: GLASS MORPHISM === */
+.glassLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.glassContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.glassDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+}
+
+.glassBackground {
+  filter: blur(2px);
+  opacity: 0.6;
+  transform: scale(1.1);
+}
+
+.glassCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+.glassEffect {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* === NEW LAYOUT 28: MOSAIC BREAKOUT === */
+.mosaicLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.mosaicContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mosaicDemo {
+  position: relative;
+  background: #f8fafc;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.mosaicGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  opacity: 0.8;
+}
+
+.mosaicTile {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.mosaicTile.broken {
+  transform: rotate(15deg) translateY(10px);
+  opacity: 0.3;
+  filter: blur(1px);
+}
+
+.mosaicCard {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  z-index: 20;
+  animation: breakout 2s ease-out infinite alternate;
+}
+
+.shatterEffect {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: shatter 2s ease-out infinite;
+}
+
+@keyframes breakout {
+  0% { transform: translate(-50%, -50%) rotate(-5deg) scale(1); }
+  100% { transform: translate(-50%, -50%) rotate(5deg) scale(1.05); }
+}
+
+@keyframes shatter {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+}
+
+/* === NEW LAYOUT 29: ACCORDION EXPAND === */
+.accordionLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+
+.accordionContent {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.accordionDemo {
+  background: #f8fafc;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.accordionSection {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accordionHeader {
+  background: #667eea;
+  color: white;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.accordionHeader:hover {
+  background: #5a67d8;
+}
+
+.accordionBody {
+  padding: 20px;
+  animation: accordionSlide 0.5s ease-out;
+}
+
+@keyframes accordionSlide {
+  from { max-height: 0; opacity: 0; }
+  to { max-height: 300px; opacity: 1; }
+}
+
+/* === NEW LAYOUT 30: WAVE INTERFERENCE === */
+.waveLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.waveContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.waveDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: linear-gradient(45deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+  overflow: hidden;
+}
+
+.waveGrid {
+  opacity: 0.6;
+  filter: blur(0.5px);
+}
+
+.waveCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+}
+
+.waveRipples {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ripple1,
+.ripple2,
+.ripple3 {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: ripple 3s ease-out infinite;
+}
+
+.ripple1 {
+  width: 100px;
+  height: 100px;
+  margin: -50px;
+  animation-delay: 0s;
+}
+
+.ripple2 {
+  width: 200px;
+  height: 200px;
+  margin: -100px;
+  animation-delay: 1s;
+}
+
+.ripple3 {
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  animation-delay: 2s;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* === NEW LAYOUT 31: HOLOGRAM PROJECTION === */
+.hologramLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.hologramContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.hologramDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #333333 100%);
+}
+
+.hologramBase {
+  opacity: 0.4;
+  filter: blur(0.5px);
+}
+
+.hologramCard {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+.hologramEffect {
+  filter: drop-shadow(0 0 20px #00ffff);
+  animation: hologramFlicker 2s ease-in-out infinite;
+}
+
+.hologramLines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, 0.1) 2px,
+    rgba(0, 255, 255, 0.1) 4px
+  );
+  pointer-events: none;
+}
+
+@keyframes hologramFlicker {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 20px #00ffff); }
+  50% { opacity: 0.8; filter: drop-shadow(0 0 30px #00ffff); }
+}
+
+/* === NEW LAYOUT 32: MAGNETIC FIELD === */
+.magneticLayout {
+  display: flex;
+  flex-direction: column;
+}
+
+.magneticContent {
+  text-align: center;
+  padding: 60px 40px 20px;
+}
+
+.magneticDemo {
+  position: relative;
+  padding: 80px 40px;
+  background: radial-gradient(circle, #1e1b4b 0%, #312e81 50%, #3730a3 100%);
+}
+
+.magneticField {
+  position: relative;
+  width: 500px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.magneticAPI {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: white;
+  font-size: 8px;
+  transition: all 0.3s ease;
+}
+
+.magneticCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  animation: magneticPulse 3s ease-in-out infinite;
+}
+
+.fieldLines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.fieldLine1,
+.fieldLine2,
+.fieldLine3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform-origin: left center;
+}
+
+.fieldLine1 {
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: fieldRotate1 4s linear infinite;
+}
+
+.fieldLine2 {
+  transform: translate(-50%, -50%) rotate(60deg);
+  animation: fieldRotate2 4s linear infinite;
+}
+
+.fieldLine3 {
+  transform: translate(-50%, -50%) rotate(120deg);
+  animation: fieldRotate3 4s linear infinite;
+}
+
+@keyframes magneticPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes fieldRotate1 {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes fieldRotate2 {
+  from { transform: translate(-50%, -50%) rotate(60deg); }
+  to { transform: translate(-50%, -50%) rotate(420deg); }
+}
+
+@keyframes fieldRotate3 {
+  from { transform: translate(-50%, -50%) rotate(120deg); }
+  to { transform: translate(-50%, -50%) rotate(480deg); }
+}
+
+/* Magnetic field positioning with attraction effect */
+.magnetic0 { top: 20%; left: 20%; animation: magneticAttract1 3s ease-in-out infinite; }
+.magnetic1 { top: 20%; right: 20%; animation: magneticAttract2 3s ease-in-out infinite; }
+.magnetic2 { top: 40%; left: 10%; animation: magneticAttract3 3s ease-in-out infinite; }
+.magnetic3 { top: 40%; right: 10%; animation: magneticAttract4 3s ease-in-out infinite; }
+.magnetic4 { bottom: 40%; left: 10%; animation: magneticAttract5 3s ease-in-out infinite; }
+.magnetic5 { bottom: 40%; right: 10%; animation: magneticAttract6 3s ease-in-out infinite; }
+.magnetic6 { bottom: 20%; left: 20%; animation: magneticAttract7 3s ease-in-out infinite; }
+.magnetic7 { bottom: 20%; right: 20%; animation: magneticAttract8 3s ease-in-out infinite; }
+.magnetic8 { top: 50%; left: 5%; animation: magneticAttract9 3s ease-in-out infinite; }
+.magnetic9 { top: 50%; right: 5%; animation: magneticAttract10 3s ease-in-out infinite; }
+.magnetic10 { top: 10%; left: 50%; animation: magneticAttract11 3s ease-in-out infinite; }
+.magnetic11 { bottom: 10%; left: 50%; animation: magneticAttract12 3s ease-in-out infinite; }
+
+@keyframes magneticAttract1 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(20px) translateY(10px) scale(1.1); }
+}
+
+@keyframes magneticAttract2 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(-20px) translateY(10px) scale(1.1); }
+}
+
+@keyframes magneticAttract3 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(30px) translateY(0) scale(1.1); }
+}
+
+@keyframes magneticAttract4 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(-30px) translateY(0) scale(1.1); }
+}
+
+@keyframes magneticAttract5 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(30px) translateY(0) scale(1.1); }
+}
+
+@keyframes magneticAttract6 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(-30px) translateY(0) scale(1.1); }
+}
+
+@keyframes magneticAttract7 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(20px) translateY(-10px) scale(1.1); }
+}
+
+@keyframes magneticAttract8 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(-20px) translateY(-10px) scale(1.1); }
+}
+
+@keyframes magneticAttract9 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(40px) translateY(0) scale(1.1); }
+}
+
+@keyframes magneticAttract10 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(-40px) translateY(0) scale(1.1); }
+}
+
+@keyframes magneticAttract11 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(0) translateY(20px) scale(1.1); }
+}
+
+@keyframes magneticAttract12 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50% { transform: translateX(0) translateY(-20px) scale(1.1); }
+}
+
+/* === RESPONSIVE FOR NEW LAYOUTS === */
+@media (max-width: 1024px) {
+  .flipLayout,
+  .orbitLayout,
+  .glassLayout,
+  .mosaicLayout,
+  .accordionLayout,
+  .magneticLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  .hexagonGrid,
+  .orbitSystem,
+  .magneticField {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .parallaxDemo {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* New layouts mobile fixes */
+  .hexagonCard,
+  .parallaxCard,
+  .flipCard,
+  .orbitCard,
+  .glassCard,
+  .mosaicCard,
+  .waveCard,
+  .hologramCard,
+  .magneticCard {
+    position: relative;
+    margin-top: 24px;
+    transform: none;
+    animation: none;
+  }
+  
+  .hexagonCard :global(.card),
+  .parallaxCard :global(.card),
+  .orbitCard :global(.card),
+  .glassCard :global(.card),
+  .mosaicCard :global(.card),
+  .waveCard :global(.card),
+  .hologramCard :global(.card),
+  .magneticCard :global(.card) {
+    transform: scale(0.6);
+  }
+  
+  .hexagonGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .hexagonTile {
+    position: relative;
+    width: auto;
+    height: 80px;
+    clip-path: none;
+    border-radius: 8px;
+  }
+  
+  .orbitSystem {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .orbitingAPI {
+    position: relative;
+    margin: 8px;
+    animation: none;
+  }
+  
+  .flipGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .parallaxLayer1,
+  .parallaxLayer2 {
+    position: relative;
+    animation: none;
+    margin-bottom: 16px;
+  }
+  
+  .waveRipples,
+  .hologramLines,
+  .fieldLines,
+  .shatterEffect {
+    display: none;
+  }
+  
+  .magneticField {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .magneticAPI {
+    position: relative;
+    animation: none;
+  }
+}
+
+/* === PURE LAYOUTS (CARD + GRID ONLY) === */
+
+/* === PURE LAYOUT 1: LEFT-RIGHT SPLIT === */
+.pureLeftRight {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  min-height: 100vh;
+  gap: 0;
+}
+
+.pureCardSection {
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.pureGridSection {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* === PURE LAYOUT 2: TOP-BOTTOM STACK === */
+.pureTopBottom {
+  display: grid;
+  grid-template-rows: 1fr 300px;
+  min-height: 100vh;
+  gap: 0;
+}
+
+.pureTopBottom .pureCardSection {
+  background: white;
+}
+
+.pureTopBottom .pureGridSection {
+  background: #f8fafc;
+}
+
+/* === PURE LAYOUT 3: CARD DOMINANT === */
+.pureCardDominant {
+  position: relative;
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainCardArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.miniGridArea {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.compactApiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 200px;
+}
+
+.miniApiTile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 8px;
+}
+
+.miniApiTile .apiEmoji {
+  font-size: 12px;
+}
+
+.miniApiTile .apiName {
+  font-size: 7px;
+}
+
+/* === PURE LAYOUT 4: GRID DOMINANT === */
+.pureGridDominant {
+  position: relative;
+  min-height: 100vh;
+  background: white;
+}
+
+.expandedGridArea {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.expandedApiGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  max-width: 800px;
+}
+
+.expandedApiTile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.expandedApiTile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+}
+
+.expandedApiTile .apiEmoji {
+  font-size: 28px;
+}
+
+.expandedApiTile .apiName {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.floatingCardArea {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  transform: scale(0.7);
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* === PURE LAYOUT 5: DIAGONAL SPLIT === */
+.pureDiagonal {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.diagonalCardArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: #f8fafc;
+  clip-path: polygon(0 0, 80% 0, 60% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 40px;
+}
+
+.diagonalGridArea {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 40px;
+}
+
+/* === PURE LAYOUT 6: CIRCULAR ARRANGEMENT === */
+.pureCircular {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle, #f8fafc 0%, #e2e8f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centralCardArea {
+  z-index: 10;
+}
+
+.circularApiContainer {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circularApiTile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.circularApiTile:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.circularApiTile .apiEmoji {
+  font-size: 18px;
+}
+
+.circularApiTile .apiName {
+  font-size: 8px;
+  text-align: center;
+}
+
+/* Circular positioning */
+.circle0 { transform: translate(-50%, -50%) rotate(0deg) translateX(250px) rotate(0deg); }
+.circle1 { transform: translate(-50%, -50%) rotate(30deg) translateX(250px) rotate(-30deg); }
+.circle2 { transform: translate(-50%, -50%) rotate(60deg) translateX(250px) rotate(-60deg); }
+.circle3 { transform: translate(-50%, -50%) rotate(90deg) translateX(250px) rotate(-90deg); }
+.circle4 { transform: translate(-50%, -50%) rotate(120deg) translateX(250px) rotate(-120deg); }
+.circle5 { transform: translate(-50%, -50%) rotate(150deg) translateX(250px) rotate(-150deg); }
+.circle6 { transform: translate(-50%, -50%) rotate(180deg) translateX(250px) rotate(-180deg); }
+.circle7 { transform: translate(-50%, -50%) rotate(210deg) translateX(250px) rotate(-210deg); }
+.circle8 { transform: translate(-50%, -50%) rotate(240deg) translateX(250px) rotate(-240deg); }
+.circle9 { transform: translate(-50%, -50%) rotate(270deg) translateX(250px) rotate(-270deg); }
+.circle10 { transform: translate(-50%, -50%) rotate(300deg) translateX(250px) rotate(-300deg); }
+.circle11 { transform: translate(-50%, -50%) rotate(330deg) translateX(250px) rotate(-330deg); }
+
+/* === PURE LAYOUT 7: SPIRAL === */
+.pureSpiral {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #f8fafc 0%, #e2e8f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spiralCenterCard {
+  z-index: 10;
+}
+
+.spiralApiContainer {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spiralApiTile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 9px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spiralApiTile .apiEmoji {
+  font-size: 16px;
+}
+
+.spiralApiTile .apiName {
+  font-size: 7px;
+}
+
+/* Spiral positioning */
+.spiralPos0 { transform: translate(-50%, -50%) rotate(0deg) translateX(80px) rotate(0deg); }
+.spiralPos1 { transform: translate(-50%, -50%) rotate(45deg) translateX(120px) rotate(-45deg); }
+.spiralPos2 { transform: translate(-50%, -50%) rotate(90deg) translateX(160px) rotate(-90deg); }
+.spiralPos3 { transform: translate(-50%, -50%) rotate(135deg) translateX(200px) rotate(-135deg); }
+.spiralPos4 { transform: translate(-50%, -50%) rotate(180deg) translateX(240px) rotate(-180deg); }
+.spiralPos5 { transform: translate(-50%, -50%) rotate(225deg) translateX(280px) rotate(-225deg); }
+.spiralPos6 { transform: translate(-50%, -50%) rotate(270deg) translateX(320px) rotate(-270deg); }
+.spiralPos7 { transform: translate(-50%, -50%) rotate(315deg) translateX(360px) rotate(-315deg); }
+.spiralPos8 { transform: translate(-50%, -50%) rotate(360deg) translateX(400px) rotate(-360deg); }
+.spiralPos9 { transform: translate(-50%, -50%) rotate(405deg) translateX(440px) rotate(-405deg); }
+.spiralPos10 { transform: translate(-50%, -50%) rotate(450deg) translateX(480px) rotate(-450deg); }
+.spiralPos11 { transform: translate(-50%, -50%) rotate(495deg) translateX(520px) rotate(-495deg); }
+.spiralPos12 { transform: translate(-50%, -50%) rotate(540deg) translateX(560px) rotate(-540deg); }
+.spiralPos13 { transform: translate(-50%, -50%) rotate(585deg) translateX(600px) rotate(-585deg); }
+.spiralPos14 { transform: translate(-50%, -50%) rotate(630deg) translateX(640px) rotate(-630deg); }
+.spiralPos15 { transform: translate(-50%, -50%) rotate(675deg) translateX(680px) rotate(-675deg); }
+
+/* === PURE LAYOUT 8: ALTERNATING BANDS === */
+.pureAlternating {
+  min-height: 100vh;
+  background: white;
+}
+
+.alternatingContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.bandCard {
+  flex: 2;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bandApis {
+  flex: 1;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #e2e8f0;
+}
+
+.apiStrip {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.stripApiTile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 80px;
+  transition: all 0.3s ease;
+}
+
+.stripApiTile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stripApiTile .apiEmoji {
+  font-size: 24px;
+}
+
+.stripApiTile .apiName {
+  font-size: 11px;
+  text-align: center;
+}
+
+/* === PURE LAYOUT 9: CORNER FOCUS === */
+.pureCornerFocus {
+  position: relative;
+  min-height: 100vh;
+  background: white;
+}
+
+.cornerCard {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 10;
+  transform: scale(0.8);
+}
+
+.remainingSpace {
+  margin-left: 350px;
+  margin-top: 40px;
+  padding: 40px;
+  height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrappingApiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 16px;
+  max-width: 600px;
+}
+
+.wrappingApiTile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.wrappingApiTile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wrappingApiTile .apiEmoji {
+  font-size: 20px;
+}
+
+.wrappingApiTile .apiName {
+  font-size: 10px;
+  text-align: center;
+}
+
+/* === PURE LAYOUT 10: SCALE COMPARISON === */
+.pureScaleComparison {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 40px;
+}
+
+.scaleContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  height: 100%;
+}
+
+.largeCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mediumCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.smallCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comparisonGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.cardScale1 {
+  transform: scale(1.2);
+}
+
+.cardScale2 {
+  transform: scale(0.9);
+}
+
+.cardScale3 {
+  transform: scale(0.6);
+}
+
+/* === PURE LAYOUTS RESPONSIVE === */
+@media (max-width: 1024px) {
+  .pureLeftRight {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 300px;
+  }
+  
+  .pureDiagonal .diagonalCardArea {
+    clip-path: none;
+    position: relative;
+    width: 100%;
+    height: 50%;
+  }
+  
+  .pureDiagonal .diagonalGridArea {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    padding: 20px;
+  }
+  
+  .circularApiContainer,
+  .spiralApiContainer {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .expandedApiGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .scaleContainer {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pureCardSection,
+  .pureGridSection {
+    padding: 20px;
+  }
+  
+  .pureCardSection :global(.card),
+  .mainCardArea :global(.card),
+  .centralCardArea :global(.card),
+  .spiralCenterCard :global(.card),
+  .bandCard :global(.card),
+  .cornerCard :global(.card),
+  .largeCard :global(.card),
+  .mediumCard :global(.card),
+  .smallCard :global(.card),
+  .floatingCardArea :global(.card) {
+    transform: scale(0.7);
+  }
+  
+  .miniGridArea {
+    top: 10px;
+    right: 10px;
+    padding: 12px;
+  }
+  
+  .compactApiGrid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 120px;
+  }
+  
+  .expandedApiGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  .circularApiContainer {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .circularApiTile {
+    width: 50px;
+    height: 50px;
+    font-size: 8px;
+  }
+  
+  .circle0, .circle1, .circle2, .circle3, .circle4, .circle5,
+  .circle6, .circle7, .circle8, .circle9, .circle10, .circle11 {
+    transform: translate(-50%, -50%) rotate(calc(30deg * var(--index))) translateX(120px) rotate(calc(-30deg * var(--index)));
+  }
+  
+  .spiralApiContainer {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .spiralApiTile {
+    width: 40px;
+    height: 40px;
+    font-size: 7px;
+  }
+  
+  .alternatingContainer {
+    flex-direction: column;
+  }
+  
+  .apiStrip {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .stripApiTile {
+    min-width: 60px;
+    padding: 12px 8px;
+  }
+  
+  .cornerCard {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: 20px;
+  }
+  
+  .remainingSpace {
+    margin: 0;
+    height: auto;
+    padding: 20px;
+  }
+  
+  .wrappingApiGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  .floatingCardArea {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 20px;
+    transform: scale(0.6);
+  }
+}
+
+@media (max-width: 480px) {
+  .pureCardSection :global(.card),
+  .mainCardArea :global(.card),
+  .centralCardArea :global(.card),
+  .spiralCenterCard :global(.card),
+  .bandCard :global(.card),
+  .cornerCard :global(.card),
+  .largeCard :global(.card),
+  .mediumCard :global(.card),
+  .smallCard :global(.card),
+  .floatingCardArea :global(.card) {
+    transform: scale(0.5);
+  }
+  
+  .expandedApiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .compactApiGrid {
+    grid-template-columns: 1fr;
+    width: 80px;
+  }
+  
+  .wrappingApiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .circularApiContainer,
+  .spiralApiContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    position: relative;
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
+  
+  .circularApiTile,
+  .spiralApiTile {
+    position: relative;
+    transform: none;
+    width: auto;
+    height: 60px;
+  }
+}
+
+/* === HIGH CONTRAST SUPPORT === */
+@media (prefers-contrast: high) {
+  .overlayCard,
+  .emergingCard,
+  .cornerCard,
+  .breakthroughCard,
+  .layeredCard,
+  .heroCard,
+  .hexagonCard,
+  .parallaxCard,
+  .orbitCard,
+  .glassCard,
+  .mosaicCard,
+  .waveCard,
+  .hologramCard,
+  .magneticCard {
+    filter: contrast(1.2);
+  }
+  
+  .backgroundGrid,
+  .perspectiveGrid,
+  .cornerGrid,
+  .breakthroughGrid,
+  .layeredGrid,
+  .heroGrid,
+  .hexagonGrid,
+  .parallaxLayer1,
+  .parallaxLayer2,
+  .waveGrid,
+  .hologramBase,
+  .magneticField {
+    opacity: 0.8;
+    filter: none;
+  }
+}

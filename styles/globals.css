@@ -1,0 +1,92 @@
+/* APIdeas v4 Design System
+ * CSS Modules Architecture with Global Base Styles
+ *
+ * Philosophy: "Simplicity as sophistication" - Jony Ive
+ * "Good design is as little design as possible" - Dieter Rams
+ * "Design is not just what it looks like... it's how it works" - Steve Jobs
+ */
+
+/* Base Styles - Foundation */
+@import "./base/reset.css";
+@import "./base/typography.css";
+@import "./base/colors.css";
+@import "./base/spacing.css";
+@import "./base/effects.css";
+@import "./base/layout.css";
+@import "./base/dark-theme.css";
+
+/* Page Styles */
+@import "./pages/apis.css";
+@import "./pages/collection.css";
+@import "./pages/dashboard.css";
+
+/* === GLOBAL APPLICATION STYLES === */
+
+/* Body and Layout */
+body {
+	background-color: var(--color-background);
+	background-image: radial-gradient(
+			ellipse at top left,
+			var(--color-primary-subtle) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			ellipse at bottom right,
+			var(--color-accent-subtle) 0%,
+			transparent 50%
+		);
+	background-attachment: fixed;
+	background-size: 200% 200%;
+	padding-top: 64px; /* Account for fixed navbar */
+	scroll-behavior: smooth;
+}
+
+/* Page Layout */
+.page-wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.page-container {
+	flex: 1;
+	width: 100%;
+	max-width: var(--container-7xl);
+	margin: 0 auto;
+	padding: var(--space-section) var(--space-gutter);
+}
+
+/* Global Utility Classes */
+.section {
+	margin-bottom: var(--space-section);
+}
+
+.section:last-child {
+	margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.page-container {
+		padding: var(--space-6) var(--space-4);
+	}
+}
+
+/* Print Styles */
+@media print {
+	.navbar,
+	.skip-link,
+	.btn,
+	.action-button {
+		display: none !important;
+	}
+
+	body {
+		background: white;
+		color: black;
+	}
+
+	.page-container {
+		max-width: 100%;
+	}
+}

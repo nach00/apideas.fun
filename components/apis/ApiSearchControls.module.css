@@ -1,0 +1,143 @@
+/* ApiSearchControls Component - CSS Module */
+
+/* Main Controls Container */
+.apisControls {
+  background: var(--color-surface);
+  border-radius: var(--radius-3xl);
+  border: 1px solid var(--color-border);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Search Section */
+.searchSection {
+  flex: 1;
+}
+
+.searchInputGroup {
+  position: relative;
+  max-width: 600px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-4) var(--space-12) var(--space-4) var(--space-12);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  font-size: var(--text-base);
+  background: var(--color-surface-hover);
+  transition: all var(--duration-300) var(--ease-out);
+}
+
+.searchInput:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-surface);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+  background: var(--color-surface);
+  transform: scale(1.01);
+}
+
+.searchClear {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.searchClear:hover {
+  color: var(--color-text-primary);
+}
+
+/* Filter Section */
+.filterSection {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.filterLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.filterSelect {
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-hover);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 140px;
+}
+
+.filterSelect:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-surface);
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .apisControls {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .filterSection {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .apisControls {
+    padding: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .filterSection {
+    flex-direction: column;
+  }
+
+  .filterGroup {
+    min-width: 100%;
+  }
+}

@@ -1,0 +1,263 @@
+{
+	"apis": [
+		{
+			"name": "OpenWeatherMap",
+			"category": "Weather",
+			"description": "The OpenWeatherMap API provides weather data for any location, including current weather, forecasts, and historical data.",
+			"free_tier": "60 calls/minute, 1,000,000 calls/month",
+			"features": [
+				"Current weather data",
+				"5-day/3-hour forecast",
+				"Weather maps",
+				"Air pollution data"
+			],
+			"url": "https://openweathermap.org/api"
+		},
+		{
+			"name": "NASA",
+			"category": "Science & Tech",
+			"description": "The NASA API provides access to a wealth of NASA data, including the Astronomy Picture of the Day, Mars Rover photos, and more.",
+			"free_tier": "1,000 requests per hour",
+			"features": [
+				"Astronomy Picture of the Day",
+				"Mars Rover photos",
+				"NASA image and video library",
+				"Earth observation data"
+			],
+			"url": "https://api.nasa.gov/"
+		},
+		{
+			"name": "Unsplash",
+			"category": "Photos",
+			"description": "The Unsplash API provides access to a vast library of high-quality, royalty-free images.",
+			"free_tier": "50 requests per hour for demo purposes, 5000 requests per hour with a free production key",
+			"features": [
+				"Search for photos by keyword",
+				"Access collections of photos",
+				"Get random photos",
+				"Like photos and add to collections"
+			],
+			"url": "https://unsplash.com/developers"
+		},
+		{
+			"name": "GitHub",
+			"category": "Development",
+			"description": "The GitHub API allows you to interact with GitHub's data, including repositories, users, issues, and more.",
+			"free_tier": "60 requests per hour unauthenticated, 5,000 requests per hour authenticated",
+			"features": [
+				"Access to repository data",
+				"User and organization management",
+				"Issue and pull request tracking",
+				"Gist management"
+			],
+			"url": "https://docs.github.com/en/rest"
+		},
+		{
+			"name": "Stripe",
+			"category": "Payments",
+			"description": "The Stripe API provides a powerful and flexible platform for developers to integrate payment processing into their applications.",
+			"free_tier": "Full access to the API in test mode, with no limit on the number of test transactions.",
+			"features": [
+				"Payment processing for credit cards, debit cards, and more",
+				"Subscription and recurring billing",
+				"Invoicing and billing management",
+				"Fraud detection and prevention"
+			],
+			"url": "https://stripe.com/docs/api"
+		},
+		{
+			"name": "Twilio",
+			"category": "Communication",
+			"description": "The Twilio API allows developers to programmatically make and receive phone calls, send and receive text messages, and perform other communication functions.",
+			"free_tier": "Free trial with a small credit to get started.",
+			"features": [
+				"SMS and MMS messaging",
+				"Voice calls and conferencing",
+				"Video calling",
+				"Two-factor authentication"
+			],
+			"url": "https://www.twilio.com/docs"
+		},
+		{
+			"name": "GIPHY",
+			"category": "Entertainment",
+			"description": "The GIPHY API gives you access to the world's largest library of animated GIFs.",
+			"free_tier": "Generous free tier with a rate limit, GIFs may have a watermark.",
+			"features": [
+				"Search for GIFs by keyword",
+				"Get trending GIFs",
+				"Upload GIFs",
+				"Sticker and emoji support"
+			],
+			"url": "https://developers.giphy.com/"
+		},
+		{
+			"name": "Spotify",
+			"category": "Music",
+			"description": "The Spotify Web API provides access to Spotify's music catalog and user data.",
+			"free_tier": "Access to all endpoints, but some require user authorization.",
+			"features": [
+				"Search for tracks, artists, and albums",
+				"Access user's saved tracks and playlists",
+				"Control playback on a user's Spotify clients",
+				"Get audio features for a track"
+			],
+			"url": "https://developer.spotify.com/documentation/web-api/"
+		},
+		{
+			"name": "Fake Store",
+			"category": "Testing/Development",
+			"description": "The Fake Store API provides a set of dummy data for e-commerce or shopping projects.",
+			"free_tier": "Unlimited",
+			"features": [
+				"Fake product data",
+				"User and cart data",
+				"No authentication required",
+				"Supports all HTTP methods"
+			],
+			"url": "https://fakestoreapi.com/"
+		},
+		{
+			"name": "REST Countries",
+			"category": "Geodata",
+			"description": "The REST Countries API provides information about countries via a RESTful API.",
+			"free_tier": "Open and free to use",
+			"features": [
+				"Get information about all countries",
+				"Search by country name, code, currency, etc.",
+				"Filter response data",
+				"No authentication required"
+			],
+			"url": "https://restcountries.com/"
+		},
+		{
+			"name": "Open Food Facts",
+			"category": "Food",
+			"description": "The Open Food Facts API provides data on food products from around the world.",
+			"free_tier": "Open and free to use",
+			"features": [
+				"Search for products by barcode",
+				"Get product information, including ingredients and nutrition facts",
+				"Contribute data by adding new products",
+				"No authentication required"
+			],
+			"url": "https://world.openfoodfacts.org/data"
+		},
+		{
+			"name": "The Dog API",
+			"category": "Animals",
+			"description": "The Dog API provides a collection of dog images.",
+			"free_tier": "Open and free to use",
+			"features": [
+				"Get a random dog image",
+				"Get images by breed",
+				"List all breeds",
+				"No authentication required"
+			],
+			"url": "https://dog.ceo/dog-api/"
+		},
+		{
+			"name": "Chuck Norris Jokes",
+			"category": "Entertainment",
+			"description": "The Chuck Norris Jokes API provides a random joke about Chuck Norris.",
+			"free_tier": "Open and free to use",
+			"features": [
+				"Get a random joke",
+				"Get jokes by category",
+				"No authentication required"
+			],
+			"url": "https://api.chucknorris.io/"
+		},
+		{
+			"name": "TV Maze",
+			"category": "Entertainment",
+			"description": "The TV Maze API provides information about TV shows, including episode lists, cast, and more.",
+			"free_tier": "Rate limited to 20 calls every 10 seconds by IP address.",
+			"features": [
+				"Search for shows by name",
+				"Get episode lists and summaries",
+				"See cast and crew information",
+				"Get airdates and schedules"
+			],
+			"url": "https://www.tvmaze.com/api"
+		},
+		{
+			"name": "CoinGecko",
+			"category": "Cryptocurrency",
+			"description": "The CoinGecko API provides cryptocurrency market data.",
+			"free_tier": "Generous free tier with a rate limit.",
+			"features": [
+				"Get real-time prices for cryptocurrencies",
+				"Historical market data",
+				"Exchange data",
+				"No API key required for the free tier"
+			],
+			"url": "https://www.coingecko.com/en/api"
+		},
+		{
+			"name": "JSONPlaceholder",
+			"category": "Testing/Development",
+			"description": "JSONPlaceholder is a free online REST API that you can use whenever you need some fake data.",
+			"free_tier": "Unlimited",
+			"features": [
+				"Dummy data for users, posts, comments, etc.",
+				"Supports all HTTP methods",
+				"No authentication required",
+				"Great for prototyping and testing"
+			],
+			"url": "https://jsonplaceholder.typicode.com/"
+		},
+		{
+			"name": "Pexels",
+			"category": "Photos/Videos",
+			"description": "The Pexels API provides access to a large library of free stock photos and videos.",
+			"free_tier": "200 requests per hour, 20,000 requests per month.",
+			"features": [
+				"Search for photos and videos",
+				"Get curated collections",
+				"Get random photos and videos",
+				"High-quality, royalty-free content"
+			],
+			"url": "https://www.pexels.com/api/"
+		},
+		{
+			"name": "Mapbox",
+			"category": "Maps/Geodata",
+			"description": "The Mapbox API provides a suite of tools for creating custom maps and location-based experiences.",
+			"free_tier": "Generous free tier that includes map loads, geocoding requests, and more.",
+			"features": [
+				"Customizable maps",
+				"Turn-by-turn navigation",
+				"Geocoding and reverse geocoding",
+				"Traffic data"
+			],
+			"url": "https://docs.mapbox.com/api/"
+		},
+		{
+			"name": "WordsAPI",
+			"category": "Language",
+			"description": "The WordsAPI provides a dictionary with definitions, synonyms, antonyms, and more.",
+			"free_tier": "2,500 requests per day.",
+			"features": [
+				"Get definitions, synonyms, and antonyms",
+				"Get examples of word usage",
+				"Find rhymes and related words",
+				"Pronunciation information"
+			],
+			"url": "https://www.wordsapi.com/"
+		},
+		{
+			"name": "OMDb",
+			"category": "Entertainment",
+			"description": "The OMDb API provides access to a large database of movie and TV show information.",
+			"free_tier": "Free with an API key, with a daily limit on requests.",
+			"features": [
+				"Search for movies and TV shows by title or IMDB ID",
+				"Get detailed information, including plot, cast, and ratings",
+				"Get poster images",
+				"Supports JSON and XML"
+			],
+			"url": "http://www.omdbapi.com/"
+		}
+	]
+}
