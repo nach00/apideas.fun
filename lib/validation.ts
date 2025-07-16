@@ -8,9 +8,8 @@ import { createValidationError } from './errors';
 // Email validation regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Password requirements
-const PASSWORD_MIN_LENGTH = 8;
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/; // At least one lowercase, uppercase, and digit
+// Password requirements - simplified
+const PASSWORD_MIN_LENGTH = 1;
 
 // Username requirements
 const USERNAME_MIN_LENGTH = 3;
@@ -35,9 +34,6 @@ export const validators = {
     if (!password) return 'Password is required';
     if (password.length < PASSWORD_MIN_LENGTH) {
       return `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`;
-    }
-    if (!PASSWORD_REGEX.test(password)) {
-      return 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
     }
     return null;
   },

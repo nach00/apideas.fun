@@ -58,10 +58,6 @@ export default async function handler(
       throw createValidationError('Invalid email format')
     }
 
-    const passwordValidation = isStrongPassword(password)
-    if (!passwordValidation.valid) {
-      throw createValidationError(`Password requirements not met: ${passwordValidation.issues.join(', ')}`)
-    }
 
     // Check for malicious input
     const emailValidation = validateUserInput(email, 'Email')

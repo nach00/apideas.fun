@@ -88,7 +88,7 @@ export const isValidEmail = (email: string): boolean => {
   return true;
 };
 
-// Password strength validation
+// Password strength validation - simplified
 export const isStrongPassword = (password: string): { valid: boolean; issues: string[] } => {
   const issues: string[] = [];
   
@@ -96,30 +96,12 @@ export const isStrongPassword = (password: string): { valid: boolean; issues: st
     return { valid: false, issues: ['Password is required'] };
   }
   
-  if (password.length < 8) {
-    issues.push('Password must be at least 8 characters long');
+  if (password.length < 1) {
+    issues.push('Password is required');
   }
   
   if (password.length > 128) {
     issues.push('Password must be less than 128 characters');
-  }
-  
-  if (!/[a-z]/.test(password)) {
-    issues.push('Password must contain at least one lowercase letter');
-  }
-  
-  if (!/[A-Z]/.test(password)) {
-    issues.push('Password must contain at least one uppercase letter');
-  }
-  
-  if (!/\d/.test(password)) {
-    issues.push('Password must contain at least one number');
-  }
-  
-  // Check for common weak passwords
-  const commonPasswords = ['password', '123456', 'qwerty', 'abc123', 'password123'];
-  if (commonPasswords.includes(password.toLowerCase())) {
-    issues.push('Password is too common');
   }
   
   return { valid: issues.length === 0, issues };
