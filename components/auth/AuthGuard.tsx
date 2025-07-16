@@ -18,31 +18,60 @@ export default function AuthGuard({
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  // Only log in development mode
+  console.log('=== AUTH GUARD COMPONENT ===')
+  console.log('🛡️ AuthGuard render:', {
+    requireAuth,
+    requireAdmin,
+    status,
+    hasSession: !!session,
+    routerReady: router.isReady,
+    asPath: router.asPath,
+    sessionUser: session?.user,
+    timestamp: new Date().toISOString()
+  })
 
   useEffect(() => {
+    console.log('=== AUTH GUARD USEEFFECT ===')
+    console.log('🔍 AuthGuard useEffect triggered:', {
+      status,
+      hasSession: !!session,
+      routerReady: router.isReady,
+      requireAuth,
+      requireAdmin,
+      asPath: router.asPath,
+      timestamp: new Date().toISOString()
+    })
+    
     if (status === 'loading') {
+      console.log('⏳ Status is loading, returning early')
       return; // Still loading
     }
 
     // Only redirect if router is ready to avoid SSG issues
     if (!router.isReady) {
+      console.log('⏳ Router not ready, returning early')
       return;
     }
 
     if (requireAuth && !session) {
+      console.log('❌ Auth required but no session, redirecting to login')
       logAuth("Redirecting unauthenticated user", { from: router.asPath });
       router.push('/login');
       return;
     }
 
     if (requireAdmin && (!session || session.user.role !== 'admin')) {
+      console.log('❌ Admin required but user is not admin, redirecting to dashboard')
       logAuth("Redirecting non-admin user", { 
         role: session?.user.role, 
         from: router.asPath 
       });
       router.push('/dashboard');
       return;
+    }
+    
+    if (requireAuth && session) {
+      console.log('✅ Auth required and session exists, allowing access')
     }
   }, [session, status, router, requireAuth, requireAdmin])
 

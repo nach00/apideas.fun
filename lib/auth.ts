@@ -7,11 +7,20 @@ import prisma from './database'
 import { validateEnvVar } from './validation'
 
 // Validate required environment variables on import
-validateEnvVar('NEXTAUTH_SECRET', process.env.NEXTAUTH_SECRET)
-console.log('NextAuth config loaded:', {
-  secret: process.env.NEXTAUTH_SECRET ? 'SET' : 'NOT SET',
-  url: process.env.NEXTAUTH_URL
+console.log('=== AUTH CONFIG INITIALIZATION ===')
+console.log('Environment variables:', {
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET ? 'SET' : 'NOT SET',
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  NODE_ENV: process.env.NODE_ENV,
+  DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'NOT SET'
 })
+
+try {
+  validateEnvVar('NEXTAUTH_SECRET', process.env.NEXTAUTH_SECRET)
+  console.log('✅ NEXTAUTH_SECRET validation passed')
+} catch (error) {
+  console.error('❌ NEXTAUTH_SECRET validation failed:', error)
+}
 
 // Optional OAuth environment variables
 const oauthEnvVars = {
@@ -21,6 +30,7 @@ const oauthEnvVars = {
   GOOGLE_SECRET: process.env.GOOGLE_SECRET,
 }
 
+console.log('=== CREATING AUTH OPTIONS ===')
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -31,40 +41,59 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        console.log('Authorize called with:', { email: credentials?.email, hasPassword: !!credentials?.password })
+        console.log('=== CREDENTIALS PROVIDER AUTHORIZE ===')
+        console.log('📥 Authorize called with:', { 
+          email: credentials?.email, 
+          hasPassword: !!credentials?.password,
+          timestamp: new Date().toISOString()
+        })
         
         if (!credentials?.email || !credentials?.password) {
-          console.log('Missing credentials')
+          console.log('❌ Missing credentials, returning null')
           return null
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
-        })
+        console.log('🔍 Looking up user in database...')
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email }
+          })
 
-        console.log('User found:', { found: !!user, hasPassword: !!user?.hashedPassword })
+          console.log('👤 User lookup result:', { 
+            found: !!user, 
+            hasPassword: !!user?.hashedPassword,
+            userId: user?.id,
+            userEmail: user?.email
+          })
 
-        if (!user || !user.hashedPassword) {
-          console.log('User not found or no password')
+          if (!user || !user.hashedPassword) {
+            console.log('❌ User not found or no password, returning null')
+            return null
+          }
+
+          console.log('🔐 Verifying password...')
+          const isValid = await bcrypt.compare(credentials.password, user.hashedPassword)
+          
+          console.log('🔐 Password verification result:', { isValid })
+          
+          if (!isValid) {
+            console.log('❌ Invalid password, returning null')
+            return null
+          }
+
+          const userResult = {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            role: user.role,
+            coinBalance: user.coinBalance,
+          }
+
+          console.log('✅ Credentials authorize success, returning user:', userResult)
+          return userResult
+        } catch (error) {
+          console.error('❌ Error in authorize function:', error)
           return null
-        }
-
-        const isValid = await bcrypt.compare(credentials.password, user.hashedPassword)
-        
-        console.log('Password check:', { isValid })
-        
-        if (!isValid) {
-          console.log('Invalid password')
-          return null
-        }
-
-        console.log('Credentials authorize success:', { userId: user.id, email: user.email })
-        return {
-          id: user.id,
-          email: user.email,
-          username: user.username,
-          role: user.role,
-          coinBalance: user.coinBalance,
         }
       }
     }),
@@ -94,15 +123,37 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log('JWT callback called:', { hasUser: !!user, hasToken: !!token, hasAccount: !!account })
+      console.log('=== JWT CALLBACK CALLED ===')
+      console.log('📋 JWT callback inputs:', { 
+        hasUser: !!user, 
+        hasToken: !!token, 
+        hasAccount: !!account,
+        timestamp: new Date().toISOString()
+      })
       
       if (user) {
-        console.log('JWT callback - setting user in token:', { userId: user.id, email: user.email })
+        console.log('👤 JWT callback - User object received:', user)
+        console.log('🎯 JWT callback - Setting user in token...')
+        
         token.sub = user.id  // Set the user ID as the subject
         token.role = user.role
         token.coinBalance = user.coinBalance
         token.username = user.username
-        console.log('JWT callback - token after setting:', { tokenSub: token.sub, role: token.role })
+        
+        console.log('✅ JWT callback - Token after setting user data:', { 
+          tokenSub: token.sub, 
+          role: token.role,
+          coinBalance: token.coinBalance,
+          username: token.username
+        })
+      } else {
+        console.log('⚠️ JWT callback - No user object, checking existing token...')
+        console.log('🎯 Token contents:', {
+          sub: token.sub,
+          role: token.role,
+          coinBalance: token.coinBalance,
+          username: token.username
+        })
       }
 
       // Handle OAuth users
@@ -166,23 +217,66 @@ export const authOptions: NextAuthOptions = {
       //   }
       // }
 
-      console.log('JWT callback returning token:', { sub: token.sub, role: token.role })
+      console.log('🚀 JWT callback returning token:', { 
+        sub: token.sub, 
+        role: token.role,
+        coinBalance: token.coinBalance,
+        username: token.username,
+        timestamp: new Date().toISOString()
+      })
       return token
     },
     async session({ session, token }) {
+      console.log('=== SESSION CALLBACK CALLED ===')
+      console.log('📋 Session callback inputs:', {
+        hasSession: !!session,
+        hasToken: !!token,
+        tokenSub: token?.sub,
+        timestamp: new Date().toISOString()
+      })
+      
       if (token && token.sub) {
+        console.log('✅ Session callback - Token has sub, setting session user...')
         session.user.id = token.sub as string
         session.user.role = token.role as string
         session.user.coinBalance = token.coinBalance as number
         session.user.username = token.username as string
-        console.log('Session callback:', { sessionUserId: session.user.id, tokenSub: token.sub, hasRole: !!token.role })
+        
+        console.log('✅ Session callback - Session user set:', { 
+          sessionUserId: session.user.id, 
+          tokenSub: token.sub, 
+          role: session.user.role,
+          coinBalance: session.user.coinBalance,
+          username: session.user.username
+        })
       } else {
-        console.log('Session callback - no token or sub:', { hasToken: !!token, sub: token?.sub })
+        console.log('❌ Session callback - No token or sub:', { 
+          hasToken: !!token, 
+          sub: token?.sub,
+          tokenKeys: token ? Object.keys(token) : []
+        })
       }
+      
+      console.log('🚀 Session callback returning session:', {
+        userId: session.user?.id,
+        userRole: session.user?.role,
+        timestamp: new Date().toISOString()
+      })
       return session
     }
   }
 }
+
+console.log('=== AUTH OPTIONS CREATED ===')
+console.log('✅ AuthOptions configuration complete:', {
+  hasSecret: !!authOptions.secret,
+  providersCount: authOptions.providers?.length || 0,
+  hasJWTCallback: !!authOptions.callbacks?.jwt,
+  hasSessionCallback: !!authOptions.callbacks?.session,
+  sessionStrategy: authOptions.session?.strategy,
+  jwtMaxAge: authOptions.jwt?.maxAge,
+  sessionMaxAge: authOptions.session?.maxAge
+})
 
 // AuthService singleton pattern
 type AuthState = 'UNKNOWN' | 'CHECKING' | 'AUTHENTICATED' | 'UNAUTHENTICATED' | 'ERROR'
