@@ -33,6 +33,19 @@ const oauthEnvVars = {
 console.log('=== CREATING AUTH OPTIONS ===')
 process.stderr.write('=== CREATING AUTH OPTIONS ===\n')
 
+// Debug cookie security settings
+const isSecure = process.env.NEXTAUTH_URL?.startsWith('https://') || false
+console.log('Cookie security settings:', {
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  isSecure,
+  NODE_ENV: process.env.NODE_ENV
+})
+process.stderr.write(`Cookie security settings: ${JSON.stringify({
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  isSecure,
+  NODE_ENV: process.env.NODE_ENV
+})}\n`)
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   cookies: {
@@ -42,7 +55,7 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: true,
+        secure: process.env.NEXTAUTH_URL?.startsWith('https://') || false,
         domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
       }
     },
@@ -52,7 +65,7 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: true,
+        secure: process.env.NEXTAUTH_URL?.startsWith('https://') || false,
         domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
       }
     },
@@ -62,7 +75,7 @@ export const authOptions: NextAuthOptions = {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: true,
+        secure: process.env.NEXTAUTH_URL?.startsWith('https://') || false,
         domain: process.env.NODE_ENV === 'production' ? '.apideas.fun' : undefined
       }
     }
