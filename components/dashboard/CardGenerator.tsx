@@ -113,7 +113,8 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 
 		const containerRef = useRef<HTMLDivElement>(null);
 		const apiRefs = useRef<(HTMLDivElement | null)[]>([]);
-		const cardDisplayRef = useRef<HTMLDivElement>(null);
+		const cardDisplayDesktopRef = useRef<HTMLDivElement>(null);
+		const cardDisplayMobileRef = useRef<HTMLDivElement>(null);
 		const lastConfettiCardId = useRef<string | null>(null);
 
 		// Fetch API preferences on component mount
@@ -325,9 +326,13 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 			let originX = 0.5; // Default to center of screen
 			let originY = 0.6; // Slightly below center
 
-			if (cardDisplayRef.current) {
+			// Determine which layout is active based on screen size
+			const isMobileLayout = window.innerWidth <= 768;
+			const activeCardRef = isMobileLayout ? cardDisplayMobileRef.current : cardDisplayDesktopRef.current;
+
+			if (activeCardRef) {
 				// Calculate the center position of the card display relative to viewport
-				const cardRect = cardDisplayRef.current.getBoundingClientRect();
+				const cardRect = activeCardRef.getBoundingClientRect();
 				const cardCenterX = (cardRect.left + cardRect.right) / 2;
 				const cardCenterY = (cardRect.top + cardRect.bottom) / 2;
 
@@ -336,6 +341,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 				originY = cardCenterY / window.innerHeight;
 
 				console.log("🎉 [CONFETTI] Firing from card position:", {
+					layoutType: isMobileLayout ? 'mobile' : 'desktop',
 					cardRect,
 					cardCenterX,
 					cardCenterY,
@@ -693,7 +699,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 							{newCard && !loading ? (
 								<>
 									{/* <h3 className={styles.cardResultTitle}>Generated Card</h3> */}
-									<div className={styles.cardDisplay} ref={cardDisplayRef}>
+									<div className={styles.cardDisplay} ref={cardDisplayDesktopRef}>
 										<Card
 											card={newCard}
 											onCardClick={(cardId) =>
@@ -952,7 +958,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 								{/* Card Result Panel */}
 								{newCard && !loading ? (
 									<>
-										<div className={styles.cardDisplay} ref={cardDisplayRef}>
+										<div className={styles.cardDisplay} ref={cardDisplayMobileRef}>
 											<Card
 												card={newCard}
 												onCardClick={(cardId) =>
