@@ -21,36 +21,36 @@ export default function LoginPage(): JSX.Element {
 		setError("");
 		setLoading(true);
 
-		console.log('=== LOGIN FORM SUBMISSION ===')
-		console.log('📝 Form data:', {
+		console.log("=== LOGIN FORM SUBMISSION ===");
+		console.log("📝 Form data:", {
 			showLogin,
 			email,
 			hasPassword: !!password,
-			timestamp: new Date().toISOString()
-		})
+			timestamp: new Date().toISOString(),
+		});
 
 		try {
 			if (showLogin) {
 				// Login
-				console.log('🔐 Attempting login with NextAuth signIn...')
+				console.log("🔐 Attempting login with NextAuth signIn...");
 				const result = await signIn("credentials", {
 					email,
 					password,
 					redirect: false,
 				});
 
-				console.log('🔐 SignIn result:', {
+				console.log("🔐 SignIn result:", {
 					error: result?.error,
 					ok: result?.ok,
 					status: result?.status,
-					url: result?.url
-				})
+					url: result?.url,
+				});
 
 				if (result?.error) {
-					console.log('❌ Login failed:', result.error)
+					console.log("❌ Login failed:", result.error);
 					setError("Invalid email or password");
 				} else {
-					console.log('✅ Login successful, redirecting to dashboard...')
+					console.log("✅ Login successful, redirecting to dashboard...");
 					router.push("/dashboard");
 				}
 			} else {
@@ -88,22 +88,22 @@ export default function LoginPage(): JSX.Element {
 
 	// Handle redirect for authenticated users
 	useEffect(() => {
-		console.log('=== LOGIN PAGE USEEFFECT ===')
-		console.log('📊 Auth status check:', {
+		console.log("=== LOGIN PAGE USEEFFECT ===");
+		console.log("📊 Auth status check:", {
 			status,
 			hasSession: !!session,
 			routerReady: router.isReady,
 			sessionUser: session?.user,
-			timestamp: new Date().toISOString()
-		})
-		
+			timestamp: new Date().toISOString(),
+		});
+
 		if (status === "authenticated" && session && router.isReady) {
-			console.log('✅ User is authenticated, redirecting to dashboard...')
+			console.log("✅ User is authenticated, redirecting to dashboard...");
 			router.push("/dashboard");
 		} else if (status === "authenticated" && !session) {
-			console.log('⚠️ Status is authenticated but no session object')
+			console.log("! Status is authenticated but no session object");
 		} else if (status === "unauthenticated") {
-			console.log('❌ User is unauthenticated')
+			console.log("❌ User is unauthenticated");
 		}
 	}, [session, status, router]);
 
@@ -203,16 +203,16 @@ export default function LoginPage(): JSX.Element {
 											💰 Rich User
 											<small>1M coins • rich@apideas.com</small>
 										</button>
-										<button
-											className={`${styles.demoBtn} ${styles.demoBtnAdmin}`}
-											onClick={() => {
-												setEmail("admin@apideas.com");
-												setPassword("admin123");
-											}}
-										>
-											👑 Admin Demo
-											<small>admin@apideas.com</small>
-										</button>
+										{/* <button */}
+										{/* 	className={`${styles.demoBtn} ${styles.demoBtnAdmin}`} */}
+										{/* 	onClick={() => { */}
+										{/* 		setEmail("admin@apideas.com"); */}
+										{/* 		setPassword("admin123"); */}
+										{/* 	}} */}
+										{/* > */}
+										{/* 	👑 Admin Demo */}
+										{/* 	<small>admin@apideas.com</small> */}
+										{/* </button> */}
 									</div>
 									<div className={styles.demoNote}>
 										<span>
