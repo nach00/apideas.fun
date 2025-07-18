@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { formatNumber } from '@/lib/card-utils'
 import Navbar from '@/components/Navbar'
 import AuthGuard from '@/components/auth/AuthGuard'
+import EditUserModal, { User, UserUpdates } from '@/components/EditUserModal'
 import styles from './admin.module.css'
 
 interface AdminStats {
@@ -17,16 +18,6 @@ interface AdminStats {
   avgRating: number
 }
 
-interface User {
-  id: string
-  username: string
-  email: string
-  role: string
-  coinBalance: number
-  totalCards: number
-  createdAt: string
-  lastActive: string
-}
 
 interface Transaction {
   id: string
@@ -65,6 +56,8 @@ export default function AdminPage(): JSX.Element {
   const [userFilter, setUserFilter] = useState<'all' | 'admin' | 'user'>('all')
   const [generatingCards, setGeneratingCards] = useState(false)
   const [generationResult, setGenerationResult] = useState<string | null>(null)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
   useEffect(() => {
     fetchData()
@@ -175,34 +168,34 @@ export default function AdminPage(): JSX.Element {
     return matchesSearch && matchesFilter
   })
 
-  const handleEditUser = async (userId: string) => {
-    // For now, just show an alert - in a real app you'd open a modal or navigate to edit page
+  const handleEditUser = (userId: string) => {
     const user = users.find(u => u.id === userId)
     if (user) {
-      const newRole = user.role === 'admin' ? 'user' : 'admin'
-      const confirmed = confirm(`Change ${user.username}'s role from ${user.role} to ${newRole}?`)
+      setSelectedUser(user)
+      setEditModalOpen(true)
+    }
+  }
+
+  const handleSaveUser = async (userId: string, updates: UserUpdates) => {
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      })
       
-      if (confirmed) {
-        try {
-          const response = await fetch(`/api/admin/users/${userId}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ role: newRole }),
-          })
-          
-          if (response.ok) {
-            alert('User role updated successfully!')
-            fetchData() // Refresh the data
-          } else {
-            const data = await response.json()
-            alert(`Error: ${data.message}`)
-          }
-        } catch (error) {
-          alert(`Error: Failed to update user - ${error}`)
-        }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
+      
+      const data = await response.json()
+      alert(data.message || 'User updated successfully!')
+      fetchData() // Refresh the data
+    } catch (error) {
+      console.error('Error updating user:', error)
+      alert(`Error: Failed to update user - ${error}`)
     }
   }
 
@@ -220,14 +213,15 @@ export default function AdminPage(): JSX.Element {
               method: 'DELETE',
             })
             
-            if (response.ok) {
-              alert('User deleted successfully!')
-              fetchData() // Refresh the data
-            } else {
-              const data = await response.json()
-              alert(`Error: ${data.message}`)
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`)
             }
+            
+            const data = await response.json()
+            alert(data.message || 'User deleted successfully!')
+            fetchData() // Refresh the data
           } catch (error) {
+            console.error('Error deleting user:', error)
             alert(`Error: Failed to delete user - ${error}`)
           }
         }
@@ -649,6 +643,16 @@ export default function AdminPage(): JSX.Element {
           </main>
         </div>
       </div>
+
+      <EditUserModal
+        user={selectedUser}
+        isOpen={editModalOpen}
+        onClose={() => {
+          setEditModalOpen(false)
+          setSelectedUser(null)
+        }}
+        onSave={handleSaveUser}
+      />
     </AuthGuard>
   )
 }

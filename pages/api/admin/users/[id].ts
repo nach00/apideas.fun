@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions)
@@ -27,21 +27,56 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     if (req.method === 'PATCH') {
-      // Update user (currently just role changes)
-      const { role } = req.body
+      // Update user with multiple field support
+      const { role, username, coinBalance, resetPassword } = req.body
 
-      if (!role || !['user', 'admin'].includes(role)) {
+      // Validation
+      if (role && !['user', 'admin'].includes(role)) {
         return res.status(400).json({ message: 'Invalid role. Must be "user" or "admin"' })
       }
 
+      if (username && (typeof username !== 'string' || username.length < 3 || username.length > 20)) {
+        return res.status(400).json({ message: 'Username must be between 3 and 20 characters' })
+      }
+
+      if (coinBalance !== undefined && (typeof coinBalance !== 'number' || coinBalance < 0 || coinBalance > 999999)) {
+        return res.status(400).json({ message: 'Coin balance must be between 0 and 999,999' })
+      }
+
       // Prevent user from demoting themselves
-      if (id === user.id && role !== 'admin') {
+      if (id === user.id && role && role !== 'admin') {
         return res.status(400).json({ message: 'Cannot demote yourself from admin role' })
+      }
+
+      // Check if username is already taken (if changing username)
+      if (username) {
+        const existingUser = await prisma.user.findFirst({
+          where: {
+            username: username,
+            NOT: { id: id }
+          }
+        })
+        if (existingUser) {
+          return res.status(400).json({ message: 'Username is already taken' })
+        }
+      }
+
+      // Build update data object
+      const updateData: any = {}
+      if (role !== undefined) updateData.role = role
+      if (username !== undefined) updateData.username = username
+      if (coinBalance !== undefined) updateData.coinBalance = coinBalance
+      
+      // Handle password reset
+      if (resetPassword) {
+        const bcrypt = require('bcryptjs')
+        const hashedPassword = await bcrypt.hash('password123', 12)
+        updateData.hashedPassword = hashedPassword
       }
 
       const updatedUser = await prisma.user.update({
         where: { id },
-        data: { role },
+        data: updateData,
         select: {
           id: true,
           username: true,
@@ -69,7 +104,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         lastActive: updatedUser.updatedAt.toISOString()
       }
 
-      return res.status(200).json({ user: formattedUser })
+      return res.status(200).json({ 
+        user: formattedUser,
+        message: resetPassword ? 'User updated successfully. Password reset to "password123".' : 'User updated successfully'
+      })
 
     } else if (req.method === 'DELETE') {
       // Delete user and all associated data
