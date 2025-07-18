@@ -57,6 +57,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     console.log('Creating Stripe checkout session for package:', packageId)
+    console.log('Stripe secret key present:', !!process.env.STRIPE_SECRET_KEY)
+    console.log('Stripe secret key starts with:', process.env.STRIPE_SECRET_KEY?.substring(0, 10))
 
     // Create Stripe checkout session
     const checkoutSession = await stripe.checkout.sessions.create({
@@ -91,6 +93,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
   } catch (error) {
     console.error('Purchase error:', error)
-    res.status(500).json({ message: 'Internal server error' })
+    console.error('Error details:', JSON.stringify(error, null, 2))
+    res.status(500).json({ 
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    })
   }
 }
