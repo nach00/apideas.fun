@@ -11,6 +11,7 @@ export interface CardData {
 	rating: number;
 	rarity: string;
 	industry: string;
+	solution: string;
 	complexity?: string;
 	feasibility?: string;
 	pinned?: boolean;
@@ -392,7 +393,7 @@ const Card = React.memo<CardProps>(
 										aria-label="Summary"
 									>
 										<p className={styles.cardDescription} title={card.summary}>
-											{truncateText(card.summary, 120)}
+											{truncateText(card.solution, 120)}
 										</p>
 									</section>
 								)}

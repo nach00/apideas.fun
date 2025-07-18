@@ -27,27 +27,12 @@ interface CardData {
   createdAt: string
 }
 
-interface TabConfig {
-  id: string
-  label: string
-  icon: string
-  content: keyof CardData | 'overview' | 'implementation' | 'market'
-}
-
 export default function CardDetailPage(): JSX.Element {
   const router = useRouter()
   const { id } = router.query
   const [card, setCard] = useState<CardData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [activeTab, setActiveTab] = useState('overview')
-
-  const tabs: TabConfig[] = [
-    { id: 'overview', label: 'Overview', icon: '📋', content: 'overview' },
-    { id: 'implementation', label: 'Implementation', icon: '🔧', content: 'implementation' },
-    { id: 'market', label: 'Market Analysis', icon: '📈', content: 'market' },
-    { id: 'technical', label: 'Technical Details', icon: '⚙️', content: 'overview' }
-  ]
 
   const fetchCard = useCallback(async (): Promise<void> => {
     try {
@@ -84,253 +69,6 @@ export default function CardDetailPage(): JSX.Element {
 
   const getApiArray = (apis: string | string[]): string[] => {
     return typeof apis === 'string' ? JSON.parse(apis) : apis
-  }
-
-  const renderTabContent = (): JSX.Element => {
-    if (!card) return <></>
-
-    switch (activeTab) {
-      case 'overview':
-        return (
-          <div className={styles.tabContent}>
-            <div className={styles.overviewGrid}>
-              <div className={styles.overviewSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>💡</span>
-                  The Idea
-                </h3>
-                <p className={styles.sectionContent}>{card.summary || card.subtitle}</p>
-              </div>
-
-              {card.problem && (
-                <div className={styles.overviewSection}>
-                  <h3 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>🎯</span>
-                    Problem Statement
-                  </h3>
-                  <p className={styles.sectionContent}>{card.problem}</p>
-                </div>
-              )}
-
-              {card.solution && (
-                <div className={styles.overviewSection}>
-                  <h3 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>✅</span>
-                    Solution Overview
-                  </h3>
-                  <p className={styles.sectionContent}>{card.solution}</p>
-                </div>
-              )}
-
-              <div className={styles.overviewSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>🔗</span>
-                  API Integration
-                </h3>
-                <div className={styles.apiIntegration}>
-                  {getApiArray(card.apis).map((api, index) => (
-                    <div key={index} className={styles.apiCard}>
-                      <div className={styles.apiName}>{api}</div>
-                      <div className={styles.apiRole}>
-                        {index === 0 ? 'Primary Service' : 'Secondary Service'}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-
-      case 'implementation':
-        return (
-          <div className={styles.tabContent}>
-            <div className={styles.implementationGuide}>
-              <div className={styles.guideSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>🚀</span>
-                  Getting Started
-                </h3>
-                <div className={styles.stepList}>
-                  <div className={styles.stepItem}>
-                    <div className={styles.stepNumber}>1</div>
-                    <div className={styles.stepContent}>
-                      <h4>Set up API accounts</h4>
-                      <p>Register for {getApiArray(card.apis).join(' and ')} developer accounts</p>
-                    </div>
-                  </div>
-                  <div className={styles.stepItem}>
-                    <div className={styles.stepNumber}>2</div>
-                    <div className={styles.stepContent}>
-                      <h4>Configure authentication</h4>
-                      <p>Set up API keys and authentication methods</p>
-                    </div>
-                  </div>
-                  <div className={styles.stepItem}>
-                    <div className={styles.stepNumber}>3</div>
-                    <div className={styles.stepContent}>
-                      <h4>Build core integration</h4>
-                      <p>Implement the main functionality connecting both APIs</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {card.implementation && (
-                <div className={styles.guideSection}>
-                  <h3 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>💻</span>
-                    Implementation Details
-                  </h3>
-                  <div className={styles.codeBlock}>
-                    <pre>{card.implementation}</pre>
-                  </div>
-                </div>
-              )}
-
-              <div className={styles.guideSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>🔧</span>
-                  Technical Requirements
-                </h3>
-                <div className={styles.requirementsGrid}>
-                  <div className={styles.requirementItem}>
-                    <span className={styles.reqLabel}>Complexity</span>
-                    <span className={styles.reqValue}>{card.complexity || 'Medium'}</span>
-                  </div>
-                  <div className={styles.requirementItem}>
-                    <span className={styles.reqLabel}>Feasibility</span>
-                    <span className={styles.reqValue}>{card.feasibility || 'High'}</span>
-                  </div>
-                  <div className={styles.requirementItem}>
-                    <span className={styles.reqLabel}>Time to MVP</span>
-                    <span className={styles.reqValue}>2-4 weeks</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-
-      case 'market':
-        return (
-          <div className={styles.tabContent}>
-            <div className={styles.marketAnalysis}>
-              <div className={styles.analysisSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>💰</span>
-                  Market Opportunity
-                </h3>
-                <div className={styles.marketStats}>
-                  <div className={styles.marketStat}>
-                    <div className={styles.statValue}>{card.marketOpportunity || '$2.1B+'}</div>
-                    <div className={styles.statLabel}>Market Size</div>
-                  </div>
-                  <div className={styles.marketStat}>
-                    <div className={styles.statValue}>{(card.rating * 100).toFixed(0)}%</div>
-                    <div className={styles.statLabel}>Success Score</div>
-                  </div>
-                  <div className={styles.marketStat}>
-                    <div className={styles.statValue}>{card.rarity}</div>
-                    <div className={styles.statLabel}>Rarity Level</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.analysisSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>📊</span>
-                  Industry Analysis
-                </h3>
-                <div className={styles.industryInfo}>
-                  <div className={styles.industryTag}>{card.industry}</div>
-                  <p>This API combination targets the {card.industry.toLowerCase()} industry, which shows strong growth potential and increasing demand for integrated solutions.</p>
-                </div>
-              </div>
-
-              <div className={styles.analysisSection}>
-                <h3 className={styles.sectionTitle}>
-                  <span className={styles.sectionIcon}>🎯</span>
-                  Revenue Potential
-                </h3>
-                <div className={styles.revenueModels}>
-                  <div className={styles.revenueModel}>
-                    <h4>Subscription Model</h4>
-                    <p>Monthly recurring revenue from API usage tiers</p>
-                  </div>
-                  <div className={styles.revenueModel}>
-                    <h4>Transaction Fees</h4>
-                    <p>Small percentage on each API call or transaction</p>
-                  </div>
-                  <div className={styles.revenueModel}>
-                    <h4>Premium Features</h4>
-                    <p>Advanced functionality and analytics packages</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-
-      case 'technical':
-        return (
-          <div className={styles.tabContent}>
-            <div className={styles.technicalSpecs}>
-              <div className={styles.specsGrid}>
-                <div className={styles.specSection}>
-                  <h3 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>⚡</span>
-                    Performance Metrics
-                  </h3>
-                  <div className={styles.metricsList}>
-                    <div className={styles.metricRow}>
-                      <span className={styles.metricName}>Expected Latency</span>
-                      <span className={styles.metricValue}>{'<'}100ms</span>
-                    </div>
-                    <div className={styles.metricRow}>
-                      <span className={styles.metricName}>Throughput</span>
-                      <span className={styles.metricValue}>10K+ RPS</span>
-                    </div>
-                    <div className={styles.metricRow}>
-                      <span className={styles.metricName}>Uptime SLA</span>
-                      <span className={styles.metricValue}>99.9%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.specSection}>
-                  <h3 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>🔒</span>
-                    Security Considerations
-                  </h3>
-                  <div className={styles.securityList}>
-                    <div className={styles.securityItem}>✅ API key encryption</div>
-                    <div className={styles.securityItem}>✅ Rate limiting</div>
-                    <div className={styles.securityItem}>✅ Data validation</div>
-                    <div className={styles.securityItem}>✅ Error handling</div>
-                  </div>
-                </div>
-
-                <div className={styles.specSection}>
-                  <h3 className={styles.sectionTitle}>
-                    <span className={styles.sectionIcon}>📦</span>
-                    Tech Stack
-                  </h3>
-                  <div className={styles.techStack}>
-                    <div className={styles.techItem}>Node.js / Python</div>
-                    <div className={styles.techItem}>Express / FastAPI</div>
-                    <div className={styles.techItem}>PostgreSQL / MongoDB</div>
-                    <div className={styles.techItem}>Redis Cache</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-
-      default:
-        return <div>Content not found</div>
-    }
   }
 
   if (loading) {
@@ -408,39 +146,279 @@ export default function CardDetailPage(): JSX.Element {
                   </div>
                 </div>
               </div>
-              
             </div>
           </header>
 
-          {/* Main Content */}
-          <div className={styles.detailContent}>
-            <div className={styles.contentLayout}>
-              {/* Card Preview */}
-              <div className={styles.cardPreviewSection}>
-                <div className={styles.previewContainer}>
-                  <Card
-                    card={card}
-                  />
-                </div>
+          {/* Main Content - Single Page Layout */}
+          <div className={styles.contentLayout}>
+            {/* Card Preview Section */}
+            <div className={styles.cardPreviewSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>🎴</span>
+                  Card Preview
+                </h2>
               </div>
+              <div className={styles.previewContainer}>
+                <Card card={card} />
+              </div>
+            </div>
 
-              {/* Detailed Information */}
-              <div className={styles.detailInfoSection}>
-                <div className={styles.tabNavigation}>
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`${styles.tabButton} ${activeTab === tab.id ? styles.active : ''}`}
-                    >
-                      <span className={styles.tabIcon}>{tab.icon}</span>
-                      <span className={styles.tabLabel}>{tab.label}</span>
-                    </button>
+            {/* Overview Section */}
+            <div className={styles.contentSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>💡</span>
+                  The Idea
+                </h2>
+              </div>
+              <div className={styles.sectionContent}>
+                <p className={styles.ideaDescription}>{card.summary || card.subtitle}</p>
+                
+                {card.problem && (
+                  <div className={styles.problemSolution}>
+                    <div className={styles.problemStatement}>
+                      <h3 className={styles.subsectionTitle}>
+                        <span className={styles.subsectionIcon}>🎯</span>
+                        Problem Statement
+                      </h3>
+                      <p>{card.problem}</p>
+                    </div>
+                  </div>
+                )}
+
+                {card.solution && (
+                  <div className={styles.problemSolution}>
+                    <div className={styles.solutionStatement}>
+                      <h3 className={styles.subsectionTitle}>
+                        <span className={styles.subsectionIcon}>✅</span>
+                        Solution Overview
+                      </h3>
+                      <p>{card.solution}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* API Integration Section */}
+            <div className={styles.contentSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>🔗</span>
+                  API Integration
+                </h2>
+              </div>
+              <div className={styles.sectionContent}>
+                <div className={styles.apiIntegration}>
+                  {getApiArray(card.apis).map((api, index) => (
+                    <div key={index} className={styles.apiCard}>
+                      <div className={styles.apiNumber}>{index + 1}</div>
+                      <div className={styles.apiDetails}>
+                        <div className={styles.apiName}>{api}</div>
+                        <div className={styles.apiRole}>
+                          {index === 0 ? 'Primary Service' : 'Secondary Service'}
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
+              </div>
+            </div>
 
-                <div className={styles.tabContentContainer}>
-                  {renderTabContent()}
+            {/* Implementation Section */}
+            <div className={styles.contentSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>🚀</span>
+                  Implementation Guide
+                </h2>
+              </div>
+              <div className={styles.sectionContent}>
+                <div className={styles.implementationSteps}>
+                  <div className={styles.stepItem}>
+                    <div className={styles.stepNumber}>1</div>
+                    <div className={styles.stepContent}>
+                      <h4>Set up API accounts</h4>
+                      <p>Register for {getApiArray(card.apis).join(' and ')} developer accounts</p>
+                    </div>
+                  </div>
+                  <div className={styles.stepItem}>
+                    <div className={styles.stepNumber}>2</div>
+                    <div className={styles.stepContent}>
+                      <h4>Configure authentication</h4>
+                      <p>Set up API keys and authentication methods</p>
+                    </div>
+                  </div>
+                  <div className={styles.stepItem}>
+                    <div className={styles.stepNumber}>3</div>
+                    <div className={styles.stepContent}>
+                      <h4>Build core integration</h4>
+                      <p>Implement the main functionality connecting both APIs</p>
+                    </div>
+                  </div>
+                </div>
+
+                {card.implementation && (
+                  <div className={styles.implementationDetails}>
+                    <h3 className={styles.subsectionTitle}>
+                      <span className={styles.subsectionIcon}>💻</span>
+                      Implementation Details
+                    </h3>
+                    <div className={styles.codeBlock}>
+                      <pre>{card.implementation}</pre>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Technical Requirements Section */}
+            <div className={styles.contentSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>⚙️</span>
+                  Technical Details
+                </h2>
+              </div>
+              <div className={styles.sectionContent}>
+                <div className={styles.technicalGrid}>
+                  <div className={styles.techCard}>
+                    <h3 className={styles.techCardTitle}>
+                      <span className={styles.techCardIcon}>🔧</span>
+                      Requirements
+                    </h3>
+                    <div className={styles.requirementsList}>
+                      <div className={styles.requirementItem}>
+                        <span className={styles.reqLabel}>Complexity</span>
+                        <span className={styles.reqValue}>{card.complexity || 'Medium'}</span>
+                      </div>
+                      <div className={styles.requirementItem}>
+                        <span className={styles.reqLabel}>Feasibility</span>
+                        <span className={styles.reqValue}>{card.feasibility || 'High'}</span>
+                      </div>
+                      <div className={styles.requirementItem}>
+                        <span className={styles.reqLabel}>Time to MVP</span>
+                        <span className={styles.reqValue}>2-4 weeks</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.techCard}>
+                    <h3 className={styles.techCardTitle}>
+                      <span className={styles.techCardIcon}>⚡</span>
+                      Performance
+                    </h3>
+                    <div className={styles.metricsList}>
+                      <div className={styles.metricItem}>
+                        <span className={styles.metricName}>Expected Latency</span>
+                        <span className={styles.metricValue}>{'<'}100ms</span>
+                      </div>
+                      <div className={styles.metricItem}>
+                        <span className={styles.metricName}>Throughput</span>
+                        <span className={styles.metricValue}>10K+ RPS</span>
+                      </div>
+                      <div className={styles.metricItem}>
+                        <span className={styles.metricName}>Uptime SLA</span>
+                        <span className={styles.metricValue}>99.9%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.techCard}>
+                    <h3 className={styles.techCardTitle}>
+                      <span className={styles.techCardIcon}>🔒</span>
+                      Security
+                    </h3>
+                    <div className={styles.securityList}>
+                      <div className={styles.securityItem}>✅ API key encryption</div>
+                      <div className={styles.securityItem}>✅ Rate limiting</div>
+                      <div className={styles.securityItem}>✅ Data validation</div>
+                      <div className={styles.securityItem}>✅ Error handling</div>
+                    </div>
+                  </div>
+
+                  <div className={styles.techCard}>
+                    <h3 className={styles.techCardTitle}>
+                      <span className={styles.techCardIcon}>📦</span>
+                      Tech Stack
+                    </h3>
+                    <div className={styles.techStack}>
+                      <div className={styles.techItem}>Node.js / Python</div>
+                      <div className={styles.techItem}>Express / FastAPI</div>
+                      <div className={styles.techItem}>PostgreSQL / MongoDB</div>
+                      <div className={styles.techItem}>Redis Cache</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Market Analysis Section */}
+            <div className={styles.contentSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>
+                  <span className={styles.sectionIcon}>📈</span>
+                  Market Analysis
+                </h2>
+              </div>
+              <div className={styles.sectionContent}>
+                <div className={styles.marketGrid}>
+                  <div className={styles.marketStats}>
+                    <div className={styles.marketStat}>
+                      <div className={styles.statIcon}>💰</div>
+                      <div className={styles.statContent}>
+                        <div className={styles.statValue}>{card.marketOpportunity || '$2.1B+'}</div>
+                        <div className={styles.statLabel}>Market Size</div>
+                      </div>
+                    </div>
+                    <div className={styles.marketStat}>
+                      <div className={styles.statIcon}>🎯</div>
+                      <div className={styles.statContent}>
+                        <div className={styles.statValue}>{(card.rating * 100).toFixed(0)}%</div>
+                        <div className={styles.statLabel}>Success Score</div>
+                      </div>
+                    </div>
+                    <div className={styles.marketStat}>
+                      <div className={styles.statIcon}>💎</div>
+                      <div className={styles.statContent}>
+                        <div className={styles.statValue}>{card.rarity}</div>
+                        <div className={styles.statLabel}>Rarity Level</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.industryAnalysis}>
+                    <h3 className={styles.subsectionTitle}>
+                      <span className={styles.subsectionIcon}>📊</span>
+                      Industry Focus
+                    </h3>
+                    <div className={styles.industryInfo}>
+                      <div className={styles.industryTag}>{card.industry}</div>
+                      <p>This API combination targets the {card.industry.toLowerCase()} industry, which shows strong growth potential and increasing demand for integrated solutions.</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.revenueSection}>
+                    <h3 className={styles.subsectionTitle}>
+                      <span className={styles.subsectionIcon}>💼</span>
+                      Revenue Potential
+                    </h3>
+                    <div className={styles.revenueModels}>
+                      <div className={styles.revenueModel}>
+                        <h4>Subscription Model</h4>
+                        <p>Monthly recurring revenue from API usage tiers</p>
+                      </div>
+                      <div className={styles.revenueModel}>
+                        <h4>Transaction Fees</h4>
+                        <p>Small percentage on each API call or transaction</p>
+                      </div>
+                      <div className={styles.revenueModel}>
+                        <h4>Premium Features</h4>
+                        <p>Advanced functionality and analytics packages</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
