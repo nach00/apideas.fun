@@ -86,9 +86,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Check if Stripe is properly configured
     if (!process.env.STRIPE_SECRET_KEY) {
       console.warn('Stripe not configured - returning mock response')
-      return res.status(200).json({ 
-        sessionId: 'mock_session_' + packageId,
-        message: 'Stripe not configured - this is a mock response for development'
+      return res.status(500).json({ 
+        message: 'Payment processing is temporarily unavailable. Please try again later.'
       })
     }
 

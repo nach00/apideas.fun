@@ -138,43 +138,54 @@ export default function ShopPage(): JSX.Element {
     setPurchaseLoading(packageId)
     setMessage('')
     try {
+      console.log('Attempting to purchase package:', packageId)
+      
       const response = await fetch('/api/shop/purchase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ packageId }),
       })
 
+      console.log('Purchase response status:', response.status)
+
       if (response.ok) {
         const data = await response.json()
+        console.log('Purchase response data:', data)
         
         if (data.url) {
           // Redirect to Stripe Checkout
+          console.log('Redirecting to Stripe checkout URL:', data.url)
           window.location.href = data.url
         } else if (data.sessionId) {
           // Alternative: Use Stripe.js redirect
+          console.log('Using Stripe.js redirect with session ID:', data.sessionId)
           const stripe = await stripePromise
           if (stripe) {
             const { error } = await stripe.redirectToCheckout({
               sessionId: data.sessionId,
             })
             if (error) {
+              console.error('Stripe redirect error:', error)
               setMessage(error.message || 'Failed to redirect to checkout')
             }
+          } else {
+            setMessage('Stripe failed to initialize')
           }
         } else {
+          console.error('Invalid response from server:', data)
           setMessage('Invalid response from server')
         }
       } else {
         const data = await response.json()
+        console.error('Purchase API error:', data)
         setMessage(data.message || 'Failed to create purchase session')
       }
     } catch (err) {
+      console.error('Purchase error:', err)
       setMessage('Something went wrong. Please try again.')
     } finally {
       setPurchaseLoading(null)
-      if (message) {
-        setTimeout(() => setMessage(''), 5000)
-      }
+      setTimeout(() => setMessage(''), 5000)
     }
   }
 
