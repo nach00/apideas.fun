@@ -20,9 +20,9 @@ else
   echo "Using SQLite database provider"
 fi
 
-# Run prisma db push
-echo "Running prisma db push..."
-npx prisma db push --skip-generate
+# Run prisma db push using production schema
+echo "Running prisma db push with PostgreSQL schema..."
+npx prisma db push --schema=prisma/schema.prisma --skip-generate
 
 if [ $? -eq 0 ]; then
   echo "Database push completed successfully"
@@ -34,7 +34,7 @@ fi
 # Only run seed in non-production or if SEED_DATABASE is set
 if [ "$NODE_ENV" != "production" ] || [ "$SEED_DATABASE" == "true" ]; then
   echo "Running database seed..."
-  npx prisma db seed
+  npx prisma db seed --schema=prisma/schema.prisma
   if [ $? -eq 0 ]; then
     echo "Database seed completed successfully"
   else

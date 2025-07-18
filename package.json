@@ -10,9 +10,10 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "heroku-postbuild": "npm run build",
-    "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed",
-    "db:generate": "prisma generate"
+    "db:migrate": "prisma migrate dev --schema=prisma/schema.dev.prisma",
+    "db:seed": "prisma db seed --schema=prisma/schema.dev.prisma",
+    "db:generate": "prisma generate --schema=prisma/schema.dev.prisma",
+    "db:push": "prisma db push --schema=prisma/schema.dev.prisma"
   },
   "engines": {
     "node": "18.x",
