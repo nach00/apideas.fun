@@ -4,11 +4,10 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import CardGenerator from "@/components/dashboard/CardGenerator";
 import MyCollection from "@/components/dashboard/MyCollection";
 import { useDashboard } from "@/hooks/useDashboard";
+import styles from "./dashboard.module.css";
 
 export default function Dashboard(): JSX.Element {
-	console.log("🏠 [DASHBOARD] Dashboard component rendering", {
-		timestamp: Date.now()
-	});
+	// Dashboard component rendering
 
 	const {
 		recentCards: allCards,
@@ -26,21 +25,16 @@ export default function Dashboard(): JSX.Element {
 		deleteCard,
 	} = useDashboard();
 
-	console.log("🏠 [DASHBOARD] useDashboard hook completed", {
-		sessionExists: !!session,
-		loading,
-		hasNewCard: !!newCard,
-		timestamp: Date.now()
-	});
+	// Dashboard hook completed
 
 	if (!session) {
 		return (
 			<AuthGuard requireAuth>
-				<div className="dashboard-page">
-					<div className="dashboard-container">
-						<div className="dashboard-loading">
-							<div className="dashboard-loading-spinner" />
-							<p className="dashboard-loading-text">Loading dashboard...</p>
+				<div className={styles.dashboardPage}>
+					<div className={styles.dashboardContainer}>
+						<div className={styles.dashboardLoading}>
+							<div className={styles.dashboardLoadingSpinner} />
+							<p className={styles.dashboardLoadingText}>Loading dashboard...</p>
 						</div>
 					</div>
 				</div>
@@ -51,9 +45,9 @@ export default function Dashboard(): JSX.Element {
 	return (
 		<AuthGuard requireAuth>
 			<Navbar />
-			<div className="dashboard-page">
-				<div className="dashboard-container">
-					<main className="dashboard-main">
+			<div className={styles.dashboardPage}>
+				<div className={styles.dashboardContainer}>
+					<main className={styles.dashboardMain}>
 						<CardGenerator
 							loading={loading}
 							hasLowBalance={hasLowBalance}

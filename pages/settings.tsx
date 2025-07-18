@@ -4,7 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { formatNumber } from "@/lib/card-utils";
 import Navbar from "@/components/Navbar";
 import AuthGuard from "@/components/auth/AuthGuard";
-import styles from "@/styles/pages/settings.module.css";
+import styles from "./settings.module.css";
 
 interface UserStats {
 	totalCards: number;

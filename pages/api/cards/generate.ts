@@ -48,21 +48,21 @@ export default async function handler(
   res.setHeader('X-RateLimit-Remaining', rateLimitResult.remaining)
 
   const [result, error] = await handleAsyncError(async () => {
-    console.log('🔄 Starting card generation process...')
+    // Starting card generation process
     
     // Authenticate user
     const session = await getServerSession(req, res, authOptions)
     if (!session?.user?.id) {
-      console.log('❌ No session found')
+      // No session found
       throw createAuthError('Authentication required')
     }
 
-    console.log('✅ Session found for user:', session.user.id)
+    // Session found for user
     
     // Validate and sanitize request data
     const selectedApis = req.body?.selectedApis ? 
       (Array.isArray(req.body.selectedApis) ? req.body.selectedApis : []) : [];
-    console.log('📥 Request body:', { selectedApis });
+    // Request body validated
 
     // Check user's coin balance
     const user = await prisma.user.findUnique({
@@ -76,11 +76,11 @@ export default async function handler(
 
     const CARD_COST = 15;
     if (user.coinBalance < CARD_COST) {
-      console.log('❌ Insufficient coins. Balance:', user.coinBalance)
+      // Insufficient coins
       throw createInsufficientCoinsError(CARD_COST, user.coinBalance);
     }
 
-    console.log('✅ User has sufficient coins:', user.coinBalance)
+    // User has sufficient coins
 
     // Get user's API preferences
     const preferences = await prisma.userPreference.findMany({
@@ -96,7 +96,7 @@ export default async function handler(
       .filter(p => p.preferenceType === 'ignore')
       .map(p => p.api.name)
 
-    console.log('✅ API preferences loaded. Locked:', lockedApis.length, 'Ignored:', ignoredApis.length)
+    // API preferences loaded
 
     // Get existing cards to prevent duplicates
     const existingCards = await prisma.card.findMany({
@@ -105,30 +105,30 @@ export default async function handler(
     })
     
     const existingCombinationKeys = existingCards.map(card => card.combinationKey)
-    console.log('✅ Existing cards loaded:', existingCombinationKeys.length)
+    // Existing cards loaded
 
     let combination = null
 
     // If specific APIs were selected by frontend, try to use them
     if (selectedApis && Array.isArray(selectedApis) && selectedApis.length === 2) {
-      console.log('🎯 Frontend selected specific APIs:', selectedApis)
+      // Frontend selected specific APIs
       combination = getCombinationByApis(selectedApis, existingCombinationKeys)
       
       if (combination) {
-        console.log('✅ Found exact combination for selected APIs:', combination.title)
+        // Found exact combination for selected APIs
       } else {
-        console.log('❌ No combination found for selected APIs, falling back to random')
+        // No combination found for selected APIs, falling back to random
       }
     }
 
     // Fall back to random combination if no specific selection or no match found
     if (!combination) {
-      console.log('🎲 Using random combination selection')
+      // Using random combination selection
       combination = getRandomCombination(lockedApis, ignoredApis, existingCombinationKeys)
     }
     
     if (!combination) {
-      console.log('❌ No combinations available')
+      // No combinations available
       
       // Check if user has all possible combinations
       if (existingCombinationKeys.length >= 190) {
@@ -146,11 +146,11 @@ export default async function handler(
       );
     }
 
-    console.log('✅ Selected combination:', combination.title)
+    // Selected combination
 
     // Create card data
     const cardData = createCardFromCombination(session.user.id, combination)
-    console.log('✅ Card data created')
+    // Card data created
 
     // Start transaction
     const result = await prisma.$transaction(async (tx) => {
@@ -196,7 +196,7 @@ export default async function handler(
       return card
     })
 
-    console.log('✅ Card generated successfully:', result.id)
+    // Card generated successfully
 
     return result;
   }, 'CARD_GENERATION');

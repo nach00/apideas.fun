@@ -35,6 +35,10 @@ export default function LandingPage(): JSX.Element {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 	const [currentCardIndex, setCurrentCardIndex] = useState(0);
+	const [cardTransition, setCardTransition] = useState<
+		"entering" | "exiting" | null
+	>(null);
+	const [animationVariant, setAnimationVariant] = useState(0);
 	const [gridDimensions, setGridDimensions] = useState({ columns: 8, rows: 6 });
 
 	// Sample cards to display in hero
@@ -129,14 +133,31 @@ export default function LandingPage(): JSX.Element {
 		return () => window.removeEventListener("resize", calculateGridDimensions);
 	}, []);
 
+	// Smooth card transition function
+	const changeCard = (newIndex: number) => {
+		if (newIndex === currentCardIndex) return;
+
+		// Select random animation variant (0-5 for 6 different rotation patterns)
+		const variant = Math.floor(Math.random() * 6);
+		setAnimationVariant(variant);
+		setCardTransition("exiting");
+		
+		setTimeout(() => {
+			setCurrentCardIndex(newIndex);
+			setCardTransition("entering");
+			setTimeout(() => setCardTransition(null), 600); // Reduced from 900ms to match new animation duration
+		}, 300); // Reduced from 600ms to 300ms to overlap animations
+	};
+
 	// Carousel auto-advance effect
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCurrentCardIndex((prevIndex) => (prevIndex + 1) % sampleCards.length);
-		}, 4000); // Show each card for 4 seconds
+			const nextIndex = (currentCardIndex + 1) % sampleCards.length;
+			changeCard(nextIndex);
+		}, 5000); // Show each card for 5 seconds
 
 		return () => clearInterval(interval);
-	}, [sampleCards.length]);
+	}, [currentCardIndex, sampleCards.length]);
 
 	// Redirect authenticated users
 	useEffect(() => {
@@ -207,8 +228,8 @@ export default function LandingPage(): JSX.Element {
 					<div className={styles.heroContent}>
 						<h1 className={styles.title}>App Ideas, Instantly</h1>
 						<p className={styles.subtitle}>
-							AI generated app concepts by randomly combining powerful APIs.
-							Includes starter business plan.
+							AI generated app concepts created by randomly combining powerful
+							APIs. Includes starter business plan.
 						</p>
 
 						<div className={styles.cta}>
@@ -220,7 +241,11 @@ export default function LandingPage(): JSX.Element {
 
 					<div className={styles.heroCards}>
 						<div className={styles.cardCarousel}>
-							<div className={styles.cardContainer}>
+							<div
+								className={`${styles.cardContainer} ${
+									cardTransition ? styles[cardTransition] : ""
+								} ${styles[`variant${animationVariant}`]}`}
+							>
 								<Card card={sampleCards[currentCardIndex]} />
 							</div>
 							<div className={styles.carouselIndicators}>
@@ -230,7 +255,7 @@ export default function LandingPage(): JSX.Element {
 										className={`${styles.indicator} ${
 											index === currentCardIndex ? styles.active : ""
 										}`}
-										onClick={() => setCurrentCardIndex(index)}
+										onClick={() => changeCard(index)}
 										aria-label={`Go to card ${index + 1}`}
 									/>
 								))}

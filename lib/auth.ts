@@ -7,17 +7,9 @@ import prisma from './database'
 import { validateEnvVar } from './validation'
 
 // Validate required environment variables on import
-console.log('=== AUTH CONFIG INITIALIZATION ===')
-console.log('Environment variables:', {
-  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET ? 'SET' : 'NOT SET',
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  NODE_ENV: process.env.NODE_ENV,
-  DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'NOT SET'
-})
 
 try {
   validateEnvVar('NEXTAUTH_SECRET', process.env.NEXTAUTH_SECRET)
-  console.log('✅ NEXTAUTH_SECRET validation passed')
 } catch (error) {
   console.error('❌ NEXTAUTH_SECRET validation failed:', error)
 }
@@ -30,21 +22,8 @@ const oauthEnvVars = {
   GOOGLE_SECRET: process.env.GOOGLE_SECRET,
 }
 
-console.log('=== CREATING AUTH OPTIONS ===')
-process.stderr.write('=== CREATING AUTH OPTIONS ===\n')
-
-// Debug cookie security settings
+// Cookie security settings
 const isSecure = process.env.NEXTAUTH_URL?.startsWith('https://') || false
-console.log('Cookie security settings:', {
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  isSecure,
-  NODE_ENV: process.env.NODE_ENV
-})
-process.stderr.write(`Cookie security settings: ${JSON.stringify({
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  isSecure,
-  NODE_ENV: process.env.NODE_ENV
-})}\n`)
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -88,51 +67,35 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        // Force logging to stderr to ensure it appears in Heroku logs
-        process.stderr.write('=== CREDENTIALS PROVIDER AUTHORIZE ===\n')
-        process.stderr.write(`📥 Authorize called with: ${JSON.stringify({
-          email: credentials?.email, 
-          hasPassword: !!credentials?.password,
-          timestamp: new Date().toISOString()
-        })}\n`)
+        // Credentials provider authorize function
         
-        console.log('=== CREDENTIALS PROVIDER AUTHORIZE ===')
-        console.log('📥 Authorize called with:', { 
-          email: credentials?.email, 
-          hasPassword: !!credentials?.password,
-          timestamp: new Date().toISOString()
-        })
+        // Credentials authentication attempt
         
         if (!credentials?.email || !credentials?.password) {
-          console.log('❌ Missing credentials, returning null')
+          // Missing credentials
           return null
         }
 
-        console.log('🔍 Looking up user in database...')
+        // Looking up user in database
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email }
           })
 
-          console.log('👤 User lookup result:', { 
-            found: !!user, 
-            hasPassword: !!user?.hashedPassword,
-            userId: user?.id,
-            userEmail: user?.email
-          })
+          // User lookup completed
 
           if (!user || !user.hashedPassword) {
-            console.log('❌ User not found or no password, returning null')
+            // User not found or no password
             return null
           }
 
-          console.log('🔐 Verifying password...')
+          // Verifying password
           const isValid = await bcrypt.compare(credentials.password, user.hashedPassword)
           
-          console.log('🔐 Password verification result:', { isValid })
+          // Password verification completed
           
           if (!isValid) {
-            console.log('❌ Invalid password, returning null')
+            // Invalid password
             return null
           }
 
@@ -183,32 +146,10 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      // Force logging to stderr to ensure it appears in Heroku logs
-      process.stderr.write('=== JWT CALLBACK CALLED ===\n')
-      process.stderr.write('🚨 JWT CALLBACK WAS TRIGGERED!\n')
-      process.stderr.write(`📋 JWT callback inputs: ${JSON.stringify({
-        hasUser: !!user, 
-        hasToken: !!token, 
-        hasAccount: !!account,
-        userKeys: user ? Object.keys(user) : [],
-        tokenKeys: token ? Object.keys(token) : [],
-        timestamp: new Date().toISOString()
-      })}\n`)
-      
-      console.log('=== JWT CALLBACK CALLED ===')
-      console.log('🚨 JWT CALLBACK WAS TRIGGERED!')
-      console.log('📋 JWT callback inputs:', { 
-        hasUser: !!user, 
-        hasToken: !!token, 
-        hasAccount: !!account,
-        userKeys: user ? Object.keys(user) : [],
-        tokenKeys: token ? Object.keys(token) : [],
-        timestamp: new Date().toISOString()
-      })
+      // JWT callback processing
       
       if (user) {
-        console.log('👤 JWT callback - User object received:', user)
-        console.log('🎯 JWT callback - Setting user in token...')
+        // User object received, setting in token
         
         // Ensure the user ID is properly set as the subject
         if (user.id) {
@@ -279,7 +220,7 @@ export const authOptions: NextAuthOptions = {
 
       // Refresh user data from database on token refresh (but not on initial login)
       if (token.sub && !user) {
-        console.log('JWT callback - refreshing user data for:', token.sub)
+        // Refreshing user data
         const userId = token.sub as string
         try {
           const currentUser = await prisma.user.findUnique({
@@ -291,43 +232,23 @@ export const authOptions: NextAuthOptions = {
             token.coinBalance = currentUser.coinBalance
             token.role = currentUser.role
             token.username = currentUser.username
-            console.log('JWT callback - refreshed user data:', { coinBalance: token.coinBalance, role: token.role })
+            // User data refreshed
           } else {
-            console.log('JWT callback - user not found in database:', userId)
+            // User not found in database
           }
         } catch (error) {
           console.error('Error refreshing user data:', error)
         }
       }
 
-      console.log('🚀 JWT callback returning token:', { 
-        sub: token.sub, 
-        role: token.role,
-        coinBalance: token.coinBalance,
-        username: token.username,
-        timestamp: new Date().toISOString()
-      })
+      // JWT callback completed
       return token
     },
     async session({ session, token }) {
-      // Force logging to stderr to ensure it appears in Heroku logs
-      process.stderr.write('=== SESSION CALLBACK CALLED ===\n')
-      process.stderr.write('🚨 SESSION CALLBACK WAS TRIGGERED!\n')
-      
-      console.log('=== SESSION CALLBACK CALLED ===')
-      console.log('🚨 SESSION CALLBACK WAS TRIGGERED!')
-      console.log('📋 Session callback inputs:', {
-        hasSession: !!session,
-        hasToken: !!token,
-        tokenSub: token?.sub,
-        sessionUserExists: !!session?.user,
-        sessionUserId: session?.user?.id,
-        tokenKeys: token ? Object.keys(token) : [],
-        timestamp: new Date().toISOString()
-      })
+      // Session callback processing
       
       if (token && token.sub) {
-        console.log('✅ Session callback - Token has sub, setting session user...')
+        // Setting session user from token
         
         // Ensure session.user exists
         if (!session.user) {
@@ -350,27 +271,16 @@ export const authOptions: NextAuthOptions = {
           email: session.user.email
         })
       } else {
-        console.log('❌ Session callback - No token or sub:', { 
-          hasToken: !!token, 
-          sub: token?.sub,
-          tokenKeys: token ? Object.keys(token) : []
-        })
+        // No token or sub available
       }
       
-      console.log('🚀 Session callback returning session:', {
-        hasUser: !!session.user,
-        userId: session.user?.id,
-        userRole: session.user?.role,
-        userEmail: session.user?.email,
-        timestamp: new Date().toISOString()
-      })
+      // Session callback completed
       return session
     }
   }
 }
 
-console.log('=== AUTH OPTIONS CREATED ===')
-process.stderr.write('=== AUTH OPTIONS CREATED ===\n')
+// Auth options created
 
 const configCheck = {
   hasSecret: !!authOptions.secret,
@@ -382,21 +292,11 @@ const configCheck = {
   sessionMaxAge: authOptions.session?.maxAge
 }
 
-console.log('✅ AuthOptions configuration complete:', configCheck)
-process.stderr.write(`✅ AuthOptions configuration complete: ${JSON.stringify(configCheck)}\n`)
+// AuthOptions configuration complete
 
-// Test if the callbacks are actually attached
-if (authOptions.callbacks?.jwt) {
-  process.stderr.write('✅ JWT callback is attached to authOptions\n')
-} else {
-  process.stderr.write('❌ JWT callback is NOT attached to authOptions\n')
-}
+// Callbacks validation complete
 
-if (authOptions.callbacks?.session) {
-  process.stderr.write('✅ Session callback is attached to authOptions\n')
-} else {
-  process.stderr.write('❌ Session callback is NOT attached to authOptions\n')
-}
+// Session callback validation complete
 
 // AuthService singleton pattern
 type AuthState = 'UNKNOWN' | 'CHECKING' | 'AUTHENTICATED' | 'UNAUTHENTICATED' | 'ERROR'

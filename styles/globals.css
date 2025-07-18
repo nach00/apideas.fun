@@ -7,18 +7,12 @@
  */
 
 /* Base Styles - Foundation */
-@import "./base/reset.css";
-@import "./base/typography.css";
-@import "./base/colors.css";
-@import "./base/spacing.css";
-@import "./base/effects.css";
-@import "./base/layout.css";
-@import "./base/dark-theme.css";
-
-/* Page Styles */
-@import "./pages/apis.css";
-@import "./pages/collection.css";
-@import "./pages/dashboard.css";
+@import "./reset.css";
+@import "./typography.css";
+@import "./colors.css";
+@import "./spacing.css";
+@import "./effects.css";
+@import "./layout.css";
 
 /* === GLOBAL APPLICATION STYLES === */
 

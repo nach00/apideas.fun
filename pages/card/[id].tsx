@@ -311,32 +311,6 @@ export default function CardDetailPage(): JSX.Element {
 								</div>
 							</div>
 
-							{/* API Integration Section */}
-							<div className={styles.contentSection}>
-								<div className={styles.sectionHeader}>
-									<h2 className={styles.sectionTitle}>
-										<span className={styles.sectionIcon}>🔗</span>
-										API Integration
-									</h2>
-								</div>
-								<div className={styles.sectionContent}>
-									<div className={styles.apiIntegration}>
-										{getApiArray(card.apis).map((api, index) => (
-											<div key={index} className={styles.apiCard}>
-												<div className={styles.apiNumber}>{index + 1}</div>
-												<div className={styles.apiDetails}>
-													<div className={styles.apiName}>{api}</div>
-													<div className={styles.apiRole}>
-														{index === 0
-															? "Primary Service"
-															: "Secondary Service"}
-													</div>
-												</div>
-											</div>
-										))}
-									</div>
-								</div>
-							</div>
 
 							{/* Implementation Section */}
 							<div className={styles.contentSection}>
@@ -502,22 +476,66 @@ export default function CardDetailPage(): JSX.Element {
 										</div>
 									</div>
 
-									{/* Code Implementation */}
+									{/* Implementation Details */}
 									{card.implementation && (
-										<div className={styles.codeSection}>
-											<h3 className={styles.codeTitle}>
-												<span className={styles.codeIcon}>💻</span>
-												Sample Implementation
-											</h3>
-											<div className={styles.codeWrapper}>
-												<div className={styles.codeControls}>
-													<span className={styles.codeLabel}>Example Code</span>
-													<button className={styles.copyBtn}>Copy Code</button>
-												</div>
-												<div className={styles.codeContent}>
-													<pre className={styles.codeBlock}>
-														{card.implementation}
-													</pre>
+										<div className={styles.innovationScore}>
+											<div className={styles.innovationHeader}>
+												<h3 className={styles.subsectionTitle}>
+													<span className={styles.subsectionIcon}>🔧</span>
+													Technical Implementation
+												</h3>
+											</div>
+											<div className={styles.scoreExplanation}>
+												<div className={styles.scoringFactors}>
+													<div className={styles.factorsList}>
+														{card.implementation.split('\n').map((line, index) => {
+															if (!line.trim()) return null;
+															
+															// Try multiple patterns to match the content
+															let match = line.match(/^(\d+)\.\s*\*\*(.*?)\*\*:\s*(.*)$/);
+															if (!match) {
+																match = line.match(/^(\d+)\.\s*\*\*(.*?)\*\*\s*(.*)$/);
+															}
+															if (!match) {
+																match = line.match(/^(\d+)\.\s*(.*?):\s*(.*)$/);
+															}
+															
+															if (match) {
+																const [, number, title, description] = match;
+																// Clean up title by removing ** and trailing ::
+																const cleanTitle = title.replace(/\*\*/g, '').replace(/::$/, '').replace(/:$/, '');
+																return (
+																	<div key={index} className={styles.factorItem}>
+																		<span className={`${styles.factorIcon} ${styles.stepNumber}`}>{number}</span>
+																		<div className={styles.factorContent}>
+																			<span className={styles.factorLabel}>
+																				{cleanTitle}
+																			</span>
+																			<span className={styles.factorValue}>
+																				{description}
+																			</span>
+																		</div>
+																	</div>
+																);
+															}
+															
+															// Fallback: show any line that starts with a number
+															if (line.match(/^\d+\./)) {
+																return (
+																	<div key={index} className={styles.factorItem}>
+																		<span className={`${styles.factorIcon} ${styles.stepNumber}`}>•</span>
+																		<div className={styles.factorContent}>
+																			<span className={styles.factorValue}>
+																				{line}
+																			</span>
+																		</div>
+																	</div>
+																);
+															}
+															
+															return null;
+														}).filter(Boolean)}
+													</div>
 												</div>
 											</div>
 										</div>
@@ -530,33 +548,38 @@ export default function CardDetailPage(): JSX.Element {
 											Developer Resources
 										</h3>
 										<div className={styles.resourceCards}>
-											<div className={styles.resourceCard}>
-												<div className={styles.resourceHeader}>
-													<div className={styles.resourceIcon}>📖</div>
-													<h4>Documentation</h4>
-												</div>
-												<p>
-													Official API documentation and guides for{" "}
-													{getApiArray(card.apis).join(" and ")}
-												</p>
-											</div>
-											<div className={styles.resourceCard}>
+											{getApiArray(card.apis).map((api, index) => (
+												<a
+													key={index}
+													href={getApiDocumentationUrl(api)}
+													target="_blank"
+													rel="noopener noreferrer"
+													className={styles.resourceCard}
+												>
+													<div className={styles.resourceHeader}>
+														<div className={styles.resourceIcon}>📖</div>
+														<h4>{api} Documentation</h4>
+													</div>
+													<p>
+														Official API documentation and developer guides for {api}
+													</p>
+												</a>
+											))}
+											<a
+												href={`https://github.com/search?q=${getApiArray(card.apis).join('+')}&type=repositories`}
+												target="_blank"
+												rel="noopener noreferrer"
+												className={styles.resourceCard}
+											>
 												<div className={styles.resourceHeader}>
 													<div className={styles.resourceIcon}>🎯</div>
-													<h4>Examples</h4>
+													<h4>Code Examples</h4>
 												</div>
 												<p>
 													Code samples and tutorials from the developer
 													community
 												</p>
-											</div>
-											<div className={styles.resourceCard}>
-												<div className={styles.resourceHeader}>
-													<div className={styles.resourceIcon}>💡</div>
-													<h4>Support</h4>
-												</div>
-												<p>Community forums and developer support channels</p>
-											</div>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -664,204 +687,39 @@ export default function CardDetailPage(): JSX.Element {
 								<div className={styles.sectionHeader}>
 									<h2 className={styles.sectionTitle}>
 										<span className={styles.sectionIcon}>📈</span>
-										Market Analysis
+										Market Opportunity
 									</h2>
-									<div className={styles.sectionDescription}>
-										Comprehensive market opportunity and business potential
-										analysis
-									</div>
 								</div>
 								<div className={styles.sectionContent}>
-									{/* Key Metrics */}
-									<div className={styles.keyMetrics}>
-										<div className={styles.metricsRow}>
-											<div className={styles.metricCard}>
-												<div className={styles.metricIcon}>📈</div>
-												<div className={styles.metricContent}>
-													<div className={styles.metricValue}>
-														{card.marketOpportunity || "$2.1B+"}
-													</div>
-													<div className={styles.metricLabel}>Market Size</div>
-												</div>
+									{card.marketOpportunity && (
+										<div className={styles.problemSolution}>
+											<div className={styles.problemStatement}>
+												<h3 className={styles.subsectionTitle}>
+													<span className={styles.subsectionIcon}>💰</span>
+													Market Size
+												</h3>
+												<p>{card.marketOpportunity} total addressable market in the {card.industry.toLowerCase()} sector</p>
 											</div>
+										</div>
+									)}
 
-											<div className={styles.metricCard}>
-												<div className={styles.metricIcon}>🎯</div>
-												<div className={styles.metricContent}>
-													<div className={styles.metricValue}>
-														{(card.rating * 100).toFixed(0)}%
-													</div>
-													<div className={styles.metricLabel}>
-														Success Score
-													</div>
-												</div>
-											</div>
-
-											<div className={styles.metricCard}>
-												<div className={styles.metricIcon}>💎</div>
-												<div className={styles.metricContent}>
-													<div className={styles.metricValue}>
-														{card.rarity}
-													</div>
-													<div className={styles.metricLabel}>Rarity Level</div>
-												</div>
-											</div>
+									<div className={styles.problemSolution}>
+										<div className={styles.solutionStatement}>
+											<h3 className={styles.subsectionTitle}>
+												<span className={styles.subsectionIcon}>🎯</span>
+												Target Market
+											</h3>
+											<p>Businesses in {card.industry.toLowerCase()} seeking efficient API integration solutions to automate workflows and improve operational efficiency</p>
 										</div>
 									</div>
 
-									{/* Market Overview */}
-									<div className={styles.marketOverview}>
-										<h3 className={styles.overviewTitle}>Market Overview</h3>
-										<div className={styles.overviewGrid}>
-											<div className={styles.overviewCard}>
-												<div className={styles.overviewIcon}>📈</div>
-												<h4>Industry Focus</h4>
-												<div className={styles.industryBadge}>
-													{card.industry}
-												</div>
-												<p>
-													Experiencing rapid digital transformation with 15-25%
-													annual growth in API adoption
-												</p>
-											</div>
-
-											<div className={styles.overviewCard}>
-												<div className={styles.overviewIcon}>🎯</div>
-												<h4>Target Audience</h4>
-												<p>
-													Small to medium businesses and enterprises seeking
-													streamlined operations through API integrations
-												</p>
-											</div>
-
-											<div className={styles.overviewCard}>
-												<div className={styles.overviewIcon}>🛡</div>
-												<h4>Competitive Advantage</h4>
-												<p>
-													Limited direct competitors in this specific API
-													combination, providing first-mover advantage
-												</p>
-											</div>
-										</div>
-									</div>
-
-									{/* Revenue Strategy */}
-									<div className={styles.revenueStrategy}>
-										<h3 className={styles.revenueTitle}>Revenue Strategy</h3>
-										<div className={styles.revenueGrid}>
-											<div className={styles.revenueCard}>
-												<div className={styles.revenueIcon}>🔄</div>
-												<h4>Subscription Model</h4>
-												<div className={styles.revenueDetails}>
-													<p>Monthly recurring revenue with tiered pricing</p>
-													<div className={styles.pricingList}>
-														<div className={styles.priceItem}>
-															Basic: $29/mo
-														</div>
-														<div className={styles.priceItem}>Pro: $99/mo</div>
-														<div className={styles.priceItem}>
-															Enterprise: $299/mo
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div className={styles.revenueCard}>
-												<div className={styles.revenueIcon}>💳</div>
-												<h4>Transaction Fees</h4>
-												<div className={styles.revenueDetails}>
-													<p>Usage-based commission model</p>
-													<div className={styles.feeStructure}>
-														<div className={styles.feeItem}>
-															1-3% per transaction
-														</div>
-														<div className={styles.feeItem}>
-															Est. 10K-50K monthly volume
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div className={styles.revenueCard}>
-												<div className={styles.revenueIcon}>⭐</div>
-												<h4>Premium Add-ons</h4>
-												<div className={styles.revenueDetails}>
-													<p>Value-added services and features</p>
-													<div className={styles.addonList}>
-														<div className={styles.addonItem}>
-															Analytics: +$49/mo
-														</div>
-														<div className={styles.addonItem}>
-															Custom Integration: +$199/mo
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									{/* Growth Projections */}
-									<div className={styles.growthProjections}>
-										<h3 className={styles.growthTitle}>
-											3-Year Growth Projections
-										</h3>
-										<div className={styles.projectionsGrid}>
-											<div className={styles.projectionCard}>
-												<div className={styles.projectionYear}>Year 1</div>
-												<div className={styles.projectionRevenue}>
-													$50K-100K
-												</div>
-												<div className={styles.projectionDetails}>
-													<div className={styles.projectionMetric}>
-														<span className={styles.metricLabel}>Users:</span>
-														<span className={styles.metricValue}>100-500</span>
-													</div>
-													<div className={styles.projectionMetric}>
-														<span className={styles.metricLabel}>Focus:</span>
-														<span className={styles.metricValue}>
-															Product-market fit
-														</span>
-													</div>
-												</div>
-											</div>
-
-											<div className={styles.projectionCard}>
-												<div className={styles.projectionYear}>Year 2</div>
-												<div className={styles.projectionRevenue}>
-													$200K-500K
-												</div>
-												<div className={styles.projectionDetails}>
-													<div className={styles.projectionMetric}>
-														<span className={styles.metricLabel}>Users:</span>
-														<span className={styles.metricValue}>500-2K</span>
-													</div>
-													<div className={styles.projectionMetric}>
-														<span className={styles.metricLabel}>Focus:</span>
-														<span className={styles.metricValue}>
-															Scale operations
-														</span>
-													</div>
-												</div>
-											</div>
-
-											<div className={styles.projectionCard}>
-												<div className={styles.projectionYear}>Year 3</div>
-												<div className={styles.projectionRevenue}>
-													$500K-1M+
-												</div>
-												<div className={styles.projectionDetails}>
-													<div className={styles.projectionMetric}>
-														<span className={styles.metricLabel}>Users:</span>
-														<span className={styles.metricValue}>2K-5K+</span>
-													</div>
-													<div className={styles.projectionMetric}>
-														<span className={styles.metricLabel}>Focus:</span>
-														<span className={styles.metricValue}>
-															Market leadership
-														</span>
-													</div>
-												</div>
-											</div>
+									<div className={styles.problemSolution}>
+										<div className={styles.solutionStatement}>
+											<h3 className={styles.subsectionTitle}>
+												<span className={styles.subsectionIcon}>⚡</span>
+												Competitive Edge
+											</h3>
+											<p>The {getApiArray(card.apis).join(" + ")} combination provides unique capabilities with limited direct competition in the current market landscape</p>
 										</div>
 									</div>
 								</div>

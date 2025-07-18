@@ -21,36 +21,25 @@ export default function LoginPage(): JSX.Element {
 		setError("");
 		setLoading(true);
 
-		console.log("=== LOGIN FORM SUBMISSION ===");
-		console.log("📝 Form data:", {
-			showLogin,
-			email,
-			hasPassword: !!password,
-			timestamp: new Date().toISOString(),
-		});
+		// Login form submission
 
 		try {
 			if (showLogin) {
 				// Login
-				console.log("🔐 Attempting login with NextAuth signIn...");
+				// Attempting login with NextAuth signIn
 				const result = await signIn("credentials", {
 					email,
 					password,
 					redirect: false,
 				});
 
-				console.log("🔐 SignIn result:", {
-					error: result?.error,
-					ok: result?.ok,
-					status: result?.status,
-					url: result?.url,
-				});
+				// SignIn result received
 
 				if (result?.error) {
-					console.log("❌ Login failed:", result.error);
+					// Login failed
 					setError("Invalid email or password");
 				} else {
-					console.log("✅ Login successful, redirecting to dashboard...");
+					// Login successful, redirecting to dashboard
 					router.push("/dashboard");
 				}
 			} else {
@@ -88,22 +77,15 @@ export default function LoginPage(): JSX.Element {
 
 	// Handle redirect for authenticated users
 	useEffect(() => {
-		console.log("=== LOGIN PAGE USEEFFECT ===");
-		console.log("📊 Auth status check:", {
-			status,
-			hasSession: !!session,
-			routerReady: router.isReady,
-			sessionUser: session?.user,
-			timestamp: new Date().toISOString(),
-		});
+		// Auth status check
 
 		if (status === "authenticated" && session && router.isReady) {
-			console.log("✅ User is authenticated, redirecting to dashboard...");
+			// User is authenticated, redirecting to dashboard
 			router.push("/dashboard");
 		} else if (status === "authenticated" && !session) {
-			console.log("! Status is authenticated but no session object");
+			// Status is authenticated but no session object
 		} else if (status === "unauthenticated") {
-			console.log("❌ User is unauthenticated");
+			// User is unauthenticated
 		}
 	}, [session, status, router]);
 

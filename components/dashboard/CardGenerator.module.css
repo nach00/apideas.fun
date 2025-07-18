@@ -40,8 +40,7 @@
   grid-template-columns: 432px 1fr;
   gap: 32px;
   align-items: start;
-  height: 100vh;
-  max-height: 800px;
+  min-height: 600px;
 }
 
 /* =================================================================
@@ -52,8 +51,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  position: sticky;
-  top: 48px;
 }
 
 /* Generation Panel */
@@ -300,7 +297,6 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  height: 100%;
 }
 
 .apiSectionTitle {
@@ -752,8 +748,7 @@
   .generatorContent {
     grid-template-columns: 408px 1fr;
     gap: 24px;
-    height: 90vh;
-    max-height: 700px;
+    min-height: 500px;
   }
 
   .leftColumn {

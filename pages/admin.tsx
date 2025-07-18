@@ -79,7 +79,7 @@ export default function AdminPage(): JSX.Element {
   const fetchData = async (): Promise<void> => {
     try {
       setLoading(true)
-      console.log('Fetching admin data...')
+      // Fetching admin data
       
       const [statsRes, usersRes, transactionsRes, activityRes] = await Promise.all([
         fetch('/api/admin/stats'),
@@ -88,16 +88,11 @@ export default function AdminPage(): JSX.Element {
         fetch('/api/admin/activity')
       ])
 
-      console.log('API Responses:', {
-        stats: { status: statsRes.status, ok: statsRes.ok },
-        users: { status: usersRes.status, ok: usersRes.ok },
-        transactions: { status: transactionsRes.status, ok: transactionsRes.ok },
-        activity: { status: activityRes.status, ok: activityRes.ok }
-      })
+      // API responses received
 
       if (statsRes.ok) {
         const statsData = await statsRes.json()
-        console.log('Stats data:', statsData)
+        // Stats data loaded
         setStats(statsData)
       } else {
         console.error('Stats API error:', await statsRes.text())
@@ -105,7 +100,7 @@ export default function AdminPage(): JSX.Element {
 
       if (usersRes.ok) {
         const usersData = await usersRes.json()
-        console.log('Users data:', usersData)
+        // Users data loaded
         setUsers(usersData)
       } else {
         console.error('Users API error:', await usersRes.text())
@@ -113,7 +108,7 @@ export default function AdminPage(): JSX.Element {
 
       if (transactionsRes.ok) {
         const transactionsData = await transactionsRes.json()
-        console.log('Transactions data:', transactionsData)
+        // Transactions data loaded
         setTransactions(transactionsData)
       } else {
         console.error('Transactions API error:', await transactionsRes.text())
@@ -121,7 +116,7 @@ export default function AdminPage(): JSX.Element {
 
       if (activityRes.ok) {
         const activityData = await activityRes.json()
-        console.log('Activity data:', activityData)
+        // Activity data loaded
         setRecentActivity(activityData)
       } else {
         console.error('Activity API error:', await activityRes.text())

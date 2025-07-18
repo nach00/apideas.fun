@@ -125,10 +125,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 					if (response.ok) {
 						const apis = await response.json();
 						setDatabaseApis(apis);
-						console.log(
-							"📊 [API PREFERENCES] Loaded APIs from database:",
-							apis.length,
-						);
+						// Loaded APIs from database
 
 						const preferences: Record<string, ApiPreference> = {};
 
@@ -147,22 +144,14 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 										isLocked: api.isLocked || false,
 										isIgnored: api.isIgnored || false,
 									};
-									console.log(
-										`📊 [API MAPPING] ${api.name}: ${staticApi.id} -> ${api.id} (locked: ${api.isLocked}, ignored: ${api.isIgnored})`,
-									);
+									// API mapping completed
 								} else {
-									console.warn(
-										`! [API MAPPING] No static API found for database API: ${api.name}`,
-									);
+									// No static API found for database API
 								}
 							},
 						);
 
-						console.log(
-							"📊 [API PREFERENCES] Final preferences mapping:",
-							Object.keys(preferences).length,
-							"APIs",
-						);
+						// Final preferences mapping loaded
 						setApiPreferences(preferences);
 					}
 				} catch (error) {
@@ -196,9 +185,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 					return;
 				}
 
-				console.log(
-					`🔄 [PREFERENCE] Updating ${preferenceType} for ${staticApiId} (DB ID: ${preference.id}) to ${value}`,
-				);
+				// Updating preference
 
 				const response = await fetch("/api/apis/preferences", {
 					method: "POST",
@@ -211,9 +198,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 				});
 
 				if (response.ok) {
-					console.log(
-						`✅ [PREFERENCE] Successfully updated ${preferenceType} for ${staticApiId}`,
-					);
+					// Preference updated successfully
 					setApiPreferences((prev) => ({
 						...prev,
 						[staticApiId]: {
@@ -247,7 +232,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 		// Handle reset all preferences
 		const handleResetAllPreferences = async () => {
 			try {
-				console.log("🔄 [RESET] Starting reset all preferences");
+				// Starting reset all preferences
 
 				// Get all APIs that have preferences set
 				const apisWithPreferences = Object.keys(apiPreferences).filter(
@@ -258,7 +243,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 				);
 
 				if (apisWithPreferences.length === 0) {
-					console.log("i [RESET] No preferences to reset");
+					// No preferences to reset
 					return;
 				}
 
@@ -293,9 +278,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 				const successCount = results.filter(Boolean).length;
 
 				if (successCount === apisWithPreferences.length) {
-					console.log(
-						`✅ [RESET] Successfully reset ${successCount} API preferences`,
-					);
+					// Successfully reset API preferences
 
 					// Update local state to clear all preferences
 					setApiPreferences((prev) => {
@@ -340,20 +323,9 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 				originX = cardCenterX / window.innerWidth;
 				originY = cardCenterY / window.innerHeight;
 
-				console.log("🎉 [CONFETTI] Firing from card position:", {
-					layoutType: isMobileLayout ? 'mobile' : 'desktop',
-					cardRect,
-					cardCenterX,
-					cardCenterY,
-					originX,
-					originY,
-					viewportWidth: window.innerWidth,
-					viewportHeight: window.innerHeight,
-				});
+				// Firing confetti from card position
 			} else {
-				console.log(
-					"🎉 [CONFETTI] Card ref not available, using default center position",
-				);
+				// Card ref not available, using default center position
 			}
 
 			const count = 200;
@@ -422,10 +394,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 		// Update generated title and selected APIs when new card is generated
 		useEffect(() => {
 			if (newCard && newCard.title && !loading) {
-				logUser("Card generated", {
-					title: newCard.title,
-					apis: newCard.apis,
-				});
+				// Card generated successfully
 				setGeneratedTitle(newCard.title);
 
 				// Trigger confetti celebration for new card generation (only once per card)
@@ -454,18 +423,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 							);
 
 						if (matchingApis.length === 2) {
-							console.log(
-								"🔄 [API UPDATE] Updating selectedAPIs to match generated card:",
-								{
-									from: selectedAPIs.map(
-										(api: (typeof ALL_APIS)[0]) => `${api.emoji} ${api.name}`,
-									),
-									to: matchingApis.map(
-										(api: (typeof ALL_APIS)[0]) => `${api.emoji} ${api.name}`,
-									),
-									timestamp: Date.now(),
-								},
-							);
+							// Updating selectedAPIs to match generated card
 							setSelectedAPIs(matchingApis);
 							// Update final selected indices for visual state
 							const indices = matchingApis.map((api: (typeof ALL_APIS)[0]) =>
@@ -491,9 +449,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 			}).length;
 
 			if (availableApiCount < 2) {
-				console.warn(
-					"! [ANIMATION] Not enough available APIs for card generation",
-				);
+				// Not enough available APIs for card generation
 				return;
 			}
 
@@ -505,9 +461,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 			setSelectedAPIs([]);
 			setGeneratedTitle(null);
 
-			console.log(
-				`🎰 [ANIMATION] Starting selection animation with ${availableApiCount} available APIs`,
-			);
+			// Starting selection animation
 
 			// Get locked and available API indices
 			const lockedIndices = ALL_APIS.map((api, index) => ({ api, index }))
@@ -585,7 +539,7 @@ const CardGenerator: React.FC<CardGeneratorProps> = memo(
 					});
 
 					setHighlightedIndices([]);
-					console.log(`🚀 [GENERATE] Calling backend to generate card`);
+					// Calling backend to generate card
 					setIsSpinning(false);
 					// Switch back to generator tab to show result
 					setActiveTab("generator");

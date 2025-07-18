@@ -3,16 +3,11 @@ import { useSession } from "next-auth/react";
 import { CardData, UserStats, DashboardState } from "@/types";
 
 export function useDashboard() {
-  console.log("🎣 [HOOK] useDashboard hook initializing", {
-    timestamp: Date.now()
-  });
+  // useDashboard hook initializing
   
   const { data: session, update } = useSession();
   
-  console.log("🎣 [HOOK] useSession completed", {
-    sessionExists: !!session,
-    timestamp: Date.now()
-  });
+  // useSession completed
   
   const [state, setState] = useState<DashboardState>({
     recentCards: [],
@@ -61,17 +56,10 @@ export function useDashboard() {
   }, []);
 
   const generateCard = useCallback(async (selectedApis?: string[]): Promise<void> => {
-    console.log('📡 [useDashboard] generateCard() called:', {
-      sessionExists: !!session,
-      coinBalance: session?.user?.coinBalance,
-      currentlyLoading: state.loading,
-      hasMinimumCoins: (session?.user?.coinBalance || 0) >= 15,
-      selectedApis,
-      timestamp: Date.now()
-    });
+    // Generate card function called
 
     if (!session || session.user.coinBalance < 15) {
-      console.log('🚫 [useDashboard] Insufficient coins or no session');
+      // Insufficient coins or no session
       setState(prev => ({ 
         ...prev, 
         error: "You need 15 coins to generate a new card." 
@@ -80,11 +68,11 @@ export function useDashboard() {
     }
 
     if (state.loading) {
-      console.log('🚫 [useDashboard] Already loading, blocking duplicate call');
+      // Already loading, blocking duplicate call
       return;
     }
 
-    console.log('🔄 [useDashboard] Setting loading state and clearing previous data');
+    // Setting loading state and clearing previous data
     setState(prev => ({
       ...prev,
       loading: true,
@@ -93,12 +81,12 @@ export function useDashboard() {
     }));
 
     try {
-      console.log('📤 [useDashboard] Making POST request to /api/cards/generate');
+      // Making request to generate card
       
       const requestBody: { selectedApis?: string[] } = {}
       if (selectedApis && selectedApis.length === 2) {
         requestBody.selectedApis = selectedApis
-        console.log('🎯 [useDashboard] Sending selected APIs to backend:', selectedApis)
+        // Sending selected APIs to backend
       }
       
       const response = await fetch("/api/cards/generate", { 
@@ -109,31 +97,20 @@ export function useDashboard() {
         body: JSON.stringify(requestBody)
       });
       
-      console.log('📥 [useDashboard] API response received:', {
-        status: response.status,
-        statusText: response.statusText,
-        contentType: response.headers.get("content-type")
-      });
+      // API response received
 
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         const text = await response.text();
-        console.error("❌ [useDashboard] Non-JSON response:", text);
+        console.error("Non-JSON response:", text);
         throw new Error("Server returned invalid response format");
       }
 
       const data = await response.json();
-      console.log('📊 [useDashboard] Parsed response data:', {
-        success: data.success,
-        hasCard: !!data.data,
-        cardId: data.data?.id,
-        cardTitle: data.data?.title,
-        cardAPIs: data.data?.apis,
-        error: data.error || data.message
-      });
+      // Response data parsed
 
       if (response.ok && data.success) {
-        console.log('✅ [useDashboard] Card generation successful, updating state');
+        // Card generation successful, updating state
         setState(prev => ({
           ...prev,
           newCard: data.data,
@@ -141,19 +118,19 @@ export function useDashboard() {
           error: "",
         }));
         
-        console.log('🔄 [useDashboard] Fetching updated user stats and refreshing session');
+        // Fetching updated user stats and refreshing session
         await fetchUserStats();
         
         // Refresh the session to update coin balance in Navbar
         await update();
-        console.log('✅ [useDashboard] All post-generation updates complete');
+        // All post-generation updates complete
       } else {
         // Handle error response from API
         const errorMessage = data.error?.message || data.message || "Failed to generate card";
         throw new Error(errorMessage);
       }
     } catch (err) {
-      console.error("❌ [useDashboard] Error during card generation:", err);
+      console.error("Error during card generation:", err);
       const errorMessage =
         err instanceof Error
           ? err.message
@@ -161,7 +138,7 @@ export function useDashboard() {
       console.log('⚠️ [useDashboard] Setting error state:', errorMessage);
       setState(prev => ({ ...prev, error: errorMessage }));
     } finally {
-      console.log('🏁 [useDashboard] Setting loading=false, generation complete');
+      // Setting loading=false, generation complete
       setState(prev => ({ ...prev, loading: false }));
     }
   }, [session, state.loading, fetchUserStats, update]);
@@ -175,21 +152,14 @@ export function useDashboard() {
   }, []);
 
   useEffect(() => {
-    console.log("🔄 [HOOK] useEffect triggered", {
-      sessionExists: !!session,
-      timestamp: Date.now()
-    });
+    // useEffect triggered
     
     if (session) {
-      console.log("📥 [HOOK] Session exists, fetching data", {
-        timestamp: Date.now()
-      });
+      // Session exists, fetching data
       fetchRecentCards();
       fetchUserStats();
     } else {
-      console.log("❌ [HOOK] No session, skipping data fetch", {
-        timestamp: Date.now()
-      });
+      // No session, skipping data fetch
     }
   }, [session, fetchRecentCards, fetchUserStats]);
 
