@@ -110,8 +110,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       ],
       mode: 'payment',
-      success_url: `${req.headers.origin}/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/shop?canceled=true`,
+      success_url: `${process.env.NEXTAUTH_URL || req.headers.origin}/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXTAUTH_URL || req.headers.origin}/shop?canceled=true`,
       metadata: {
         userId: session.user.id,
         packageId: coinPackage.id,
