@@ -393,7 +393,7 @@ const Card = React.memo<CardProps>(
 										aria-label="Summary"
 									>
 										<p className={styles.cardDescription} title={card.summary}>
-											{truncateText(card.solution, 120)}
+											{card.solution}
 										</p>
 									</section>
 								)}

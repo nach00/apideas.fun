@@ -469,6 +469,7 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
+	text-align: start;
 }
 
 /* === Stats Section === */
@@ -482,6 +483,7 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: start;
 	/* gap: 4px; */
 	/* padding: 8px; */
 	/* background: #f9fafb; */

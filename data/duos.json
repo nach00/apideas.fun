@@ -2271,7 +2271,7 @@
 		"apis": ["CoinGecko", "OpenWeatherMap"],
 		"title": "GeckoWeather Dash",
 		"subtitle": "CryptoClime Dashboard",
-		"industry": "Productivity Tool",
+		"industry": "Productivity",
 		"problem": "For active cryptocurrency traders or enthusiasts who work from home or are location-independent, keeping an eye on market data and local conditions simultaneously can require multiple apps or browser tabs.",
 		"solution": "A simple, customizable dashboard application that displays key cryptocurrency price information (for user-selected coins from CoinGecko) alongside the current local weather conditions (from OpenWeatherMap). It provides a quick, at-a-glance view of two distinct but potentially relevant pieces of information for a user's day.",
 		"implementation": "1. **User Configuration:** User selects cryptocurrencies to track (e.g., BTC, ETH, SOL) and sets their location.\n2. **CoinGecko API Integration:** Periodically fetch current prices, 24h change, and perhaps market cap for the selected cryptocurrencies.\n3. **OpenWeatherMap API Integration:** Fetch current weather (temperature, conditions, humidity) for the user's location.\n4. **Dashboard Display:** Present the information in a clean, widget-like interface. One section for crypto prices, another for local weather. Could offer different layout options.\n5. **Features:** Price alerts (if CoinGecko supports it or through polling), customizable refresh rates, choice of units (Celsius/Fahrenheit). A more playful (less serious) version could try to 'correlate' weather patterns with crypto trends for amusement, e.g., 'Sunny skies and green candles!'",
