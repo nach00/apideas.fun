@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import { formatNumber } from '@/lib/card-utils'
 import Navbar from '@/components/Navbar'
 import AuthGuard from '@/components/auth/AuthGuard'
+import styles from './admin.module.css'
 
 interface AdminStats {
   totalUsers: number
@@ -135,25 +136,25 @@ export default function AdminPage(): JSX.Element {
     switch (type) {
       case 'user_registered':
         return (
-          <svg className="activity__icon activity__icon--success" viewBox="0 0 20 20" fill="currentColor">
+          <svg className={`${styles.activityIcon} ${styles.activityIconSuccess}`} viewBox="0 0 20 20" fill="currentColor">
             <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
           </svg>
         )
       case 'card_generated':
         return (
-          <svg className="activity__icon activity__icon--primary" viewBox="0 0 20 20" fill="currentColor">
+          <svg className={`${styles.activityIcon} ${styles.activityIconPrimary}`} viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2v8h10V6H5z" />
           </svg>
         )
       case 'purchase':
         return (
-          <svg className="activity__icon activity__icon--warning" viewBox="0 0 20 20" fill="currentColor">
+          <svg className={`${styles.activityIcon} ${styles.activityIconWarning}`} viewBox="0 0 20 20" fill="currentColor">
             <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1.447.894L10 15.118l-4.553 1.776A1 1 0 014 16V4z" />
           </svg>
         )
       case 'login':
         return (
-          <svg className="activity__icon activity__icon--info" viewBox="0 0 20 20" fill="currentColor">
+          <svg className={`${styles.activityIcon} ${styles.activityIconInfo}`} viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" />
           </svg>
         )
@@ -166,10 +167,10 @@ export default function AdminPage(): JSX.Element {
     return (
       <AuthGuard requireAuth requireAdmin>
         <Navbar />
-        <div className="admin-page">
-          <div className="admin-container">
-            <div className="loading-state">
-              <div className="loading-spinner" />
+        <div className={styles.adminPage}>
+          <div className={styles.adminContainer}>
+            <div className={styles.loadingState}>
+              <div className={styles.loadingSpinner} />
               <h2>Loading Admin Dashboard...</h2>
               <p>Gathering system data and analytics</p>
             </div>
@@ -182,23 +183,23 @@ export default function AdminPage(): JSX.Element {
   return (
     <AuthGuard requireAuth requireAdmin>
       <Navbar />
-      <div className="admin-page">
-        <div className="admin-container">
+      <div className={styles.adminPage}>
+        <div className={styles.adminContainer}>
           {/* Header */}
-          <header className="admin-header">
-            <div className="admin-header__content">
-              <div className="admin-header__title">
+          <header className={styles.adminHeader}>
+            <div className={styles.adminHeaderContent}>
+              <div className={styles.adminHeaderTitle}>
                 <h1>Admin Dashboard</h1>
-                <div className="admin-badge">
-                  <svg className="admin-badge__icon" viewBox="0 0 20 20" fill="currentColor">
+                <div className={styles.adminBadge}>
+                  <svg className={styles.adminBadgeIcon} viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
                   </svg>
                   Administrator
                 </div>
               </div>
-              <div className="admin-header__actions">
-                <button className="btn btn--secondary btn--sm">
-                  <svg className="btn__icon" viewBox="0 0 20 20" fill="currentColor">
+              <div className={styles.adminHeaderActions}>
+                <button className={`${styles.btn} ${styles.btnSecondary} ${styles.btnSm}`}>
+                  <svg className={styles.btnIcon} viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" />
                   </svg>
                   Refresh Data
@@ -208,39 +209,39 @@ export default function AdminPage(): JSX.Element {
           </header>
 
           {/* Navigation Tabs */}
-          <nav className="admin-nav">
+          <nav className={styles.adminNav}>
             <button 
-              className={`admin-nav__tab ${activeTab === 'overview' ? 'admin-nav__tab--active' : ''}`}
+              className={`${styles.adminNavTab} ${activeTab === 'overview' ? styles.adminNavTabActive : ''}`}
               onClick={() => setActiveTab('overview')}
             >
-              <svg className="admin-nav__icon" viewBox="0 0 20 20" fill="currentColor">
+              <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
               </svg>
               Overview
             </button>
             <button 
-              className={`admin-nav__tab ${activeTab === 'users' ? 'admin-nav__tab--active' : ''}`}
+              className={`${styles.adminNavTab} ${activeTab === 'users' ? styles.adminNavTabActive : ''}`}
               onClick={() => setActiveTab('users')}
             >
-              <svg className="admin-nav__icon" viewBox="0 0 20 20" fill="currentColor">
+              <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
               </svg>
               Users
             </button>
             <button 
-              className={`admin-nav__tab ${activeTab === 'transactions' ? 'admin-nav__tab--active' : ''}`}
+              className={`${styles.adminNavTab} ${activeTab === 'transactions' ? styles.adminNavTabActive : ''}`}
               onClick={() => setActiveTab('transactions')}
             >
-              <svg className="admin-nav__icon" viewBox="0 0 20 20" fill="currentColor">
+              <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
               </svg>
               Transactions
             </button>
             <button 
-              className={`admin-nav__tab ${activeTab === 'system' ? 'admin-nav__tab--active' : ''}`}
+              className={`${styles.adminNavTab} ${activeTab === 'system' ? styles.adminNavTabActive : ''}`}
               onClick={() => setActiveTab('system')}
             >
-              <svg className="admin-nav__icon" viewBox="0 0 20 20" fill="currentColor">
+              <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" />
               </svg>
               System
@@ -248,67 +249,67 @@ export default function AdminPage(): JSX.Element {
           </nav>
 
           {/* Tab Content */}
-          <main className="admin-main">
+          <main className={styles.adminMain}>
             {activeTab === 'overview' && (
-              <div className="admin-overview">
+              <div className={styles.adminOverview}>
                 {/* Stats Grid */}
                 {stats && (
-                  <section className="stats-grid">
-                    <div className="stat-card stat-card--primary">
-                      <div className="stat-card__icon">
+                  <section className={styles.statsGrid}>
+                    <div className={`${styles.statCard} ${styles.statCardPrimary}`}>
+                      <div className={styles.statCardIcon}>
                         <svg viewBox="0 0 20 20" fill="currentColor">
                           <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                         </svg>
                       </div>
-                      <div className="stat-card__content">
-                        <div className="stat-card__value">{formatNumber(stats.totalUsers)}</div>
-                        <div className="stat-card__label">Total Users</div>
-                        <div className="stat-card__change stat-card__change--up">
+                      <div className={styles.statCardContent}>
+                        <div className={styles.statCardValue}>{formatNumber(stats.totalUsers)}</div>
+                        <div className={styles.statCardLabel}>Total Users</div>
+                        <div className={`${styles.statCardChange} ${styles.statCardChangeUp}`}>
                           +{stats.activeUsers} active today
                         </div>
                       </div>
                     </div>
 
-                    <div className="stat-card stat-card--success">
-                      <div className="stat-card__icon">
+                    <div className={`${styles.statCard} ${styles.statCardSuccess}`}>
+                      <div className={styles.statCardIcon}>
                         <svg viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2v8h10V6H5z" />
                         </svg>
                       </div>
-                      <div className="stat-card__content">
-                        <div className="stat-card__value">{formatNumber(stats.totalCards)}</div>
-                        <div className="stat-card__label">Cards Generated</div>
-                        <div className="stat-card__change stat-card__change--up">
+                      <div className={styles.statCardContent}>
+                        <div className={styles.statCardValue}>{formatNumber(stats.totalCards)}</div>
+                        <div className={styles.statCardLabel}>Cards Generated</div>
+                        <div className={`${styles.statCardChange} ${styles.statCardChangeUp}`}>
                           +{stats.cardsToday} today
                         </div>
                       </div>
                     </div>
 
-                    <div className="stat-card stat-card--warning">
-                      <div className="stat-card__icon">
+                    <div className={`${styles.statCard} ${styles.statCardWarning}`}>
+                      <div className={styles.statCardIcon}>
                         <svg viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
                         </svg>
                       </div>
-                      <div className="stat-card__content">
-                        <div className="stat-card__value">${(stats.totalRevenue || 0).toFixed(2)}</div>
-                        <div className="stat-card__label">Total Revenue</div>
-                        <div className="stat-card__change stat-card__change--up">
+                      <div className={styles.statCardContent}>
+                        <div className={styles.statCardValue}>${(stats.totalRevenue || 0).toFixed(2)}</div>
+                        <div className={styles.statCardLabel}>Total Revenue</div>
+                        <div className={`${styles.statCardChange} ${styles.statCardChangeUp}`}>
                           +${(stats.revenueToday || 0).toFixed(2)} today
                         </div>
                       </div>
                     </div>
 
-                    <div className="stat-card stat-card--info">
-                      <div className="stat-card__icon">
+                    <div className={`${styles.statCard} ${styles.statCardInfo}`}>
+                      <div className={styles.statCardIcon}>
                         <svg viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" />
                         </svg>
                       </div>
-                      <div className="stat-card__content">
-                        <div className="stat-card__value">{(stats.avgRating || 0).toFixed(1)}</div>
-                        <div className="stat-card__label">Avg Rating</div>
-                        <div className="stat-card__change stat-card__change--neutral">
+                      <div className={styles.statCardContent}>
+                        <div className={styles.statCardValue}>{(stats.avgRating || 0).toFixed(1)}</div>
+                        <div className={styles.statCardLabel}>Avg Rating</div>
+                        <div className={`${styles.statCardChange} ${styles.statCardChangeNeutral}`}>
                           Quality Score
                         </div>
                       </div>
@@ -317,20 +318,20 @@ export default function AdminPage(): JSX.Element {
                 )}
 
                 {/* Recent Activity */}
-                <section className="recent-activity">
-                  <div className="section-header">
+                <section className={styles.recentActivity}>
+                  <div className={styles.sectionHeader}>
                     <h2>Recent Activity</h2>
                     <p>Live system events and user actions</p>
                   </div>
-                  <div className="activity-feed">
+                  <div className={styles.activityFeed}>
                     {recentActivity.map((activity) => (
-                      <div key={activity.id} className="activity-item">
+                      <div key={activity.id} className={styles.activityItem}>
                         {getActivityIcon(activity.type)}
-                        <div className="activity-content">
-                          <div className="activity-description">{activity.description}</div>
-                          <div className="activity-meta">
-                            <span className="activity-user">{activity.username}</span>
-                            <span className="activity-time">{new Date(activity.timestamp).toLocaleString()}</span>
+                        <div className={styles.activityContent}>
+                          <div className={styles.activityDescription}>{activity.description}</div>
+                          <div className={styles.activityMeta}>
+                            <span className={styles.activityUser}>{activity.username}</span>
+                            <span className={styles.activityTime}>{new Date(activity.timestamp).toLocaleString()}</span>
                           </div>
                         </div>
                       </div>
@@ -341,28 +342,28 @@ export default function AdminPage(): JSX.Element {
             )}
 
             {activeTab === 'users' && (
-              <div className="admin-users">
-                <div className="section-header">
+              <div className={styles.adminUsers}>
+                <div className={styles.sectionHeader}>
                   <h2>User Management</h2>
                   <p>View and manage user accounts</p>
                 </div>
 
                 {/* Filters */}
-                <div className="filters">
-                  <div className="filter-group">
+                <div className={styles.filters}>
+                  <div className={styles.filterGroup}>
                     <input 
                       type="text"
                       placeholder="Search users..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="search-input"
+                      className={styles.searchInput}
                     />
                   </div>
-                  <div className="filter-group">
+                  <div className={styles.filterGroup}>
                     <select 
                       value={userFilter}
                       onChange={(e) => setUserFilter(e.target.value as 'all' | 'admin' | 'user')}
-                      className="filter-select"
+                      className={styles.filterSelect}
                     >
                       <option value="all">All Users</option>
                       <option value="admin">Admins</option>
@@ -372,8 +373,8 @@ export default function AdminPage(): JSX.Element {
                 </div>
 
                 {/* Users Table */}
-                <div className="data-table">
-                  <table className="table">
+                <div className={styles.dataTable}>
+                  <table className={styles.table}>
                     <thead>
                       <tr>
                         <th>User</th>
@@ -389,16 +390,16 @@ export default function AdminPage(): JSX.Element {
                       {filteredUsers.map((user) => (
                         <tr key={user.id}>
                           <td>
-                            <div className="user-info">
-                              <div className="user-avatar">{user.username.charAt(0).toUpperCase()}</div>
+                            <div className={styles.userInfo}>
+                              <div className={styles.userAvatar}>{user.username.charAt(0).toUpperCase()}</div>
                               <div>
-                                <div className="user-name">{user.username}</div>
-                                <div className="user-email">{user.email}</div>
+                                <div className={styles.userName}>{user.username}</div>
+                                <div className={styles.userEmail}>{user.email}</div>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <span className={`role-badge role-badge--${user.role}`}>
+                            <span className={`${styles.roleBadge} ${styles[`roleBadge${user.role.charAt(0).toUpperCase() + user.role.slice(1)}`]}`}>
                               {user.role}
                             </span>
                           </td>
@@ -407,9 +408,9 @@ export default function AdminPage(): JSX.Element {
                           <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                           <td>{new Date(user.lastActive).toLocaleDateString()}</td>
                           <td>
-                            <div className="table-actions">
-                              <button className="btn btn--sm btn--secondary">Edit</button>
-                              <button className="btn btn--sm btn--danger">Delete</button>
+                            <div className={styles.tableActions}>
+                              <button className={`${styles.btn} ${styles.btnSm} ${styles.btnSecondary}`}>Edit</button>
+                              <button className={`${styles.btn} ${styles.btnSm} ${styles.btnDanger}`}>Delete</button>
                             </div>
                           </td>
                         </tr>
@@ -421,14 +422,14 @@ export default function AdminPage(): JSX.Element {
             )}
 
             {activeTab === 'transactions' && (
-              <div className="admin-transactions">
-                <div className="section-header">
+              <div className={styles.adminTransactions}>
+                <div className={styles.sectionHeader}>
                   <h2>Transaction History</h2>
                   <p>Financial transactions and coin purchases</p>
                 </div>
 
-                <div className="data-table">
-                  <table className="table">
+                <div className={styles.dataTable}>
+                  <table className={styles.table}>
                     <thead>
                       <tr>
                         <th>Transaction ID</th>
@@ -443,15 +444,15 @@ export default function AdminPage(): JSX.Element {
                       {transactions.map((transaction) => (
                         <tr key={transaction.id}>
                           <td>
-                            <code className="transaction-id">{transaction.id.slice(0, 8)}...</code>
+                            <code className={styles.transactionId}>{transaction.id.slice(0, 8)}...</code>
                           </td>
                           <td>{transaction.userId}</td>
                           <td>
-                            <span className={`transaction-type transaction-type--${transaction.type}`}>
+                            <span className={`${styles.transactionType} ${styles[`transactionType${transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}`]}`}>
                               {transaction.type}
                             </span>
                           </td>
-                          <td className={transaction.amount > 0 ? 'amount--positive' : 'amount--negative'}>
+                          <td className={transaction.amount > 0 ? styles.amountPositive : styles.amountNegative}>
                             {transaction.amount > 0 ? '+' : ''}{transaction.amount}
                           </td>
                           <td>{transaction.description}</td>
@@ -465,19 +466,19 @@ export default function AdminPage(): JSX.Element {
             )}
 
             {activeTab === 'system' && (
-              <div className="admin-system">
-                <div className="section-header">
+              <div className={styles.adminSystem}>
+                <div className={styles.sectionHeader}>
                   <h2>System Management</h2>
                   <p>Server health and maintenance tools</p>
                 </div>
 
-                <div className="system-tools">
-                  <div className="tool-card">
+                <div className={styles.systemTools}>
+                  <div className={styles.toolCard}>
                     <h3>Admin Card Collection</h3>
                     <p>Generate all 190 cards for admin account for testing and demonstration</p>
-                    <div className="tool-actions">
+                    <div className={styles.toolActions}>
                       <button 
-                        className="btn btn--primary"
+                        className={`${styles.btn} ${styles.btnPrimary}`}
                         onClick={handleGenerateAllCards}
                         disabled={generatingCards}
                       >
@@ -485,45 +486,45 @@ export default function AdminPage(): JSX.Element {
                       </button>
                     </div>
                     {generationResult && (
-                      <div className={`generation-result ${generationResult.includes('Success') ? 'success' : 'error'}`}>
+                      <div className={`${styles.generationResult} ${generationResult.includes('Success') ? styles.success : styles.error}`}>
                         {generationResult}
                       </div>
                     )}
                   </div>
 
-                  <div className="tool-card">
+                  <div className={styles.toolCard}>
                     <h3>Database</h3>
                     <p>Manage database operations and backups</p>
-                    <div className="tool-actions">
-                      <button className="btn btn--primary">Create Backup</button>
-                      <button className="btn btn--secondary">View Logs</button>
+                    <div className={styles.toolActions}>
+                      <button className={`${styles.btn} ${styles.btnPrimary}`}>Create Backup</button>
+                      <button className={`${styles.btn} ${styles.btnSecondary}`}>View Logs</button>
                     </div>
                   </div>
 
-                  <div className="tool-card">
+                  <div className={styles.toolCard}>
                     <h3>Cache Management</h3>
                     <p>Clear application cache and optimize performance</p>
-                    <div className="tool-actions">
-                      <button className="btn btn--warning">Clear Cache</button>
-                      <button className="btn btn--secondary">View Stats</button>
+                    <div className={styles.toolActions}>
+                      <button className={`${styles.btn} ${styles.btnWarning}`}>Clear Cache</button>
+                      <button className={`${styles.btn} ${styles.btnSecondary}`}>View Stats</button>
                     </div>
                   </div>
 
-                  <div className="tool-card">
+                  <div className={styles.toolCard}>
                     <h3>API Health</h3>
                     <p>Monitor external API integrations and status</p>
-                    <div className="tool-actions">
-                      <button className="btn btn--success">Health Check</button>
-                      <button className="btn btn--secondary">View Reports</button>
+                    <div className={styles.toolActions}>
+                      <button className={`${styles.btn} ${styles.btnSuccess}`}>Health Check</button>
+                      <button className={`${styles.btn} ${styles.btnSecondary}`}>View Reports</button>
                     </div>
                   </div>
 
-                  <div className="tool-card tool-card--danger">
+                  <div className={`${styles.toolCard} ${styles.toolCardDanger}`}>
                     <h3>Emergency Controls</h3>
                     <p>Critical system controls and maintenance mode</p>
-                    <div className="tool-actions">
-                      <button className="btn btn--danger">Maintenance Mode</button>
-                      <button className="btn btn--danger">Emergency Stop</button>
+                    <div className={styles.toolActions}>
+                      <button className={`${styles.btn} ${styles.btnDanger}`}>Maintenance Mode</button>
+                      <button className={`${styles.btn} ${styles.btnDanger}`}>Emergency Stop</button>
                     </div>
                   </div>
                 </div>

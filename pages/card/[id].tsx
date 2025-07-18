@@ -870,28 +870,28 @@ export default function CardDetailPage(): JSX.Element {
 					</div>
 
 					{/* Footer */}
-					<footer className={styles.detailFooter}>
-						<div className={styles.footerContent}>
-							<div className={styles.generationInfo}>
-								<span className={styles.infoLabel}>Generated:</span>
-								<span className={styles.infoValue}>
-									{new Date(card.createdAt).toLocaleDateString("en-US", {
-										year: "numeric",
-										month: "long",
-										day: "numeric",
-									})}
-								</span>
-							</div>
-							<div className={styles.footerActions}>
-								<Link href="/shop" className={styles.btnOutline}>
-									Generate More Cards
-								</Link>
-								<Link href="/dashboard" className={styles.btnPrimary}>
-									Back to Dashboard
-								</Link>
-							</div>
-						</div>
-					</footer>
+					{/* <footer className={styles.detailFooter}> */}
+					{/* 	<div className={styles.footerContent}> */}
+					{/* 		<div className={styles.generationInfo}> */}
+					{/* 			<span className={styles.infoLabel}>Generated:</span> */}
+					{/* 			<span className={styles.infoValue}> */}
+					{/* 				{new Date(card.createdAt).toLocaleDateString("en-US", { */}
+					{/* 					year: "numeric", */}
+					{/* 					month: "long", */}
+					{/* 					day: "numeric", */}
+					{/* 				})} */}
+					{/* 			</span> */}
+					{/* 		</div> */}
+					{/* 		<div className={styles.footerActions}> */}
+					{/* 			<Link href="/shop" className={styles.btnOutline}> */}
+					{/* 				Generate More Cards */}
+					{/* 			</Link> */}
+					{/* 			<Link href="/dashboard" className={styles.btnPrimary}> */}
+					{/* 				Back to Dashboard */}
+					{/* 			</Link> */}
+					{/* 		</div> */}
+					{/* 	</div> */}
+					{/* </footer> */}
 				</div>
 			</div>
 		</AuthGuard>
