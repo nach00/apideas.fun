@@ -140,7 +140,7 @@ export default function ShopPage(): JSX.Element {
     try {
       console.log('Attempting to purchase package:', packageId)
       
-      const response = await fetch('/api/shop/purchase', {
+      const response = await fetch('/api/shop/purchase-mock', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ packageId }),
