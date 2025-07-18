@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { formatNumber } from '@/lib/card-utils'
 import Navbar from '@/components/Navbar'
 import AuthGuard from '@/components/auth/AuthGuard'
@@ -46,7 +47,15 @@ interface Activity {
 }
 
 export default function AdminPage(): JSX.Element {
-  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'transactions' | 'system'>('overview')
+  const router = useRouter()
+  const { tab } = router.query
+  
+  // Initialize activeTab from URL query parameter, default to 'overview'
+  const initialTab = (tab as string) || 'overview'
+  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'transactions' | 'system'>(
+    initialTab as 'overview' | 'users' | 'transactions' | 'system'
+  )
+  
   const [stats, setStats] = useState<AdminStats | null>(null)
   const [users, setUsers] = useState<User[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -61,9 +70,24 @@ export default function AdminPage(): JSX.Element {
     fetchData()
   }, [])
 
+  // Sync activeTab with URL query parameter
+  useEffect(() => {
+    if (tab && tab !== activeTab) {
+      setActiveTab(tab as 'overview' | 'users' | 'transactions' | 'system')
+    }
+  }, [tab, activeTab])
+
+  // Handle tab change - update URL without page reload
+  const handleTabChange = (newTab: 'overview' | 'users' | 'transactions' | 'system') => {
+    setActiveTab(newTab)
+    router.push(`/admin?tab=${newTab}`, undefined, { shallow: true })
+  }
+
   const fetchData = async (): Promise<void> => {
     try {
       setLoading(true)
+      console.log('Fetching admin data...')
+      
       const [statsRes, usersRes, transactionsRes, activityRes] = await Promise.all([
         fetch('/api/admin/stats'),
         fetch('/api/admin/users'),
@@ -71,24 +95,43 @@ export default function AdminPage(): JSX.Element {
         fetch('/api/admin/activity')
       ])
 
+      console.log('API Responses:', {
+        stats: { status: statsRes.status, ok: statsRes.ok },
+        users: { status: usersRes.status, ok: usersRes.ok },
+        transactions: { status: transactionsRes.status, ok: transactionsRes.ok },
+        activity: { status: activityRes.status, ok: activityRes.ok }
+      })
+
       if (statsRes.ok) {
         const statsData = await statsRes.json()
+        console.log('Stats data:', statsData)
         setStats(statsData)
+      } else {
+        console.error('Stats API error:', await statsRes.text())
       }
 
       if (usersRes.ok) {
         const usersData = await usersRes.json()
+        console.log('Users data:', usersData)
         setUsers(usersData)
+      } else {
+        console.error('Users API error:', await usersRes.text())
       }
 
       if (transactionsRes.ok) {
         const transactionsData = await transactionsRes.json()
+        console.log('Transactions data:', transactionsData)
         setTransactions(transactionsData)
+      } else {
+        console.error('Transactions API error:', await transactionsRes.text())
       }
 
       if (activityRes.ok) {
         const activityData = await activityRes.json()
+        console.log('Activity data:', activityData)
         setRecentActivity(activityData)
+      } else {
+        console.error('Activity API error:', await activityRes.text())
       }
     } catch (err) {
       console.error('Failed to fetch admin data:', err)
@@ -198,7 +241,10 @@ export default function AdminPage(): JSX.Element {
                 </div>
               </div>
               <div className={styles.adminHeaderActions}>
-                <button className={`${styles.btn} ${styles.btnSecondary} ${styles.btnSm}`}>
+                <button 
+                  className={`${styles.btn} ${styles.btnSecondary} ${styles.btnSm}`}
+                  onClick={fetchData}
+                >
                   <svg className={styles.btnIcon} viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" />
                   </svg>
@@ -212,7 +258,7 @@ export default function AdminPage(): JSX.Element {
           <nav className={styles.adminNav}>
             <button 
               className={`${styles.adminNavTab} ${activeTab === 'overview' ? styles.adminNavTabActive : ''}`}
-              onClick={() => setActiveTab('overview')}
+              onClick={() => handleTabChange('overview')}
             >
               <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
@@ -221,7 +267,7 @@ export default function AdminPage(): JSX.Element {
             </button>
             <button 
               className={`${styles.adminNavTab} ${activeTab === 'users' ? styles.adminNavTabActive : ''}`}
-              onClick={() => setActiveTab('users')}
+              onClick={() => handleTabChange('users')}
             >
               <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
@@ -230,7 +276,7 @@ export default function AdminPage(): JSX.Element {
             </button>
             <button 
               className={`${styles.adminNavTab} ${activeTab === 'transactions' ? styles.adminNavTabActive : ''}`}
-              onClick={() => setActiveTab('transactions')}
+              onClick={() => handleTabChange('transactions')}
             >
               <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" />
@@ -239,7 +285,7 @@ export default function AdminPage(): JSX.Element {
             </button>
             <button 
               className={`${styles.adminNavTab} ${activeTab === 'system' ? styles.adminNavTabActive : ''}`}
-              onClick={() => setActiveTab('system')}
+              onClick={() => handleTabChange('system')}
             >
               <svg className={styles.adminNavIcon} viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" />
