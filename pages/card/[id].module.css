@@ -189,9 +189,22 @@
 
 /* === MAIN CONTENT LAYOUT === */
 .contentLayout {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.leftColumn {
+  position: sticky;
+  top: 88px;
+  height: fit-content;
+}
+
+.rightColumn {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 /* === CONTENT SECTIONS === */
@@ -693,7 +706,29 @@
 }
 
 /* === RESPONSIVE DESIGN === */
+@media (max-width: 1200px) {
+  .contentLayout {
+    grid-template-columns: 360px 1fr;
+    gap: 24px;
+  }
+}
+
 @media (max-width: 1024px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .leftColumn {
+    position: relative;
+    top: 0;
+  }
+
+  .previewContainer {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
   .technicalGrid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
@@ -729,6 +764,10 @@
 
   .sectionTitle {
     font-size: 20px;
+  }
+
+  .rightColumn {
+    gap: 20px;
   }
 
   .technicalGrid {
