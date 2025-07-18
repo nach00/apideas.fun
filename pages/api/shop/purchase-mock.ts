@@ -60,6 +60,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('Stripe secret key present:', !!process.env.STRIPE_SECRET_KEY)
     console.log('Stripe secret key starts with:', process.env.STRIPE_SECRET_KEY?.substring(0, 10))
 
+    // Get proper origin URL
+    const baseUrl = process.env.NEXTAUTH_URL || 'https://apideas-v4-489f76053f30.herokuapp.com'
+    console.log('Using base URL:', baseUrl)
+
     // Create Stripe checkout session
     const checkoutSession = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -77,8 +81,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       ],
       mode: 'payment',
-      success_url: `${req.headers.origin}/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/shop?canceled=true`,
+      success_url: `${baseUrl}/shop?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/shop?canceled=true`,
       metadata: {
         packageId: coinPackage.id,
         coins: coinPackage.coins.toString(),
