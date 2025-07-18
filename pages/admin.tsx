@@ -175,6 +175,66 @@ export default function AdminPage(): JSX.Element {
     return matchesSearch && matchesFilter
   })
 
+  const handleEditUser = async (userId: string) => {
+    // For now, just show an alert - in a real app you'd open a modal or navigate to edit page
+    const user = users.find(u => u.id === userId)
+    if (user) {
+      const newRole = user.role === 'admin' ? 'user' : 'admin'
+      const confirmed = confirm(`Change ${user.username}'s role from ${user.role} to ${newRole}?`)
+      
+      if (confirmed) {
+        try {
+          const response = await fetch(`/api/admin/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ role: newRole }),
+          })
+          
+          if (response.ok) {
+            alert('User role updated successfully!')
+            fetchData() // Refresh the data
+          } else {
+            const data = await response.json()
+            alert(`Error: ${data.message}`)
+          }
+        } catch (error) {
+          alert(`Error: Failed to update user - ${error}`)
+        }
+      }
+    }
+  }
+
+  const handleDeleteUser = async (userId: string) => {
+    const user = users.find(u => u.id === userId)
+    if (user) {
+      const confirmed = confirm(`Are you sure you want to delete user ${user.username}? This action cannot be undone.`)
+      
+      if (confirmed) {
+        const doubleConfirm = confirm('This will permanently delete all user data including cards and transactions. Are you absolutely sure?')
+        
+        if (doubleConfirm) {
+          try {
+            const response = await fetch(`/api/admin/users/${userId}`, {
+              method: 'DELETE',
+            })
+            
+            if (response.ok) {
+              alert('User deleted successfully!')
+              fetchData() // Refresh the data
+            } else {
+              const data = await response.json()
+              alert(`Error: ${data.message}`)
+            }
+          } catch (error) {
+            alert(`Error: Failed to delete user - ${error}`)
+          }
+        }
+      }
+    }
+  }
+
   const getActivityIcon = (type: Activity['type']) => {
     switch (type) {
       case 'user_registered':
@@ -455,8 +515,18 @@ export default function AdminPage(): JSX.Element {
                           <td>{new Date(user.lastActive).toLocaleDateString()}</td>
                           <td>
                             <div className={styles.tableActions}>
-                              <button className={`${styles.btn} ${styles.btnSm} ${styles.btnSecondary}`}>Edit</button>
-                              <button className={`${styles.btn} ${styles.btnSm} ${styles.btnDanger}`}>Delete</button>
+                              <button 
+                                className={`${styles.btn} ${styles.btnSm} ${styles.btnSecondary}`}
+                                onClick={() => handleEditUser(user.id)}
+                              >
+                                Edit
+                              </button>
+                              <button 
+                                className={`${styles.btn} ${styles.btnSm} ${styles.btnDanger}`}
+                                onClick={() => handleDeleteUser(user.id)}
+                              >
+                                Delete
+                              </button>
                             </div>
                           </td>
                         </tr>
