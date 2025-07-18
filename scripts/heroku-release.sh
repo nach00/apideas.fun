@@ -2,27 +2,22 @@
 
 echo "Starting Heroku release phase..."
 
+# Debug: Show current environment
+echo "Current DATABASE_URL: $DATABASE_URL"
+echo "Environment check complete"
+
 # Fix DATABASE_URL for Prisma (postgres:// -> postgresql://)
 if [[ "$DATABASE_URL" == postgres://* ]]; then
   export DATABASE_URL=$(echo $DATABASE_URL | sed 's/postgres:/postgresql:/')
-  echo "Updated DATABASE_URL for Prisma compatibility"
-fi
-
-# Set DATABASE_PROVIDER based on DATABASE_URL
-if [[ "$DATABASE_URL" == postgresql://* ]] || [[ "$DATABASE_URL" == postgres://* ]]; then
-  export DATABASE_PROVIDER="postgresql"
-  echo "Using PostgreSQL database provider"
-elif [[ "$DATABASE_URL" == mysql://* ]]; then
-  export DATABASE_PROVIDER="mysql"
-  echo "Using MySQL database provider"
+  echo "Updated DATABASE_URL for Prisma compatibility: $DATABASE_URL"
 else
-  export DATABASE_PROVIDER="sqlite"
-  echo "Using SQLite database provider"
+  echo "DATABASE_URL already in correct format or missing"
 fi
 
-# Run prisma db push using production schema
+# Run prisma db push using production schema with explicit environment
 echo "Running prisma db push with PostgreSQL schema..."
-npx prisma db push --schema=prisma/schema.prisma --skip-generate
+echo "Using DATABASE_URL: $DATABASE_URL"
+DATABASE_URL="$DATABASE_URL" npx prisma db push --schema=prisma/schema.prisma --skip-generate
 
 if [ $? -eq 0 ]; then
   echo "Database push completed successfully"
